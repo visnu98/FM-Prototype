@@ -61,7 +61,11 @@ class ToolDefinition(BaseModel):
         properties: dict[str, Any] = {}
         required: list[str] = []
         for p in self.parameters:
-            prop: dict[str, Any] = {"type": p.type, "description": p.description}
+            # Optional parameters must also accept null: some models emit e.g.
+            # `"floor": null`, which strict server-side tool validation rejects
+            # unless the schema type explicitly allows null.
+            ptype: str | list[str] = p.type if p.required else [p.type, "null"]
+            prop: dict[str, Any] = {"type": ptype, "description": p.description}
             if p.enum is not None:
                 prop["enum"] = p.enum
             properties[p.name] = prop

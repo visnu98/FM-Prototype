@@ -22,16 +22,19 @@ from app.tools.models import ToolCall
 
 logger = logging.getLogger(__name__)
 
+# Hard-coded decoding temperature. 0.0 = deterministic output, which the thesis
+# requires for reproducible evaluation. This is intentionally not configurable.
+TEMPERATURE = 0.0
+
 
 class GroqClient(LLMClient):
     """An :class:`LLMClient` backed by Groq's chat completions API."""
 
-    def __init__(self, model_name: str, temperature: float | None = None) -> None:
+    def __init__(self, model_name: str) -> None:
         settings = get_settings()
         if settings.groq_api_key is None:
             raise RuntimeError("GROQ_API_KEY is not set in the environment/.env.")
-        temp = settings.llm_temperature if temperature is None else temperature
-        super().__init__(model_name=model_name, temperature=temp)
+        super().__init__(model_name=model_name, temperature=TEMPERATURE)
         self._client = Groq(api_key=settings.groq_api_key.get_secret_value())
         # Wall-time (ms) of the last *successful* API call, excluding any
         # rate-limit backoff sleeps — so reported latency reflects model speed.
@@ -166,9 +169,9 @@ class GroqClient(LLMClient):
         return answer.strip(), latency
 
 
-def make_client(model_name: str, temperature: float | None = None) -> LLMClient:
+def make_client(model_name: str) -> LLMClient:
     """Factory used by the chatbot/evaluation to build a client by provider."""
     provider = get_settings().llm_provider.lower()
     if provider == "groq":
-        return GroqClient(model_name, temperature)
+        return GroqClient(model_name)
     raise RuntimeError(f"Unsupported LLM_PROVIDER '{provider}'. Only 'groq' is implemented.")

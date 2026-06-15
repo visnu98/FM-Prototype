@@ -30,6 +30,7 @@ class LLMClient(ABC):
 
     def __init__(self, model_name: str, temperature: float = 0.0) -> None:
         self.model_name = model_name
+        # Hard-coded to 0.0 by concrete clients for reproducible decoding.
         self.temperature = temperature
 
     @abstractmethod

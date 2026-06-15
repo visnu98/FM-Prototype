@@ -54,10 +54,11 @@ class Settings(BaseSettings):
     # ── LLM configuration ────────────────────────────────────────────────────
     llm_provider: str = "groq"
     groq_api_key: SecretStr | None = None
-    model_a: str = "llama-3.3-70b-versatile"
+    # The two models compared in the evaluation (A then B).
+    model_a: str = "qwen/qwen3-32b"
     model_b: str = "llama-3.1-8b-instant"
-    llm_temperature: float = 0.0
-    ollama_base_url: str = "http://localhost:11434"
+    # Note: decoding temperature is hard-coded to 0.0 in app/llm/groq_client.py
+    # (deterministic decoding) and is intentionally NOT configurable.
 
     def models(self) -> list[str]:
         """The two models compared in the evaluation (A then B)."""

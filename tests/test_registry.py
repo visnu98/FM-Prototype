@@ -97,9 +97,17 @@ def test_openai_schema_shape(tmp_path) -> None:  # type: ignore[no-untyped-def]
         description="d",
         func=_add,
         args_model=_Args,
-        parameters=[ToolParameter(name="n", type="integer", required=True)],
+        parameters=[
+            ToolParameter(name="n", type="integer", required=True),
+            ToolParameter(name="label", type="string", required=False),
+        ],
     )
     schema = reg.openai_schemas()[0]
     assert schema["type"] == "function"
     assert schema["function"]["name"] == "add"
     assert schema["function"]["parameters"]["required"] == ["n"]
+    props = schema["function"]["parameters"]["properties"]
+    # Required param keeps a single type; optional param must also allow null
+    # (some models emit `"label": null`, which strict tool validation rejects).
+    assert props["n"]["type"] == "integer"
+    assert props["label"]["type"] == ["string", "null"]

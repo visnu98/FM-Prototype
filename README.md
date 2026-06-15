@@ -135,8 +135,9 @@ environment only; nothing is hard-coded and the password is never logged.
 | `DB_HOST`, `DB_PORT`, `DB_NAME`, `DB_USER`, `DB_PASSWORD` | PostgreSQL connection |
 | `DB_SSL_MODE` | libpq sslmode (`prefer`, `require`, …) |
 | `DB_CONNECT_TIMEOUT`, `DB_STATEMENT_TIMEOUT` | timeouts in seconds |
-| `DEFAULT_FACILITY_ID`, `DEFAULT_PROJECT_ID` | optional scoping (later phases) |
-| `OLLAMA_BASE_URL`, `MODEL_A`, `MODEL_B` | LLM config (later phases) |
+| `DEFAULT_FACILITY_ID`, `DEFAULT_PROJECT_ID` | facility/project scoping |
+| `LLM_PROVIDER`, `GROQ_API_KEY` | LLM provider + key (Groq) |
+| `MODEL_A`, `MODEL_B` | the two compared models (temperature is hard-coded to 0.0) |
 
 ## Run database discovery (Phase 3)
 
