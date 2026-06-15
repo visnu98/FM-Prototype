@@ -80,6 +80,20 @@ def main() -> None:
     )
 
 
+def _call_status(response) -> str:  # type: ignore[no-untyped-def]
+    """Human-readable runtime status of the tool call (NOT an evaluation verdict).
+
+    Reflects what the registry did with the call: executed cleanly, was rejected,
+    or no tool was used. The failure reason comes from the registry's runtime
+    error classification.
+    """
+    if not response.made_tool_call:
+        return "no tool call (model answered directly)"
+    if response.error_category.value == "none":
+        return "ok"
+    return response.error_category.value  # e.g. incorrect_parameter_value
+
+
 def _trace_dict(response) -> dict:  # type: ignore[no-untyped-def]
     tr = response.tool_result
     return {
@@ -87,7 +101,7 @@ def _trace_dict(response) -> dict:  # type: ignore[no-untyped-def]
         "selected_function": response.selected_function,
         "arguments": response.arguments,
         "normalized_arguments": response.normalized_arguments,
-        "error_category": response.error_category.value,
+        "call_status": _call_status(response),
         "made_tool_call": response.made_tool_call,
         "result_ok": (tr.ok if tr else None),
         "result_data": (tr.data if tr else None),
@@ -104,7 +118,7 @@ def _render_trace(trace: dict) -> None:
     with st.expander("🔎 Function-call trace", expanded=False):
         st.markdown(
             f"**Function:** `{trace['selected_function']}`  \n"
-            f"**Error category:** `{trace['error_category']}`  \n"
+            f"**Call status:** `{trace['call_status']}`  \n"
             f"**Latency (ms):** {trace['latency_ms']}"
         )
         st.markdown("**Arguments (raw):**")
