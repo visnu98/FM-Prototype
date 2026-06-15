@@ -78,6 +78,10 @@ class CompareFloorsArgs(_StrictArgs):
     floor_b: str
 
 
+class FloorArgs(_StrictArgs):
+    floor: str | None = Field(default=None, description="Floor label; omit for all floors.")
+
+
 # ── Helpers ──────────────────────────────────────────────────────────────────
 
 
@@ -172,6 +176,7 @@ def get_database_capabilities() -> dict[str, Any]:
             "component attributes (height, width, area)",
             "total component area (stored area or width×height)",
             "area per floor / floor with largest area",
+            "floor area (sum of room/space areas per floor)",
             "compare counts or areas between two floors",
         ],
         "not_supported": [
@@ -368,6 +373,78 @@ def calculate_area_by_floor(component_type: str) -> dict[str, Any]:
     }
 
 
+def calculate_floor_area(floor: str | None = None) -> dict[str, Any]:
+    """Total floor area for the facility, from the spaces placed on each floor.
+
+    'Floor area' is the sum of the gross (and net) areas of the spaces/rooms on
+    a floor (``space.gross_area`` / ``space.net_area`` grouped by ``floor``).
+    With ``floor`` given, returns that floor only; otherwise a per-floor
+    breakdown. Spaces without a recorded area are excluded from the totals but
+    still counted in ``spaces_total`` (so partial coverage is visible).
+    """
+    fid = _facility()
+    floor_norm = norm.resolve_floor(floor, fid) if floor else None
+    floor_name = floor_norm.normalized if floor_norm else None
+
+    sql = """
+        SELECT f.name AS floor, f.id AS floor_id,
+               COUNT(s.id) AS spaces_total,
+               COUNT(s.gross_area) AS spaces_with_area,
+               SUM(s.gross_area) AS gross_area,
+               SUM(s.net_area) AS net_area
+        FROM floor f
+        LEFT JOIN space s ON s.floor_id = f.id
+        WHERE f.facility_id = :fid
+    """
+    params: dict[str, Any] = {"fid": fid}
+    if floor_name is not None:
+        sql += " AND f.name = :floor"
+        params["floor"] = floor_name
+    sql += " GROUP BY f.id, f.name"
+    rows = execute_read_query(sql, params)
+
+    def _round(value: Any) -> float | None:
+        return round(float(value), 3) if value is not None else None
+
+    by_floor = [
+        {
+            "floor": r["floor"],
+            "floor_id": int(r["floor_id"]),
+            "spaces_total": int(r["spaces_total"]),
+            "spaces_with_area": int(r["spaces_with_area"]),
+            "gross_area": _round(r["gross_area"]),
+            "net_area": _round(r["net_area"]),
+            "unit": "m²",
+        }
+        for r in rows
+    ]
+    order = {fi.name: fi.order_index for fi in norm.list_floors(fid)}
+    by_floor.sort(key=lambda x: order.get(str(x["floor"]), 999))
+
+    result: dict[str, Any] = {
+        "facility_id": fid,
+        "source": "sum of space.gross_area / net_area grouped by floor",
+    }
+    if floor_name is not None:
+        single = (
+            by_floor[0]
+            if by_floor
+            else {
+                "floor": floor_name,
+                "gross_area": None,
+                "net_area": None,
+                "spaces_total": 0,
+                "spaces_with_area": 0,
+                "unit": "m²",
+            }
+        )
+        result.update(single)
+        result["_normalized_arguments"] = {"floor": floor_norm.as_dict()}  # type: ignore[union-attr]
+    else:
+        result["by_floor"] = by_floor
+    return result
+
+
 def find_floor_with_largest_component_area(component_type: str) -> dict[str, Any]:
     """Find which floor has the largest total area for a component type."""
     grouped = calculate_area_by_floor(component_type)
@@ -526,6 +603,15 @@ def build_registry(registry: ToolRegistry | None = None) -> ToolRegistry:
         func=calculate_area_by_floor,
         args_model=ComponentTypeArgs,
         parameters=[p_type],
+    )
+    reg.register(
+        name="calculate_floor_area",
+        description="Total floor area (sum of room/space areas) for the facility, "
+        "optionally for one floor. This is the area of the floor itself, not of "
+        "components.",
+        func=calculate_floor_area,
+        args_model=FloorArgs,
+        parameters=[p_floor],
     )
     reg.register(
         name="find_floor_with_largest_component_area",

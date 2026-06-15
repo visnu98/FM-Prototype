@@ -84,3 +84,18 @@ def test_capabilities_lists_unsupported(registry) -> None:  # type: ignore[no-un
     data = _ok(registry, "get_database_capabilities")
     assert "IfcWindow" in data["queryable_component_types"]
     assert any("maintenance" in s for s in data["not_supported"])
+
+
+def test_floor_area_single(registry) -> None:  # type: ignore[no-untyped-def]
+    data = _ok(registry, "calculate_floor_area", floor="ground floor")
+    assert data["floor"] == "Erdgeschoss"
+    assert data["gross_area"] == pytest.approx(556.74, abs=1.0)
+    assert data["unit"] == "m²"
+
+
+def test_floor_area_all(registry) -> None:  # type: ignore[no-untyped-def]
+    data = _ok(registry, "calculate_floor_area")
+    floors = {f["floor"]: f["gross_area"] for f in data["by_floor"]}
+    assert "Untergeschoss" in floors and "Erdgeschoss" in floors
+    # Basement is the largest floor by area in this facility.
+    assert floors["Untergeschoss"] > floors["Erdgeschoss"]
