@@ -1,0 +1,117 @@
+[
+  {
+    "hypothesis": "H1",
+    "metric": "fully_correct_call rate",
+    "test": "binomial (one-sided, p>0.90), Wilson CI",
+    "statistic": null,
+    "p_value": 0.9879603016380492,
+    "result_value": {
+      "overall_rate": 0.843,
+      "overall_ci": [
+        0.774,
+        0.894
+      ],
+      "per_model": {
+        "llama-3.1-8b-instant": {
+          "successes": 54,
+          "n": 70,
+          "rate": 0.771,
+          "wilson_ci": [
+            0.66,
+            0.854
+          ],
+          "p_value_greater": 0.999566480188762,
+          "meets_threshold": false
+        },
+        "qwen/qwen3-32b": {
+          "successes": 64,
+          "n": 70,
+          "rate": 0.914,
+          "wilson_ci": [
+            0.825,
+            0.96
+          ],
+          "p_value_greater": 0.441809757229648,
+          "meets_threshold": true
+        }
+      }
+    },
+    "supported": false,
+    "interpretation": "Pooled correct-call rate is 84.3% (below the 90% target).",
+    "limitations": "Single dataset/facility; corpus authored by the developer."
+  },
+  {
+    "hypothesis": "H2",
+    "metric": "fully_correct_call (standard vs paraphrase)",
+    "test": "McNemar (exact), paired within paraphrase groups",
+    "statistic": 4.0,
+    "p_value": 1.0,
+    "result_value": {
+      "pooled_discordant": {
+        "std_correct_para_wrong": 4,
+        "std_wrong_para_correct": 5
+      },
+      "per_model": {
+        "llama-3.1-8b-instant": {
+          "standard_rate": 0.767,
+          "paraphrase_rate": 0.775,
+          "discordant_std_correct_para_wrong": 4,
+          "discordant_std_wrong_para_correct": 3,
+          "p_value": 1.0
+        },
+        "qwen/qwen3-32b": {
+          "standard_rate": 0.867,
+          "paraphrase_rate": 0.95,
+          "discordant_std_correct_para_wrong": 0,
+          "discordant_std_wrong_para_correct": 2,
+          "p_value": 0.5
+        }
+      }
+    },
+    "supported": true,
+    "interpretation": "No significant difference between standard and reworded queries (p=1.000); paraphrasing did not lower correctness.",
+    "limitations": "Few discordant pairs make McNemar low-powered on a small corpus."
+  },
+  {
+    "hypothesis": "H3",
+    "metric": "fully_correct_call + latency_total",
+    "test": "McNemar (exact) on correctness; Wilcoxon signed-rank on latency",
+    "statistic": 1.0,
+    "p_value": 0.00634765625,
+    "result_value": {
+      "model_a": "qwen/qwen3-32b",
+      "model_b": "llama-3.1-8b-instant",
+      "correct_rate_a": 0.914,
+      "correct_rate_b": 0.771,
+      "discordant_a_correct_b_wrong": 11,
+      "discordant_b_correct_a_wrong": 1,
+      "latency_wilcoxon_stat": 658.0,
+      "latency_wilcoxon_p": 0.0006248298875215616,
+      "median_latency_a_ms": 20043.8,
+      "median_latency_b_ms": 16159.5
+    },
+    "supported": true,
+    "interpretation": "Reliability differs between models (McNemar p=0.006).",
+    "limitations": "McNemar needs discordant pairs; latency depends on network/load."
+  },
+  {
+    "hypothesis": "H4",
+    "metric": "answer_correct by complexity level",
+    "test": "logistic regression (correctness ~ level)",
+    "statistic": 0.7408225221940924,
+    "p_value": 0.008268115083916748,
+    "result_value": {
+      "rate_by_level": {
+        "L1": 0.875,
+        "L2": 0.667,
+        "L3": 0.969,
+        "L4": 0.962
+      },
+      "monotonic_decrease": false,
+      "slope_negative": false
+    },
+    "supported": false,
+    "interpretation": "No clear decreasing trend in correctness across complexity levels.",
+    "limitations": "Few queries per level limit statistical power."
+  }
+]

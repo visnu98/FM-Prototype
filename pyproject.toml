@@ -1,0 +1,66 @@
+[project]
+name = "fm-function-calling-prototype"
+version = "0.1.0"
+description = "Function-calling LLM prototype for structured Facility Management / BIM information retrieval from a PostgreSQL ETL database."
+readme = "README.md"
+requires-python = ">=3.11"
+
+dependencies = [
+    "sqlalchemy>=2.0.0",
+    "psycopg[binary]>=3.1.0",
+    "python-dotenv>=1.0.0",
+    "pydantic>=2.6.0",
+    "pydantic-settings>=2.2.0",
+    "pandas>=2.2.0",
+    "tabulate>=0.9.0",
+    # LLM tool-calling layer (Phase 8) and chatbot UI (Phase 9).
+    "groq>=0.11.0",
+    "streamlit>=1.35.0",
+    # Evaluation statistics + plots (Phases 15-16).
+    "scipy>=1.11.0",
+    "statsmodels>=0.14.0",
+    "matplotlib>=3.8.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.2.0",
+    "ruff>=0.4.0",
+    "black>=24.0.0",
+    "mypy>=1.10.0",
+]
+
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools]
+packages = ["app"]
+
+# ── Tooling configuration ────────────────────────────────────────────────────
+
+[tool.black]
+line-length = 100
+target-version = ["py311"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+
+[tool.ruff.lint]
+# Enable a sensible, thesis-friendly rule set.
+select = ["E", "F", "I", "UP", "B", "SIM"]
+ignore = [
+    "E501",  # line length handled by black
+]
+
+[tool.mypy]
+python_version = "3.11"
+warn_unused_ignores = true
+warn_redundant_casts = true
+disallow_untyped_defs = true
+ignore_missing_imports = true
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"

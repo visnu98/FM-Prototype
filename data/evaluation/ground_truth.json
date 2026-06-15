@@ -1,0 +1,6041 @@
+[
+  {
+    "query_id": "q01",
+    "query_text": "Which floors can I query for this building?",
+    "category": "metadata",
+    "complexity_level": "L1",
+    "paraphrase_group_id": "g01",
+    "is_standard_wording": true,
+    "expected_function": "list_queryable_floors",
+    "expected_arguments": {},
+    "expected_result": [
+      {
+        "floor_id": 126801,
+        "name": "Untergeschoss",
+        "display_name": "Untergeschoss",
+        "order_index": -1,
+        "elevation": null,
+        "source_table": "floor"
+      },
+      {
+        "floor_id": 126802,
+        "name": "Erdgeschoss",
+        "display_name": "Erdgeschoss",
+        "order_index": 0,
+        "elevation": 418.34,
+        "source_table": "floor"
+      },
+      {
+        "floor_id": 126803,
+        "name": "1. Obergeschoss",
+        "display_name": "1. Obergeschoss",
+        "order_index": 1,
+        "elevation": null,
+        "source_table": "floor"
+      },
+      {
+        "floor_id": 126804,
+        "name": "2. Obergeschoss",
+        "display_name": "2. Obergeschoss",
+        "order_index": 2,
+        "elevation": null,
+        "source_table": "floor"
+      },
+      {
+        "floor_id": 159901,
+        "name": "Dachgeschoss",
+        "display_name": "Dachgeschoss",
+        "order_index": 1000,
+        "elevation": null,
+        "source_table": "floor"
+      }
+    ],
+    "expected_answer_values": [
+      "Untergeschoss",
+      "Erdgeschoss",
+      "1. Obergeschoss",
+      "2. Obergeschoss",
+      "Dachgeschoss"
+    ],
+    "answer_kind": "list",
+    "answer_tolerance": 0.0,
+    "execution_ok": true,
+    "note": null
+  },
+  {
+    "query_id": "q02",
+    "query_text": "What floors are available?",
+    "category": "metadata",
+    "complexity_level": "L1",
+    "paraphrase_group_id": "g01",
+    "is_standard_wording": false,
+    "expected_function": "list_queryable_floors",
+    "expected_arguments": {},
+    "expected_result": [
+      {
+        "floor_id": 126801,
+        "name": "Untergeschoss",
+        "display_name": "Untergeschoss",
+        "order_index": -1,
+        "elevation": null,
+        "source_table": "floor"
+      },
+      {
+        "floor_id": 126802,
+        "name": "Erdgeschoss",
+        "display_name": "Erdgeschoss",
+        "order_index": 0,
+        "elevation": 418.34,
+        "source_table": "floor"
+      },
+      {
+        "floor_id": 126803,
+        "name": "1. Obergeschoss",
+        "display_name": "1. Obergeschoss",
+        "order_index": 1,
+        "elevation": null,
+        "source_table": "floor"
+      },
+      {
+        "floor_id": 126804,
+        "name": "2. Obergeschoss",
+        "display_name": "2. Obergeschoss",
+        "order_index": 2,
+        "elevation": null,
+        "source_table": "floor"
+      },
+      {
+        "floor_id": 159901,
+        "name": "Dachgeschoss",
+        "display_name": "Dachgeschoss",
+        "order_index": 1000,
+        "elevation": null,
+        "source_table": "floor"
+      }
+    ],
+    "expected_answer_values": [
+      "Untergeschoss",
+      "Erdgeschoss",
+      "1. Obergeschoss",
+      "2. Obergeschoss",
+      "Dachgeschoss"
+    ],
+    "answer_kind": "list",
+    "answer_tolerance": 0.0,
+    "execution_ok": true,
+    "note": null
+  },
+  {
+    "query_id": "q03",
+    "query_text": "Show me the storeys in this facility.",
+    "category": "metadata",
+    "complexity_level": "L1",
+    "paraphrase_group_id": "g01",
+    "is_standard_wording": false,
+    "expected_function": "list_queryable_floors",
+    "expected_arguments": {},
+    "expected_result": [
+      {
+        "floor_id": 126801,
+        "name": "Untergeschoss",
+        "display_name": "Untergeschoss",
+        "order_index": -1,
+        "elevation": null,
+        "source_table": "floor"
+      },
+      {
+        "floor_id": 126802,
+        "name": "Erdgeschoss",
+        "display_name": "Erdgeschoss",
+        "order_index": 0,
+        "elevation": 418.34,
+        "source_table": "floor"
+      },
+      {
+        "floor_id": 126803,
+        "name": "1. Obergeschoss",
+        "display_name": "1. Obergeschoss",
+        "order_index": 1,
+        "elevation": null,
+        "source_table": "floor"
+      },
+      {
+        "floor_id": 126804,
+        "name": "2. Obergeschoss",
+        "display_name": "2. Obergeschoss",
+        "order_index": 2,
+        "elevation": null,
+        "source_table": "floor"
+      },
+      {
+        "floor_id": 159901,
+        "name": "Dachgeschoss",
+        "display_name": "Dachgeschoss",
+        "order_index": 1000,
+        "elevation": null,
+        "source_table": "floor"
+      }
+    ],
+    "expected_answer_values": [
+      "Untergeschoss",
+      "Erdgeschoss",
+      "1. Obergeschoss",
+      "2. Obergeschoss",
+      "Dachgeschoss"
+    ],
+    "answer_kind": "list",
+    "answer_tolerance": 0.0,
+    "execution_ok": true,
+    "note": null
+  },
+  {
+    "query_id": "q04",
+    "query_text": "What component types are available?",
+    "category": "metadata",
+    "complexity_level": "L1",
+    "paraphrase_group_id": "g02",
+    "is_standard_wording": true,
+    "expected_function": "list_queryable_component_types",
+    "expected_arguments": {},
+    "expected_result": [
+      {
+        "component_type": "IfcWindow",
+        "display_name": "IfcWindow",
+        "count": 272,
+        "source_table": "asset_component"
+      },
+      {
+        "component_type": "IfcWallStandardCase",
+        "display_name": "IfcWallStandardCase",
+        "count": 268,
+        "source_table": "asset_component"
+      },
+      {
+        "component_type": "IfcSlab",
+        "display_name": "IfcSlab",
+        "count": 245,
+        "source_table": "asset_component"
+      },
+      {
+        "component_type": "IfcDoor",
+        "display_name": "IfcDoor",
+        "count": 123,
+        "source_table": "asset_component"
+      },
+      {
+        "component_type": "IfcColumn",
+        "display_name": "IfcColumn",
+        "count": 64,
+        "source_table": "asset_component"
+      },
+      {
+        "component_type": "IfcBuildingElementProxy",
+        "display_name": "IfcBuildingElementProxy",
+        "count": 60,
+        "source_table": "asset_component"
+      },
+      {
+        "component_type": "IfcSpaceHeater",
+        "display_name": "IfcSpaceHeater",
+        "count": 59,
+        "source_table": "asset_component"
+      },
+      {
+        "component_type": "IfcUnitaryControlElement",
+        "display_name": "IfcUnitaryControlElement",
+        "count": 54,
+        "source_table": "asset_component"
+      },
+      {
+        "component_type": "IfcSensor",
+        "display_name": "IfcSensor",
+        "count": 50,
+        "source_table": "asset_component"
+      },
+      {
+        "component_type": "IfcCommunicationsAppliance",
+        "display_name": "IfcCommunicationsAppliance",
+        "count": 34,
+        "source_table": "asset_component"
+      },
+      {
+        "component_type": "IfcSanitaryTerminal",
+        "display_name": "IfcSanitaryTerminal",
+        "count": 30,
+        "source_table": "asset_component"
+      },
+      {
+        "component_type": "IfcBuildingElementPart",
+        "display_name": "IfcBuildingElementPart",
+        "count": 28,
+        "source_table": "asset_component"
+      },
+      {
+        "component_type": "IfcFan",
+        "display_name": "IfcFan",
+        "count": 25,
+        "source_table": "asset_component"
+      },
+      {
+        "component_type": "IfcWall",
+        "display_name": "IfcWall",
+        "count": 22,
+        "source_table": "asset_component"
+      },
+      {
+        "component_type": "IfcAirTerminal",
+        "display_name": "IfcAirTerminal",
+        "count": 15,
+        "source_table": "asset_component"
+      },
+      {
+        "component_type": "IfcActuator",
+        "display_name": "IfcActuator",
+        "count": 14,
+        "source_table": "asset_component"
+      },
+      {
+        "component_type": "IfcController",
+        "display_name": "IfcController",
+        "count": 10,
+        "source_table": "asset_component"
+      },
+      {
+        "component_type": "IfcFlowTerminal",
+        "display_name": "IfcFlowTerminal",
+        "count": 8,
+        "source_table": "asset_component"
+      },
+      {
+        "component_type": "IfcRailing",
+        "display_name": "IfcRailing",
+        "count": 8,
+        "source_table": "asset_component"
+      },
+      {
+        "component_type": "IfcCovering",
+        "display_name": "IfcCovering",
+        "count": 7,
+        "source_table": "asset_component"
+      },
+      {
+        "component_type": "IfcTank",
+        "display_name": "IfcTank",
+        "count": 6,
+        "source_table": "asset_component"
+      },
+      {
+        "component_type": "IfcCurtainWall",
+        "display_name": "IfcCurtainWall",
+        "count": 6,
+        "source_table": "asset_component"
+      },
+      {
+        "component_type": "IfcDamper",
+        "display_name": "IfcDamper",
+        "count": 4,
+        "source_table": "asset_component"
+      },
+      {
+        "component_type": "IfcBeam",
+        "display_name": "IfcBeam",
+        "count": 4,
+        "source_table": "asset_component"
+      },
+      {
+        "component_type": "IfcStair",
+        "display_name": "IfcStair",
+        "count": 3,
+        "source_table": "asset_component"
+      },
+      {
+        "component_type": "IfcElectricAppliance",
+        "display_name": "IfcElectricAppliance",
+        "count": 3,
+        "source_table": "asset_component"
+      },
+      {
+        "component_type": "IfcElement",
+        "display_name": "IfcElement",
+        "count": 2,
+        "source_table": "asset_component"
+      },
+      {
+        "component_type": "IfcPipeSegment",
+        "display_name": "IfcPipeSegment",
+        "count": 1,
+        "source_table": "asset_component"
+      },
+      {
+        "component_type": "IfcBoiler",
+        "display_name": "IfcBoiler",
+        "count": 1,
+        "source_table": "asset_component"
+      },
+      {
+        "component_type": "IfcProduct",
+        "display_name": "IfcProduct",
+        "count": 1,
+        "source_table": "asset_component"
+      }
+    ],
+    "expected_answer_values": [],
+    "answer_kind": "any",
+    "answer_tolerance": 0.0,
+    "execution_ok": true,
+    "note": null
+  },
+  {
+    "query_id": "q05",
+    "query_text": "Which BIM element types can I ask about?",
+    "category": "metadata",
+    "complexity_level": "L1",
+    "paraphrase_group_id": "g02",
+    "is_standard_wording": false,
+    "expected_function": "list_queryable_component_types",
+    "expected_arguments": {},
+    "expected_result": [
+      {
+        "component_type": "IfcWindow",
+        "display_name": "IfcWindow",
+        "count": 272,
+        "source_table": "asset_component"
+      },
+      {
+        "component_type": "IfcWallStandardCase",
+        "display_name": "IfcWallStandardCase",
+        "count": 268,
+        "source_table": "asset_component"
+      },
+      {
+        "component_type": "IfcSlab",
+        "display_name": "IfcSlab",
+        "count": 245,
+        "source_table": "asset_component"
+      },
+      {
+        "component_type": "IfcDoor",
+        "display_name": "IfcDoor",
+        "count": 123,
+        "source_table": "asset_component"
+      },
+      {
+        "component_type": "IfcColumn",
+        "display_name": "IfcColumn",
+        "count": 64,
+        "source_table": "asset_component"
+      },
+      {
+        "component_type": "IfcBuildingElementProxy",
+        "display_name": "IfcBuildingElementProxy",
+        "count": 60,
+        "source_table": "asset_component"
+      },
+      {
+        "component_type": "IfcSpaceHeater",
+        "display_name": "IfcSpaceHeater",
+        "count": 59,
+        "source_table": "asset_component"
+      },
+      {
+        "component_type": "IfcUnitaryControlElement",
+        "display_name": "IfcUnitaryControlElement",
+        "count": 54,
+        "source_table": "asset_component"
+      },
+      {
+        "component_type": "IfcSensor",
+        "display_name": "IfcSensor",
+        "count": 50,
+        "source_table": "asset_component"
+      },
+      {
+        "component_type": "IfcCommunicationsAppliance",
+        "display_name": "IfcCommunicationsAppliance",
+        "count": 34,
+        "source_table": "asset_component"
+      },
+      {
+        "component_type": "IfcSanitaryTerminal",
+        "display_name": "IfcSanitaryTerminal",
+        "count": 30,
+        "source_table": "asset_component"
+      },
+      {
+        "component_type": "IfcBuildingElementPart",
+        "display_name": "IfcBuildingElementPart",
+        "count": 28,
+        "source_table": "asset_component"
+      },
+      {
+        "component_type": "IfcFan",
+        "display_name": "IfcFan",
+        "count": 25,
+        "source_table": "asset_component"
+      },
+      {
+        "component_type": "IfcWall",
+        "display_name": "IfcWall",
+        "count": 22,
+        "source_table": "asset_component"
+      },
+      {
+        "component_type": "IfcAirTerminal",
+        "display_name": "IfcAirTerminal",
+        "count": 15,
+        "source_table": "asset_component"
+      },
+      {
+        "component_type": "IfcActuator",
+        "display_name": "IfcActuator",
+        "count": 14,
+        "source_table": "asset_component"
+      },
+      {
+        "component_type": "IfcController",
+        "display_name": "IfcController",
+        "count": 10,
+        "source_table": "asset_component"
+      },
+      {
+        "component_type": "IfcFlowTerminal",
+        "display_name": "IfcFlowTerminal",
+        "count": 8,
+        "source_table": "asset_component"
+      },
+      {
+        "component_type": "IfcRailing",
+        "display_name": "IfcRailing",
+        "count": 8,
+        "source_table": "asset_component"
+      },
+      {
+        "component_type": "IfcCovering",
+        "display_name": "IfcCovering",
+        "count": 7,
+        "source_table": "asset_component"
+      },
+      {
+        "component_type": "IfcTank",
+        "display_name": "IfcTank",
+        "count": 6,
+        "source_table": "asset_component"
+      },
+      {
+        "component_type": "IfcCurtainWall",
+        "display_name": "IfcCurtainWall",
+        "count": 6,
+        "source_table": "asset_component"
+      },
+      {
+        "component_type": "IfcDamper",
+        "display_name": "IfcDamper",
+        "count": 4,
+        "source_table": "asset_component"
+      },
+      {
+        "component_type": "IfcBeam",
+        "display_name": "IfcBeam",
+        "count": 4,
+        "source_table": "asset_component"
+      },
+      {
+        "component_type": "IfcStair",
+        "display_name": "IfcStair",
+        "count": 3,
+        "source_table": "asset_component"
+      },
+      {
+        "component_type": "IfcElectricAppliance",
+        "display_name": "IfcElectricAppliance",
+        "count": 3,
+        "source_table": "asset_component"
+      },
+      {
+        "component_type": "IfcElement",
+        "display_name": "IfcElement",
+        "count": 2,
+        "source_table": "asset_component"
+      },
+      {
+        "component_type": "IfcPipeSegment",
+        "display_name": "IfcPipeSegment",
+        "count": 1,
+        "source_table": "asset_component"
+      },
+      {
+        "component_type": "IfcBoiler",
+        "display_name": "IfcBoiler",
+        "count": 1,
+        "source_table": "asset_component"
+      },
+      {
+        "component_type": "IfcProduct",
+        "display_name": "IfcProduct",
+        "count": 1,
+        "source_table": "asset_component"
+      }
+    ],
+    "expected_answer_values": [],
+    "answer_kind": "any",
+    "answer_tolerance": 0.0,
+    "execution_ok": true,
+    "note": null
+  },
+  {
+    "query_id": "q06",
+    "query_text": "What asset component categories exist?",
+    "category": "metadata",
+    "complexity_level": "L1",
+    "paraphrase_group_id": "g02",
+    "is_standard_wording": false,
+    "expected_function": "list_queryable_component_types",
+    "expected_arguments": {},
+    "expected_result": [
+      {
+        "component_type": "IfcWindow",
+        "display_name": "IfcWindow",
+        "count": 272,
+        "source_table": "asset_component"
+      },
+      {
+        "component_type": "IfcWallStandardCase",
+        "display_name": "IfcWallStandardCase",
+        "count": 268,
+        "source_table": "asset_component"
+      },
+      {
+        "component_type": "IfcSlab",
+        "display_name": "IfcSlab",
+        "count": 245,
+        "source_table": "asset_component"
+      },
+      {
+        "component_type": "IfcDoor",
+        "display_name": "IfcDoor",
+        "count": 123,
+        "source_table": "asset_component"
+      },
+      {
+        "component_type": "IfcColumn",
+        "display_name": "IfcColumn",
+        "count": 64,
+        "source_table": "asset_component"
+      },
+      {
+        "component_type": "IfcBuildingElementProxy",
+        "display_name": "IfcBuildingElementProxy",
+        "count": 60,
+        "source_table": "asset_component"
+      },
+      {
+        "component_type": "IfcSpaceHeater",
+        "display_name": "IfcSpaceHeater",
+        "count": 59,
+        "source_table": "asset_component"
+      },
+      {
+        "component_type": "IfcUnitaryControlElement",
+        "display_name": "IfcUnitaryControlElement",
+        "count": 54,
+        "source_table": "asset_component"
+      },
+      {
+        "component_type": "IfcSensor",
+        "display_name": "IfcSensor",
+        "count": 50,
+        "source_table": "asset_component"
+      },
+      {
+        "component_type": "IfcCommunicationsAppliance",
+        "display_name": "IfcCommunicationsAppliance",
+        "count": 34,
+        "source_table": "asset_component"
+      },
+      {
+        "component_type": "IfcSanitaryTerminal",
+        "display_name": "IfcSanitaryTerminal",
+        "count": 30,
+        "source_table": "asset_component"
+      },
+      {
+        "component_type": "IfcBuildingElementPart",
+        "display_name": "IfcBuildingElementPart",
+        "count": 28,
+        "source_table": "asset_component"
+      },
+      {
+        "component_type": "IfcFan",
+        "display_name": "IfcFan",
+        "count": 25,
+        "source_table": "asset_component"
+      },
+      {
+        "component_type": "IfcWall",
+        "display_name": "IfcWall",
+        "count": 22,
+        "source_table": "asset_component"
+      },
+      {
+        "component_type": "IfcAirTerminal",
+        "display_name": "IfcAirTerminal",
+        "count": 15,
+        "source_table": "asset_component"
+      },
+      {
+        "component_type": "IfcActuator",
+        "display_name": "IfcActuator",
+        "count": 14,
+        "source_table": "asset_component"
+      },
+      {
+        "component_type": "IfcController",
+        "display_name": "IfcController",
+        "count": 10,
+        "source_table": "asset_component"
+      },
+      {
+        "component_type": "IfcFlowTerminal",
+        "display_name": "IfcFlowTerminal",
+        "count": 8,
+        "source_table": "asset_component"
+      },
+      {
+        "component_type": "IfcRailing",
+        "display_name": "IfcRailing",
+        "count": 8,
+        "source_table": "asset_component"
+      },
+      {
+        "component_type": "IfcCovering",
+        "display_name": "IfcCovering",
+        "count": 7,
+        "source_table": "asset_component"
+      },
+      {
+        "component_type": "IfcTank",
+        "display_name": "IfcTank",
+        "count": 6,
+        "source_table": "asset_component"
+      },
+      {
+        "component_type": "IfcCurtainWall",
+        "display_name": "IfcCurtainWall",
+        "count": 6,
+        "source_table": "asset_component"
+      },
+      {
+        "component_type": "IfcDamper",
+        "display_name": "IfcDamper",
+        "count": 4,
+        "source_table": "asset_component"
+      },
+      {
+        "component_type": "IfcBeam",
+        "display_name": "IfcBeam",
+        "count": 4,
+        "source_table": "asset_component"
+      },
+      {
+        "component_type": "IfcStair",
+        "display_name": "IfcStair",
+        "count": 3,
+        "source_table": "asset_component"
+      },
+      {
+        "component_type": "IfcElectricAppliance",
+        "display_name": "IfcElectricAppliance",
+        "count": 3,
+        "source_table": "asset_component"
+      },
+      {
+        "component_type": "IfcElement",
+        "display_name": "IfcElement",
+        "count": 2,
+        "source_table": "asset_component"
+      },
+      {
+        "component_type": "IfcPipeSegment",
+        "display_name": "IfcPipeSegment",
+        "count": 1,
+        "source_table": "asset_component"
+      },
+      {
+        "component_type": "IfcBoiler",
+        "display_name": "IfcBoiler",
+        "count": 1,
+        "source_table": "asset_component"
+      },
+      {
+        "component_type": "IfcProduct",
+        "display_name": "IfcProduct",
+        "count": 1,
+        "source_table": "asset_component"
+      }
+    ],
+    "expected_answer_values": [],
+    "answer_kind": "any",
+    "answer_tolerance": 0.0,
+    "execution_ok": true,
+    "note": null
+  },
+  {
+    "query_id": "q07",
+    "query_text": "What can this assistant help me with?",
+    "category": "metadata",
+    "complexity_level": "L1",
+    "paraphrase_group_id": "g03",
+    "is_standard_wording": true,
+    "expected_function": "get_database_capabilities",
+    "expected_arguments": {},
+    "expected_result": {
+      "facility_id": 124851,
+      "queryable_floors": [
+        "Untergeschoss",
+        "Erdgeschoss",
+        "1. Obergeschoss",
+        "2. Obergeschoss",
+        "Dachgeschoss"
+      ],
+      "queryable_component_types": [
+        "IfcWindow",
+        "IfcWallStandardCase",
+        "IfcSlab",
+        "IfcDoor",
+        "IfcColumn",
+        "IfcBuildingElementProxy",
+        "IfcSpaceHeater",
+        "IfcUnitaryControlElement",
+        "IfcSensor",
+        "IfcCommunicationsAppliance",
+        "IfcSanitaryTerminal",
+        "IfcBuildingElementPart",
+        "IfcFan",
+        "IfcWall",
+        "IfcAirTerminal",
+        "IfcActuator",
+        "IfcController",
+        "IfcFlowTerminal",
+        "IfcRailing",
+        "IfcCovering",
+        "IfcTank",
+        "IfcCurtainWall",
+        "IfcDamper",
+        "IfcBeam",
+        "IfcStair",
+        "IfcElectricAppliance",
+        "IfcElement",
+        "IfcPipeSegment",
+        "IfcBoiler",
+        "IfcProduct"
+      ],
+      "supported_questions": [
+        "list floors / component types",
+        "count components (optionally per floor)",
+        "component attributes (height, width, area)",
+        "total component area (stored area or width×height)",
+        "area per floor / floor with largest area",
+        "compare counts or areas between two floors"
+      ],
+      "not_supported": [
+        "equipment inventories (no dedicated equipment table)",
+        "maintenance / inspection schedules (no maintenance table)"
+      ],
+      "floor_resolution": "via space placement (asset_component→space→floor)"
+    },
+    "expected_answer_values": [],
+    "answer_kind": "any",
+    "answer_tolerance": 0.0,
+    "execution_ok": true,
+    "note": null
+  },
+  {
+    "query_id": "q08",
+    "query_text": "What kinds of questions can you answer?",
+    "category": "metadata",
+    "complexity_level": "L1",
+    "paraphrase_group_id": "g03",
+    "is_standard_wording": false,
+    "expected_function": "get_database_capabilities",
+    "expected_arguments": {},
+    "expected_result": {
+      "facility_id": 124851,
+      "queryable_floors": [
+        "Untergeschoss",
+        "Erdgeschoss",
+        "1. Obergeschoss",
+        "2. Obergeschoss",
+        "Dachgeschoss"
+      ],
+      "queryable_component_types": [
+        "IfcWindow",
+        "IfcWallStandardCase",
+        "IfcSlab",
+        "IfcDoor",
+        "IfcColumn",
+        "IfcBuildingElementProxy",
+        "IfcSpaceHeater",
+        "IfcUnitaryControlElement",
+        "IfcSensor",
+        "IfcCommunicationsAppliance",
+        "IfcSanitaryTerminal",
+        "IfcBuildingElementPart",
+        "IfcFan",
+        "IfcWall",
+        "IfcAirTerminal",
+        "IfcActuator",
+        "IfcController",
+        "IfcFlowTerminal",
+        "IfcRailing",
+        "IfcCovering",
+        "IfcTank",
+        "IfcCurtainWall",
+        "IfcDamper",
+        "IfcBeam",
+        "IfcStair",
+        "IfcElectricAppliance",
+        "IfcElement",
+        "IfcPipeSegment",
+        "IfcBoiler",
+        "IfcProduct"
+      ],
+      "supported_questions": [
+        "list floors / component types",
+        "count components (optionally per floor)",
+        "component attributes (height, width, area)",
+        "total component area (stored area or width×height)",
+        "area per floor / floor with largest area",
+        "compare counts or areas between two floors"
+      ],
+      "not_supported": [
+        "equipment inventories (no dedicated equipment table)",
+        "maintenance / inspection schedules (no maintenance table)"
+      ],
+      "floor_resolution": "via space placement (asset_component→space→floor)"
+    },
+    "expected_answer_values": [],
+    "answer_kind": "any",
+    "answer_tolerance": 0.0,
+    "execution_ok": true,
+    "note": null
+  },
+  {
+    "query_id": "q09",
+    "query_text": "How many windows are on the second floor?",
+    "category": "counting",
+    "complexity_level": "L2",
+    "paraphrase_group_id": "g04",
+    "is_standard_wording": true,
+    "expected_function": "count_components",
+    "expected_arguments": {
+      "component_type": "IfcWindow",
+      "floor": "2. Obergeschoss"
+    },
+    "expected_result": {
+      "count": 52,
+      "component_type": "IfcWindow",
+      "floor": "2. Obergeschoss",
+      "facility_id": 124851
+    },
+    "expected_answer_values": [
+      52
+    ],
+    "answer_kind": "number",
+    "answer_tolerance": 0.0,
+    "execution_ok": true,
+    "note": null
+  },
+  {
+    "query_id": "q10",
+    "query_text": "Count the windows on level two.",
+    "category": "counting",
+    "complexity_level": "L2",
+    "paraphrase_group_id": "g04",
+    "is_standard_wording": false,
+    "expected_function": "count_components",
+    "expected_arguments": {
+      "component_type": "IfcWindow",
+      "floor": "2. Obergeschoss"
+    },
+    "expected_result": {
+      "count": 52,
+      "component_type": "IfcWindow",
+      "floor": "2. Obergeschoss",
+      "facility_id": 124851
+    },
+    "expected_answer_values": [
+      52
+    ],
+    "answer_kind": "number",
+    "answer_tolerance": 0.0,
+    "execution_ok": true,
+    "note": null
+  },
+  {
+    "query_id": "q11",
+    "query_text": "What is the number of window elements on the second upper floor?",
+    "category": "counting",
+    "complexity_level": "L2",
+    "paraphrase_group_id": "g04",
+    "is_standard_wording": false,
+    "expected_function": "count_components",
+    "expected_arguments": {
+      "component_type": "IfcWindow",
+      "floor": "2. Obergeschoss"
+    },
+    "expected_result": {
+      "count": 52,
+      "component_type": "IfcWindow",
+      "floor": "2. Obergeschoss",
+      "facility_id": 124851
+    },
+    "expected_answer_values": [
+      52
+    ],
+    "answer_kind": "number",
+    "answer_tolerance": 0.0,
+    "execution_ok": true,
+    "note": null
+  },
+  {
+    "query_id": "q12",
+    "query_text": "How many doors does the building have in total?",
+    "category": "counting",
+    "complexity_level": "L2",
+    "paraphrase_group_id": "g05",
+    "is_standard_wording": true,
+    "expected_function": "count_components",
+    "expected_arguments": {
+      "component_type": "IfcDoor"
+    },
+    "expected_result": {
+      "count": 123,
+      "component_type": "IfcDoor",
+      "floor": null,
+      "facility_id": 124851
+    },
+    "expected_answer_values": [
+      123
+    ],
+    "answer_kind": "number",
+    "answer_tolerance": 0.0,
+    "execution_ok": true,
+    "note": null
+  },
+  {
+    "query_id": "q13",
+    "query_text": "Count all doors in the facility.",
+    "category": "counting",
+    "complexity_level": "L2",
+    "paraphrase_group_id": "g05",
+    "is_standard_wording": false,
+    "expected_function": "count_components",
+    "expected_arguments": {
+      "component_type": "IfcDoor"
+    },
+    "expected_result": {
+      "count": 123,
+      "component_type": "IfcDoor",
+      "floor": null,
+      "facility_id": 124851
+    },
+    "expected_answer_values": [
+      123
+    ],
+    "answer_kind": "number",
+    "answer_tolerance": 0.0,
+    "execution_ok": true,
+    "note": null
+  },
+  {
+    "query_id": "q14",
+    "query_text": "What is the total number of door components?",
+    "category": "counting",
+    "complexity_level": "L2",
+    "paraphrase_group_id": "g05",
+    "is_standard_wording": false,
+    "expected_function": "count_components",
+    "expected_arguments": {
+      "component_type": "IfcDoor"
+    },
+    "expected_result": {
+      "count": 123,
+      "component_type": "IfcDoor",
+      "floor": null,
+      "facility_id": 124851
+    },
+    "expected_answer_values": [
+      123
+    ],
+    "answer_kind": "number",
+    "answer_tolerance": 0.0,
+    "execution_ok": true,
+    "note": null
+  },
+  {
+    "query_id": "q15",
+    "query_text": "How many windows are on the ground floor?",
+    "category": "counting",
+    "complexity_level": "L2",
+    "paraphrase_group_id": "g06",
+    "is_standard_wording": true,
+    "expected_function": "count_components",
+    "expected_arguments": {
+      "component_type": "IfcWindow",
+      "floor": "Erdgeschoss"
+    },
+    "expected_result": {
+      "count": 16,
+      "component_type": "IfcWindow",
+      "floor": "Erdgeschoss",
+      "facility_id": 124851
+    },
+    "expected_answer_values": [
+      16
+    ],
+    "answer_kind": "number",
+    "answer_tolerance": 0.0,
+    "execution_ok": true,
+    "note": null
+  },
+  {
+    "query_id": "q16",
+    "query_text": "Count the windows on the Erdgeschoss.",
+    "category": "counting",
+    "complexity_level": "L2",
+    "paraphrase_group_id": "g06",
+    "is_standard_wording": false,
+    "expected_function": "count_components",
+    "expected_arguments": {
+      "component_type": "IfcWindow",
+      "floor": "Erdgeschoss"
+    },
+    "expected_result": {
+      "count": 16,
+      "component_type": "IfcWindow",
+      "floor": "Erdgeschoss",
+      "facility_id": 124851
+    },
+    "expected_answer_values": [
+      16
+    ],
+    "answer_kind": "number",
+    "answer_tolerance": 0.0,
+    "execution_ok": true,
+    "note": null
+  },
+  {
+    "query_id": "q17",
+    "query_text": "How many space heaters are on the first floor?",
+    "category": "counting",
+    "complexity_level": "L2",
+    "paraphrase_group_id": "g07",
+    "is_standard_wording": true,
+    "expected_function": "count_components",
+    "expected_arguments": {
+      "component_type": "IfcSpaceHeater",
+      "floor": "1. Obergeschoss"
+    },
+    "expected_result": {
+      "count": 24,
+      "component_type": "IfcSpaceHeater",
+      "floor": "1. Obergeschoss",
+      "facility_id": 124851
+    },
+    "expected_answer_values": [
+      24
+    ],
+    "answer_kind": "number",
+    "answer_tolerance": 0.0,
+    "execution_ok": true,
+    "note": null
+  },
+  {
+    "query_id": "q18",
+    "query_text": "Count the radiators on the 1. Obergeschoss.",
+    "category": "counting",
+    "complexity_level": "L2",
+    "paraphrase_group_id": "g07",
+    "is_standard_wording": false,
+    "expected_function": "count_components",
+    "expected_arguments": {
+      "component_type": "IfcSpaceHeater",
+      "floor": "1. Obergeschoss"
+    },
+    "expected_result": {
+      "count": 24,
+      "component_type": "IfcSpaceHeater",
+      "floor": "1. Obergeschoss",
+      "facility_id": 124851
+    },
+    "expected_answer_values": [
+      24
+    ],
+    "answer_kind": "number",
+    "answer_tolerance": 0.0,
+    "execution_ok": true,
+    "note": null
+  },
+  {
+    "query_id": "q19",
+    "query_text": "How many windows are there in total?",
+    "category": "counting",
+    "complexity_level": "L2",
+    "paraphrase_group_id": "g08",
+    "is_standard_wording": true,
+    "expected_function": "count_components",
+    "expected_arguments": {
+      "component_type": "IfcWindow"
+    },
+    "expected_result": {
+      "count": 272,
+      "component_type": "IfcWindow",
+      "floor": null,
+      "facility_id": 124851
+    },
+    "expected_answer_values": [
+      272
+    ],
+    "answer_kind": "number",
+    "answer_tolerance": 0.0,
+    "execution_ok": true,
+    "note": null
+  },
+  {
+    "query_id": "q20",
+    "query_text": "What is the total window count for the building?",
+    "category": "counting",
+    "complexity_level": "L2",
+    "paraphrase_group_id": "g08",
+    "is_standard_wording": false,
+    "expected_function": "count_components",
+    "expected_arguments": {
+      "component_type": "IfcWindow"
+    },
+    "expected_result": {
+      "count": 272,
+      "component_type": "IfcWindow",
+      "floor": null,
+      "facility_id": 124851
+    },
+    "expected_answer_values": [
+      272
+    ],
+    "answer_kind": "number",
+    "answer_tolerance": 0.0,
+    "execution_ok": true,
+    "note": null
+  },
+  {
+    "query_id": "q21",
+    "query_text": "How many columns does the building have?",
+    "category": "counting",
+    "complexity_level": "L2",
+    "paraphrase_group_id": "g09",
+    "is_standard_wording": true,
+    "expected_function": "count_components",
+    "expected_arguments": {
+      "component_type": "IfcColumn"
+    },
+    "expected_result": {
+      "count": 64,
+      "component_type": "IfcColumn",
+      "floor": null,
+      "facility_id": 124851
+    },
+    "expected_answer_values": [
+      64
+    ],
+    "answer_kind": "number",
+    "answer_tolerance": 0.0,
+    "execution_ok": true,
+    "note": null
+  },
+  {
+    "query_id": "q22",
+    "query_text": "Count all the columns in the facility.",
+    "category": "counting",
+    "complexity_level": "L2",
+    "paraphrase_group_id": "g09",
+    "is_standard_wording": false,
+    "expected_function": "count_components",
+    "expected_arguments": {
+      "component_type": "IfcColumn"
+    },
+    "expected_result": {
+      "count": 64,
+      "component_type": "IfcColumn",
+      "floor": null,
+      "facility_id": 124851
+    },
+    "expected_answer_values": [
+      64
+    ],
+    "answer_kind": "number",
+    "answer_tolerance": 0.0,
+    "execution_ok": true,
+    "note": null
+  },
+  {
+    "query_id": "q23",
+    "query_text": "How many doors are on the second floor?",
+    "category": "counting",
+    "complexity_level": "L2",
+    "paraphrase_group_id": "g10",
+    "is_standard_wording": true,
+    "expected_function": "count_components",
+    "expected_arguments": {
+      "component_type": "IfcDoor",
+      "floor": "2. Obergeschoss"
+    },
+    "expected_result": {
+      "count": 1,
+      "component_type": "IfcDoor",
+      "floor": "2. Obergeschoss",
+      "facility_id": 124851
+    },
+    "expected_answer_values": [
+      1
+    ],
+    "answer_kind": "number",
+    "answer_tolerance": 0.0,
+    "execution_ok": true,
+    "note": null
+  },
+  {
+    "query_id": "q24",
+    "query_text": "Count the doors on level two.",
+    "category": "counting",
+    "complexity_level": "L2",
+    "paraphrase_group_id": "g10",
+    "is_standard_wording": false,
+    "expected_function": "count_components",
+    "expected_arguments": {
+      "component_type": "IfcDoor",
+      "floor": "2. Obergeschoss"
+    },
+    "expected_result": {
+      "count": 1,
+      "component_type": "IfcDoor",
+      "floor": "2. Obergeschoss",
+      "facility_id": 124851
+    },
+    "expected_answer_values": [
+      1
+    ],
+    "answer_kind": "number",
+    "answer_tolerance": 0.0,
+    "execution_ok": true,
+    "note": null
+  },
+  {
+    "query_id": "q25",
+    "query_text": "What are the heights and widths of the windows on the second floor?",
+    "category": "attribute",
+    "complexity_level": "L2",
+    "paraphrase_group_id": "g11",
+    "is_standard_wording": true,
+    "expected_function": "get_component_attributes",
+    "expected_arguments": {
+      "component_type": "IfcWindow",
+      "floor": "2. Obergeschoss"
+    },
+    "expected_result": {
+      "component_type": "IfcWindow",
+      "floor": "2. Obergeschoss",
+      "requested_attributes": [
+        "height",
+        "width"
+      ],
+      "resolved_attributes": [
+        {
+          "original": "height",
+          "normalized": "Höhe",
+          "method": "synonym"
+        },
+        {
+          "original": "width",
+          "normalized": "Breite",
+          "method": "synonym"
+        }
+      ],
+      "result_count": 52,
+      "components": [
+        {
+          "component_id": 527198,
+          "name": "WINDOW  ETL_OG2_Fassade_Süd_Festverglasung_001(49)",
+          "attributes": {
+            "Breite": 1.58,
+            "Höhe": 3.485
+          }
+        },
+        {
+          "component_id": 527800,
+          "name": "DOORWINDOWASSEMBLY  ETL_OG2_Süd_001(10)",
+          "attributes": {
+            "Breite": 3.5,
+            "Höhe": 2.805
+          }
+        },
+        {
+          "component_id": 527762,
+          "name": "WINDOW  ETL_OG2_Fassade_Süd_Festverglasung_001(63)",
+          "attributes": {
+            "Breite": 1.52,
+            "Höhe": 3.485
+          }
+        },
+        {
+          "component_id": 527797,
+          "name": "DOORWINDOWASSEMBLY  ETL_OG2_Süd_001(7)",
+          "attributes": {
+            "Breite": 3.5,
+            "Höhe": 2.805
+          }
+        },
+        {
+          "component_id": 527769,
+          "name": "WINDOW  ETL_OG2_Fassade_Süd_Festverglasung_001(70)",
+          "attributes": {
+            "Breite": 1.82,
+            "Höhe": 3.485
+          }
+        },
+        {
+          "component_id": 527751,
+          "name": "WINDOW  ETL_OG2_Fassade_Süd_Festverglasung_001(52)",
+          "attributes": {
+            "Breite": 1.82,
+            "Höhe": 3.485
+          }
+        },
+        {
+          "component_id": 527768,
+          "name": "WINDOW  ETL_OG2_Fassade_Süd_Festverglasung_001(69)",
+          "attributes": {
+            "Breite": 1.82,
+            "Höhe": 3.485
+          }
+        },
+        {
+          "component_id": 528553,
+          "name": "DOORWINDOWASSEMBLY  ETL_OG2_Süd_002(1)",
+          "attributes": {
+            "Breite": 6.3,
+            "Höhe": 2.805
+          }
+        },
+        {
+          "component_id": 527199,
+          "name": "WINDOW  ETL_OG2_Fassade_Süd_Festverglasung_001(50)",
+          "attributes": {
+            "Breite": 1.815,
+            "Höhe": 3.485
+          }
+        },
+        {
+          "component_id": 527764,
+          "name": "WINDOW  ETL_OG2_Fassade_Süd_Festverglasung_001(65)",
+          "attributes": {
+            "Breite": 1.82,
+            "Höhe": 3.485
+          }
+        },
+        {
+          "component_id": 527782,
+          "name": "DOORWINDOWASSEMBLY  ETL_OG2_Nord_001(1)",
+          "attributes": {
+            "Breite": 3.34,
+            "Höhe": 2.805
+          }
+        },
+        {
+          "component_id": 527784,
+          "name": "DOORWINDOWASSEMBLY  ETL_OG2_Nord_001(3)",
+          "attributes": {
+            "Breite": 3.45,
+            "Höhe": 2.805
+          }
+        },
+        {
+          "component_id": 527755,
+          "name": "WINDOW  ETL_OG2_Fassade_Süd_Festverglasung_001(56)",
+          "attributes": {
+            "Breite": 1.82,
+            "Höhe": 3.485
+          }
+        },
+        {
+          "component_id": 528551,
+          "name": "DOORWINDOWASSEMBLY  ETL_OG2_Süd_001(11)",
+          "attributes": {
+            "Breite": 3.38,
+            "Höhe": 2.805
+          }
+        },
+        {
+          "component_id": 527779,
+          "name": "WINDOW  ETL_OG2_Drehflügel_001(2)",
+          "attributes": {
+            "Breite": 1.165,
+            "Höhe": 2.595
+          }
+        },
+        {
+          "component_id": 527771,
+          "name": "WINDOW  ETL_OG2_Fassade_Süd_Festverglasung_001(72)",
+          "attributes": {
+            "Breite": 1.82,
+            "Höhe": 3.485
+          }
+        },
+        {
+          "component_id": 527759,
+          "name": "WINDOW  ETL_OG2_Fassade_Süd_Festverglasung_001(60)",
+          "attributes": {
+            "Breite": 1.82,
+            "Höhe": 3.485
+          }
+        },
+        {
+          "component_id": 527772,
+          "name": "WINDOW  ETL_OG2_Fassade_Süd_Festverglasung_001(73)",
+          "attributes": {
+            "Breite": 1.82,
+            "Höhe": 3.485
+          }
+        },
+        {
+          "component_id": 527780,
+          "name": "DOORWINDOWASSEMBLY  ETL_OG2_Nord_002(1)",
+          "attributes": {
+            "Breite": 2.28,
+            "Höhe": 2.805
+          }
+        },
+        {
+          "component_id": 527770,
+          "name": "WINDOW  ETL_OG2_Fassade_Süd_Festverglasung_001(71)",
+          "attributes": {
+            "Breite": 1.82,
+            "Höhe": 3.485
+          }
+        },
+        {
+          "component_id": 527752,
+          "name": "WINDOW  ETL_OG2_Fassade_Süd_Festverglasung_001(53)",
+          "attributes": {
+            "Breite": 1.82,
+            "Höhe": 3.485
+          }
+        },
+        {
+          "component_id": 527788,
+          "name": "DOORWINDOWASSEMBLY  ETL_OG2_Nord_001(7)",
+          "attributes": {
+            "Breite": 3.45,
+            "Höhe": 2.805
+          }
+        },
+        {
+          "component_id": 527783,
+          "name": "DOORWINDOWASSEMBLY  ETL_OG2_Nord_001(2)",
+          "attributes": {
+            "Breite": 3.45,
+            "Höhe": 2.805
+          }
+        },
+        {
+          "component_id": 527778,
+          "name": "WINDOW  ETL_OG2_Drehflügel_001(3)",
+          "attributes": {
+            "Breite": 1.165,
+            "Höhe": 2.595
+          }
+        },
+        {
+          "component_id": 527763,
+          "name": "WINDOW  ETL_OG2_Fassade_Süd_Festverglasung_001(64)",
+          "attributes": {
+            "Breite": 1.669920334,
+            "Höhe": 3.485
+          }
+        },
+        {
+          "component_id": 527792,
+          "name": "DOORWINDOWASSEMBLY  ETL_OG2_Süd_001(2)",
+          "attributes": {
+            "Breite": 3.5,
+            "Höhe": 2.805
+          }
+        },
+        {
+          "component_id": 528556,
+          "name": "WINDOW  ETL_OG2_Festverglasung_001(32)",
+          "attributes": {
+            "Breite": 1.085,
+            "Höhe": 1.47
+          }
+        },
+        {
+          "component_id": 527756,
+          "name": "WINDOW  ETL_OG2_Fassade_Süd_Festverglasung_001(57)",
+          "attributes": {
+            "Breite": 1.82,
+            "Höhe": 3.485
+          }
+        },
+        {
+          "component_id": 527786,
+          "name": "DOORWINDOWASSEMBLY  ETL_OG2_Nord_001(5)",
+          "attributes": {
+            "Breite": 3.45,
+            "Höhe": 2.805
+          }
+        },
+        {
+          "component_id": 527798,
+          "name": "DOORWINDOWASSEMBLY  ETL_OG2_Süd_001(8)",
+          "attributes": {
+            "Breite": 3.5,
+            "Höhe": 2.805
+          }
+        },
+        {
+          "component_id": 527753,
+          "name": "WINDOW  ETL_OG2_Fassade_Süd_Festverglasung_001(54)",
+          "attributes": {
+            "Breite": 1.82,
+            "Höhe": 3.485
+          }
+        },
+        {
+          "component_id": 527793,
+          "name": "DOORWINDOWASSEMBLY  ETL_OG2_Süd_001(3)",
+          "attributes": {
+            "Breite": 3.5,
+            "Höhe": 2.805
+          }
+        },
+        {
+          "component_id": 527773,
+          "name": "WINDOW  ETL_OG2_Fassade_Süd_Festverglasung_001(74)",
+          "attributes": {
+            "Breite": 1.567017291,
+            "Höhe": 3.485
+          }
+        },
+        {
+          "component_id": 527794,
+          "name": "DOORWINDOWASSEMBLY  ETL_OG2_Süd_001(4)",
+          "attributes": {
+            "Breite": 3.5,
+            "Höhe": 2.805
+          }
+        },
+        {
+          "component_id": 527791,
+          "name": "DOORWINDOWASSEMBLY  ETL_OG2_Süd_001(1)",
+          "attributes": {
+            "Breite": 3.35,
+            "Höhe": 2.805
+          }
+        },
+        {
+          "component_id": 527761,
+          "name": "WINDOW  ETL_OG2_Fassade_Süd_Festverglasung_001(62)",
+          "attributes": {
+            "Breite": 1.52,
+            "Höhe": 3.485
+          }
+        },
+        {
+          "component_id": 527765,
+          "name": "WINDOW  ETL_OG2_Fassade_Süd_Festverglasung_001(66)",
+          "attributes": {
+            "Breite": 1.82,
+            "Höhe": 3.485
+          }
+        },
+        {
+          "component_id": 527796,
+          "name": "DOORWINDOWASSEMBLY  ETL_OG2_Süd_001(6)",
+          "attributes": {
+            "Breite": 3.535,
+            "Höhe": 2.805
+          }
+        },
+        {
+          "component_id": 527758,
+          "name": "WINDOW  ETL_OG2_Fassade_Süd_Festverglasung_001(59)",
+          "attributes": {
+            "Breite": 1.82,
+            "Höhe": 3.485
+          }
+        },
+        {
+          "component_id": 527777,
+          "name": "WINDOW  ETL_OG2_Drehflügel_001(1)",
+          "attributes": {
+            "Breite": 1.09,
+            "Höhe": 1.58
+          }
+        },
+        {
+          "component_id": 527781,
+          "name": "DOORWINDOWASSEMBLY  ETL_OG2_Nord_002(2)",
+          "attributes": {
+            "Breite": 3.34,
+            "Höhe": 2.805
+          }
+        },
+        {
+          "component_id": 527754,
+          "name": "WINDOW  ETL_OG2_Fassade_Süd_Festverglasung_001(55)",
+          "attributes": {
+            "Breite": 1.82,
+            "Höhe": 3.485
+          }
+        },
+        {
+          "component_id": 527785,
+          "name": "DOORWINDOWASSEMBLY  ETL_OG2_Nord_001(4)",
+          "attributes": {
+            "Breite": 3.45,
+            "Höhe": 2.805
+          }
+        },
+        {
+          "component_id": 527795,
+          "name": "DOORWINDOWASSEMBLY  ETL_OG2_Süd_001(5)",
+          "attributes": {
+            "Breite": 3.5,
+            "Höhe": 2.805
+          }
+        },
+        {
+          "component_id": 527789,
+          "name": "DOORWINDOWASSEMBLY  ETL_OG2_Nord_001(8)",
+          "attributes": {
+            "Breite": 3.45,
+            "Höhe": 2.805
+          }
+        },
+        {
+          "component_id": 527787,
+          "name": "DOORWINDOWASSEMBLY  ETL_OG2_Nord_001(6)",
+          "attributes": {
+            "Breite": 2.296168833,
+            "Höhe": 2.805
+          }
+        },
+        {
+          "component_id": 527760,
+          "name": "WINDOW  ETL_OG2_Fassade_Süd_Festverglasung_001(61)",
+          "attributes": {
+            "Breite": 1.679889342,
+            "Höhe": 3.485
+          }
+        },
+        {
+          "component_id": 527799,
+          "name": "DOORWINDOWASSEMBLY  ETL_OG2_Süd_001(9)",
+          "attributes": {
+            "Breite": 3.5,
+            "Höhe": 2.805
+          }
+        },
+        {
+          "component_id": 527757,
+          "name": "WINDOW  ETL_OG2_Fassade_Süd_Festverglasung_001(58)",
+          "attributes": {
+            "Breite": 1.82,
+            "Höhe": 3.485
+          }
+        },
+        {
+          "component_id": 527767,
+          "name": "WINDOW  ETL_OG2_Fassade_Süd_Festverglasung_001(68)",
+          "attributes": {
+            "Breite": 1.82,
+            "Höhe": 3.485
+          }
+        },
+        {
+          "component_id": 527200,
+          "name": "WINDOW  ETL_OG2_Fassade_Süd_Festverglasung_001(51)",
+          "attributes": {
+            "Breite": 1.82,
+            "Höhe": 3.485
+          }
+        },
+        {
+          "component_id": 527766,
+          "name": "WINDOW  ETL_OG2_Fassade_Süd_Festverglasung_001(67)",
+          "attributes": {
+            "Breite": 1.82,
+            "Höhe": 3.485
+          }
+        }
+      ],
+      "facility_id": 124851
+    },
+    "expected_answer_values": [
+      52
+    ],
+    "answer_kind": "number",
+    "answer_tolerance": 0.0,
+    "execution_ok": true,
+    "note": null
+  },
+  {
+    "query_id": "q26",
+    "query_text": "Show me the dimensions of windows on level two.",
+    "category": "attribute",
+    "complexity_level": "L2",
+    "paraphrase_group_id": "g11",
+    "is_standard_wording": false,
+    "expected_function": "get_component_attributes",
+    "expected_arguments": {
+      "component_type": "IfcWindow",
+      "floor": "2. Obergeschoss"
+    },
+    "expected_result": {
+      "component_type": "IfcWindow",
+      "floor": "2. Obergeschoss",
+      "requested_attributes": [
+        "height",
+        "width"
+      ],
+      "resolved_attributes": [
+        {
+          "original": "height",
+          "normalized": "Höhe",
+          "method": "synonym"
+        },
+        {
+          "original": "width",
+          "normalized": "Breite",
+          "method": "synonym"
+        }
+      ],
+      "result_count": 52,
+      "components": [
+        {
+          "component_id": 527198,
+          "name": "WINDOW  ETL_OG2_Fassade_Süd_Festverglasung_001(49)",
+          "attributes": {
+            "Breite": 1.58,
+            "Höhe": 3.485
+          }
+        },
+        {
+          "component_id": 527800,
+          "name": "DOORWINDOWASSEMBLY  ETL_OG2_Süd_001(10)",
+          "attributes": {
+            "Breite": 3.5,
+            "Höhe": 2.805
+          }
+        },
+        {
+          "component_id": 527762,
+          "name": "WINDOW  ETL_OG2_Fassade_Süd_Festverglasung_001(63)",
+          "attributes": {
+            "Breite": 1.52,
+            "Höhe": 3.485
+          }
+        },
+        {
+          "component_id": 527797,
+          "name": "DOORWINDOWASSEMBLY  ETL_OG2_Süd_001(7)",
+          "attributes": {
+            "Breite": 3.5,
+            "Höhe": 2.805
+          }
+        },
+        {
+          "component_id": 527769,
+          "name": "WINDOW  ETL_OG2_Fassade_Süd_Festverglasung_001(70)",
+          "attributes": {
+            "Breite": 1.82,
+            "Höhe": 3.485
+          }
+        },
+        {
+          "component_id": 527751,
+          "name": "WINDOW  ETL_OG2_Fassade_Süd_Festverglasung_001(52)",
+          "attributes": {
+            "Breite": 1.82,
+            "Höhe": 3.485
+          }
+        },
+        {
+          "component_id": 527768,
+          "name": "WINDOW  ETL_OG2_Fassade_Süd_Festverglasung_001(69)",
+          "attributes": {
+            "Breite": 1.82,
+            "Höhe": 3.485
+          }
+        },
+        {
+          "component_id": 528553,
+          "name": "DOORWINDOWASSEMBLY  ETL_OG2_Süd_002(1)",
+          "attributes": {
+            "Breite": 6.3,
+            "Höhe": 2.805
+          }
+        },
+        {
+          "component_id": 527199,
+          "name": "WINDOW  ETL_OG2_Fassade_Süd_Festverglasung_001(50)",
+          "attributes": {
+            "Breite": 1.815,
+            "Höhe": 3.485
+          }
+        },
+        {
+          "component_id": 527764,
+          "name": "WINDOW  ETL_OG2_Fassade_Süd_Festverglasung_001(65)",
+          "attributes": {
+            "Breite": 1.82,
+            "Höhe": 3.485
+          }
+        },
+        {
+          "component_id": 527782,
+          "name": "DOORWINDOWASSEMBLY  ETL_OG2_Nord_001(1)",
+          "attributes": {
+            "Breite": 3.34,
+            "Höhe": 2.805
+          }
+        },
+        {
+          "component_id": 527784,
+          "name": "DOORWINDOWASSEMBLY  ETL_OG2_Nord_001(3)",
+          "attributes": {
+            "Breite": 3.45,
+            "Höhe": 2.805
+          }
+        },
+        {
+          "component_id": 527755,
+          "name": "WINDOW  ETL_OG2_Fassade_Süd_Festverglasung_001(56)",
+          "attributes": {
+            "Breite": 1.82,
+            "Höhe": 3.485
+          }
+        },
+        {
+          "component_id": 528551,
+          "name": "DOORWINDOWASSEMBLY  ETL_OG2_Süd_001(11)",
+          "attributes": {
+            "Breite": 3.38,
+            "Höhe": 2.805
+          }
+        },
+        {
+          "component_id": 527779,
+          "name": "WINDOW  ETL_OG2_Drehflügel_001(2)",
+          "attributes": {
+            "Breite": 1.165,
+            "Höhe": 2.595
+          }
+        },
+        {
+          "component_id": 527771,
+          "name": "WINDOW  ETL_OG2_Fassade_Süd_Festverglasung_001(72)",
+          "attributes": {
+            "Breite": 1.82,
+            "Höhe": 3.485
+          }
+        },
+        {
+          "component_id": 527759,
+          "name": "WINDOW  ETL_OG2_Fassade_Süd_Festverglasung_001(60)",
+          "attributes": {
+            "Breite": 1.82,
+            "Höhe": 3.485
+          }
+        },
+        {
+          "component_id": 527772,
+          "name": "WINDOW  ETL_OG2_Fassade_Süd_Festverglasung_001(73)",
+          "attributes": {
+            "Breite": 1.82,
+            "Höhe": 3.485
+          }
+        },
+        {
+          "component_id": 527780,
+          "name": "DOORWINDOWASSEMBLY  ETL_OG2_Nord_002(1)",
+          "attributes": {
+            "Breite": 2.28,
+            "Höhe": 2.805
+          }
+        },
+        {
+          "component_id": 527770,
+          "name": "WINDOW  ETL_OG2_Fassade_Süd_Festverglasung_001(71)",
+          "attributes": {
+            "Breite": 1.82,
+            "Höhe": 3.485
+          }
+        },
+        {
+          "component_id": 527752,
+          "name": "WINDOW  ETL_OG2_Fassade_Süd_Festverglasung_001(53)",
+          "attributes": {
+            "Breite": 1.82,
+            "Höhe": 3.485
+          }
+        },
+        {
+          "component_id": 527788,
+          "name": "DOORWINDOWASSEMBLY  ETL_OG2_Nord_001(7)",
+          "attributes": {
+            "Breite": 3.45,
+            "Höhe": 2.805
+          }
+        },
+        {
+          "component_id": 527783,
+          "name": "DOORWINDOWASSEMBLY  ETL_OG2_Nord_001(2)",
+          "attributes": {
+            "Breite": 3.45,
+            "Höhe": 2.805
+          }
+        },
+        {
+          "component_id": 527778,
+          "name": "WINDOW  ETL_OG2_Drehflügel_001(3)",
+          "attributes": {
+            "Breite": 1.165,
+            "Höhe": 2.595
+          }
+        },
+        {
+          "component_id": 527763,
+          "name": "WINDOW  ETL_OG2_Fassade_Süd_Festverglasung_001(64)",
+          "attributes": {
+            "Breite": 1.669920334,
+            "Höhe": 3.485
+          }
+        },
+        {
+          "component_id": 527792,
+          "name": "DOORWINDOWASSEMBLY  ETL_OG2_Süd_001(2)",
+          "attributes": {
+            "Breite": 3.5,
+            "Höhe": 2.805
+          }
+        },
+        {
+          "component_id": 528556,
+          "name": "WINDOW  ETL_OG2_Festverglasung_001(32)",
+          "attributes": {
+            "Breite": 1.085,
+            "Höhe": 1.47
+          }
+        },
+        {
+          "component_id": 527756,
+          "name": "WINDOW  ETL_OG2_Fassade_Süd_Festverglasung_001(57)",
+          "attributes": {
+            "Breite": 1.82,
+            "Höhe": 3.485
+          }
+        },
+        {
+          "component_id": 527786,
+          "name": "DOORWINDOWASSEMBLY  ETL_OG2_Nord_001(5)",
+          "attributes": {
+            "Breite": 3.45,
+            "Höhe": 2.805
+          }
+        },
+        {
+          "component_id": 527798,
+          "name": "DOORWINDOWASSEMBLY  ETL_OG2_Süd_001(8)",
+          "attributes": {
+            "Breite": 3.5,
+            "Höhe": 2.805
+          }
+        },
+        {
+          "component_id": 527753,
+          "name": "WINDOW  ETL_OG2_Fassade_Süd_Festverglasung_001(54)",
+          "attributes": {
+            "Breite": 1.82,
+            "Höhe": 3.485
+          }
+        },
+        {
+          "component_id": 527793,
+          "name": "DOORWINDOWASSEMBLY  ETL_OG2_Süd_001(3)",
+          "attributes": {
+            "Breite": 3.5,
+            "Höhe": 2.805
+          }
+        },
+        {
+          "component_id": 527773,
+          "name": "WINDOW  ETL_OG2_Fassade_Süd_Festverglasung_001(74)",
+          "attributes": {
+            "Breite": 1.567017291,
+            "Höhe": 3.485
+          }
+        },
+        {
+          "component_id": 527794,
+          "name": "DOORWINDOWASSEMBLY  ETL_OG2_Süd_001(4)",
+          "attributes": {
+            "Breite": 3.5,
+            "Höhe": 2.805
+          }
+        },
+        {
+          "component_id": 527791,
+          "name": "DOORWINDOWASSEMBLY  ETL_OG2_Süd_001(1)",
+          "attributes": {
+            "Breite": 3.35,
+            "Höhe": 2.805
+          }
+        },
+        {
+          "component_id": 527761,
+          "name": "WINDOW  ETL_OG2_Fassade_Süd_Festverglasung_001(62)",
+          "attributes": {
+            "Breite": 1.52,
+            "Höhe": 3.485
+          }
+        },
+        {
+          "component_id": 527765,
+          "name": "WINDOW  ETL_OG2_Fassade_Süd_Festverglasung_001(66)",
+          "attributes": {
+            "Breite": 1.82,
+            "Höhe": 3.485
+          }
+        },
+        {
+          "component_id": 527796,
+          "name": "DOORWINDOWASSEMBLY  ETL_OG2_Süd_001(6)",
+          "attributes": {
+            "Breite": 3.535,
+            "Höhe": 2.805
+          }
+        },
+        {
+          "component_id": 527758,
+          "name": "WINDOW  ETL_OG2_Fassade_Süd_Festverglasung_001(59)",
+          "attributes": {
+            "Breite": 1.82,
+            "Höhe": 3.485
+          }
+        },
+        {
+          "component_id": 527777,
+          "name": "WINDOW  ETL_OG2_Drehflügel_001(1)",
+          "attributes": {
+            "Breite": 1.09,
+            "Höhe": 1.58
+          }
+        },
+        {
+          "component_id": 527781,
+          "name": "DOORWINDOWASSEMBLY  ETL_OG2_Nord_002(2)",
+          "attributes": {
+            "Breite": 3.34,
+            "Höhe": 2.805
+          }
+        },
+        {
+          "component_id": 527754,
+          "name": "WINDOW  ETL_OG2_Fassade_Süd_Festverglasung_001(55)",
+          "attributes": {
+            "Breite": 1.82,
+            "Höhe": 3.485
+          }
+        },
+        {
+          "component_id": 527785,
+          "name": "DOORWINDOWASSEMBLY  ETL_OG2_Nord_001(4)",
+          "attributes": {
+            "Breite": 3.45,
+            "Höhe": 2.805
+          }
+        },
+        {
+          "component_id": 527795,
+          "name": "DOORWINDOWASSEMBLY  ETL_OG2_Süd_001(5)",
+          "attributes": {
+            "Breite": 3.5,
+            "Höhe": 2.805
+          }
+        },
+        {
+          "component_id": 527789,
+          "name": "DOORWINDOWASSEMBLY  ETL_OG2_Nord_001(8)",
+          "attributes": {
+            "Breite": 3.45,
+            "Höhe": 2.805
+          }
+        },
+        {
+          "component_id": 527787,
+          "name": "DOORWINDOWASSEMBLY  ETL_OG2_Nord_001(6)",
+          "attributes": {
+            "Breite": 2.296168833,
+            "Höhe": 2.805
+          }
+        },
+        {
+          "component_id": 527760,
+          "name": "WINDOW  ETL_OG2_Fassade_Süd_Festverglasung_001(61)",
+          "attributes": {
+            "Breite": 1.679889342,
+            "Höhe": 3.485
+          }
+        },
+        {
+          "component_id": 527799,
+          "name": "DOORWINDOWASSEMBLY  ETL_OG2_Süd_001(9)",
+          "attributes": {
+            "Breite": 3.5,
+            "Höhe": 2.805
+          }
+        },
+        {
+          "component_id": 527757,
+          "name": "WINDOW  ETL_OG2_Fassade_Süd_Festverglasung_001(58)",
+          "attributes": {
+            "Breite": 1.82,
+            "Höhe": 3.485
+          }
+        },
+        {
+          "component_id": 527767,
+          "name": "WINDOW  ETL_OG2_Fassade_Süd_Festverglasung_001(68)",
+          "attributes": {
+            "Breite": 1.82,
+            "Höhe": 3.485
+          }
+        },
+        {
+          "component_id": 527200,
+          "name": "WINDOW  ETL_OG2_Fassade_Süd_Festverglasung_001(51)",
+          "attributes": {
+            "Breite": 1.82,
+            "Höhe": 3.485
+          }
+        },
+        {
+          "component_id": 527766,
+          "name": "WINDOW  ETL_OG2_Fassade_Süd_Festverglasung_001(67)",
+          "attributes": {
+            "Breite": 1.82,
+            "Höhe": 3.485
+          }
+        }
+      ],
+      "facility_id": 124851
+    },
+    "expected_answer_values": [
+      52
+    ],
+    "answer_kind": "number",
+    "answer_tolerance": 0.0,
+    "execution_ok": true,
+    "note": null
+  },
+  {
+    "query_id": "q27",
+    "query_text": "List the window heights on the 2. Obergeschoss.",
+    "category": "attribute",
+    "complexity_level": "L2",
+    "paraphrase_group_id": "g11",
+    "is_standard_wording": false,
+    "expected_function": "get_component_attributes",
+    "expected_arguments": {
+      "component_type": "IfcWindow",
+      "floor": "2. Obergeschoss"
+    },
+    "expected_result": {
+      "component_type": "IfcWindow",
+      "floor": "2. Obergeschoss",
+      "requested_attributes": [
+        "height",
+        "width"
+      ],
+      "resolved_attributes": [
+        {
+          "original": "height",
+          "normalized": "Höhe",
+          "method": "synonym"
+        },
+        {
+          "original": "width",
+          "normalized": "Breite",
+          "method": "synonym"
+        }
+      ],
+      "result_count": 52,
+      "components": [
+        {
+          "component_id": 527198,
+          "name": "WINDOW  ETL_OG2_Fassade_Süd_Festverglasung_001(49)",
+          "attributes": {
+            "Breite": 1.58,
+            "Höhe": 3.485
+          }
+        },
+        {
+          "component_id": 527800,
+          "name": "DOORWINDOWASSEMBLY  ETL_OG2_Süd_001(10)",
+          "attributes": {
+            "Breite": 3.5,
+            "Höhe": 2.805
+          }
+        },
+        {
+          "component_id": 527762,
+          "name": "WINDOW  ETL_OG2_Fassade_Süd_Festverglasung_001(63)",
+          "attributes": {
+            "Breite": 1.52,
+            "Höhe": 3.485
+          }
+        },
+        {
+          "component_id": 527797,
+          "name": "DOORWINDOWASSEMBLY  ETL_OG2_Süd_001(7)",
+          "attributes": {
+            "Breite": 3.5,
+            "Höhe": 2.805
+          }
+        },
+        {
+          "component_id": 527769,
+          "name": "WINDOW  ETL_OG2_Fassade_Süd_Festverglasung_001(70)",
+          "attributes": {
+            "Breite": 1.82,
+            "Höhe": 3.485
+          }
+        },
+        {
+          "component_id": 527751,
+          "name": "WINDOW  ETL_OG2_Fassade_Süd_Festverglasung_001(52)",
+          "attributes": {
+            "Breite": 1.82,
+            "Höhe": 3.485
+          }
+        },
+        {
+          "component_id": 527768,
+          "name": "WINDOW  ETL_OG2_Fassade_Süd_Festverglasung_001(69)",
+          "attributes": {
+            "Breite": 1.82,
+            "Höhe": 3.485
+          }
+        },
+        {
+          "component_id": 528553,
+          "name": "DOORWINDOWASSEMBLY  ETL_OG2_Süd_002(1)",
+          "attributes": {
+            "Breite": 6.3,
+            "Höhe": 2.805
+          }
+        },
+        {
+          "component_id": 527199,
+          "name": "WINDOW  ETL_OG2_Fassade_Süd_Festverglasung_001(50)",
+          "attributes": {
+            "Breite": 1.815,
+            "Höhe": 3.485
+          }
+        },
+        {
+          "component_id": 527764,
+          "name": "WINDOW  ETL_OG2_Fassade_Süd_Festverglasung_001(65)",
+          "attributes": {
+            "Breite": 1.82,
+            "Höhe": 3.485
+          }
+        },
+        {
+          "component_id": 527782,
+          "name": "DOORWINDOWASSEMBLY  ETL_OG2_Nord_001(1)",
+          "attributes": {
+            "Breite": 3.34,
+            "Höhe": 2.805
+          }
+        },
+        {
+          "component_id": 527784,
+          "name": "DOORWINDOWASSEMBLY  ETL_OG2_Nord_001(3)",
+          "attributes": {
+            "Breite": 3.45,
+            "Höhe": 2.805
+          }
+        },
+        {
+          "component_id": 527755,
+          "name": "WINDOW  ETL_OG2_Fassade_Süd_Festverglasung_001(56)",
+          "attributes": {
+            "Breite": 1.82,
+            "Höhe": 3.485
+          }
+        },
+        {
+          "component_id": 528551,
+          "name": "DOORWINDOWASSEMBLY  ETL_OG2_Süd_001(11)",
+          "attributes": {
+            "Breite": 3.38,
+            "Höhe": 2.805
+          }
+        },
+        {
+          "component_id": 527779,
+          "name": "WINDOW  ETL_OG2_Drehflügel_001(2)",
+          "attributes": {
+            "Breite": 1.165,
+            "Höhe": 2.595
+          }
+        },
+        {
+          "component_id": 527771,
+          "name": "WINDOW  ETL_OG2_Fassade_Süd_Festverglasung_001(72)",
+          "attributes": {
+            "Breite": 1.82,
+            "Höhe": 3.485
+          }
+        },
+        {
+          "component_id": 527759,
+          "name": "WINDOW  ETL_OG2_Fassade_Süd_Festverglasung_001(60)",
+          "attributes": {
+            "Breite": 1.82,
+            "Höhe": 3.485
+          }
+        },
+        {
+          "component_id": 527772,
+          "name": "WINDOW  ETL_OG2_Fassade_Süd_Festverglasung_001(73)",
+          "attributes": {
+            "Breite": 1.82,
+            "Höhe": 3.485
+          }
+        },
+        {
+          "component_id": 527780,
+          "name": "DOORWINDOWASSEMBLY  ETL_OG2_Nord_002(1)",
+          "attributes": {
+            "Breite": 2.28,
+            "Höhe": 2.805
+          }
+        },
+        {
+          "component_id": 527770,
+          "name": "WINDOW  ETL_OG2_Fassade_Süd_Festverglasung_001(71)",
+          "attributes": {
+            "Breite": 1.82,
+            "Höhe": 3.485
+          }
+        },
+        {
+          "component_id": 527752,
+          "name": "WINDOW  ETL_OG2_Fassade_Süd_Festverglasung_001(53)",
+          "attributes": {
+            "Breite": 1.82,
+            "Höhe": 3.485
+          }
+        },
+        {
+          "component_id": 527788,
+          "name": "DOORWINDOWASSEMBLY  ETL_OG2_Nord_001(7)",
+          "attributes": {
+            "Breite": 3.45,
+            "Höhe": 2.805
+          }
+        },
+        {
+          "component_id": 527783,
+          "name": "DOORWINDOWASSEMBLY  ETL_OG2_Nord_001(2)",
+          "attributes": {
+            "Breite": 3.45,
+            "Höhe": 2.805
+          }
+        },
+        {
+          "component_id": 527778,
+          "name": "WINDOW  ETL_OG2_Drehflügel_001(3)",
+          "attributes": {
+            "Breite": 1.165,
+            "Höhe": 2.595
+          }
+        },
+        {
+          "component_id": 527763,
+          "name": "WINDOW  ETL_OG2_Fassade_Süd_Festverglasung_001(64)",
+          "attributes": {
+            "Breite": 1.669920334,
+            "Höhe": 3.485
+          }
+        },
+        {
+          "component_id": 527792,
+          "name": "DOORWINDOWASSEMBLY  ETL_OG2_Süd_001(2)",
+          "attributes": {
+            "Breite": 3.5,
+            "Höhe": 2.805
+          }
+        },
+        {
+          "component_id": 528556,
+          "name": "WINDOW  ETL_OG2_Festverglasung_001(32)",
+          "attributes": {
+            "Breite": 1.085,
+            "Höhe": 1.47
+          }
+        },
+        {
+          "component_id": 527756,
+          "name": "WINDOW  ETL_OG2_Fassade_Süd_Festverglasung_001(57)",
+          "attributes": {
+            "Breite": 1.82,
+            "Höhe": 3.485
+          }
+        },
+        {
+          "component_id": 527786,
+          "name": "DOORWINDOWASSEMBLY  ETL_OG2_Nord_001(5)",
+          "attributes": {
+            "Breite": 3.45,
+            "Höhe": 2.805
+          }
+        },
+        {
+          "component_id": 527798,
+          "name": "DOORWINDOWASSEMBLY  ETL_OG2_Süd_001(8)",
+          "attributes": {
+            "Breite": 3.5,
+            "Höhe": 2.805
+          }
+        },
+        {
+          "component_id": 527753,
+          "name": "WINDOW  ETL_OG2_Fassade_Süd_Festverglasung_001(54)",
+          "attributes": {
+            "Breite": 1.82,
+            "Höhe": 3.485
+          }
+        },
+        {
+          "component_id": 527793,
+          "name": "DOORWINDOWASSEMBLY  ETL_OG2_Süd_001(3)",
+          "attributes": {
+            "Breite": 3.5,
+            "Höhe": 2.805
+          }
+        },
+        {
+          "component_id": 527773,
+          "name": "WINDOW  ETL_OG2_Fassade_Süd_Festverglasung_001(74)",
+          "attributes": {
+            "Breite": 1.567017291,
+            "Höhe": 3.485
+          }
+        },
+        {
+          "component_id": 527794,
+          "name": "DOORWINDOWASSEMBLY  ETL_OG2_Süd_001(4)",
+          "attributes": {
+            "Breite": 3.5,
+            "Höhe": 2.805
+          }
+        },
+        {
+          "component_id": 527791,
+          "name": "DOORWINDOWASSEMBLY  ETL_OG2_Süd_001(1)",
+          "attributes": {
+            "Breite": 3.35,
+            "Höhe": 2.805
+          }
+        },
+        {
+          "component_id": 527761,
+          "name": "WINDOW  ETL_OG2_Fassade_Süd_Festverglasung_001(62)",
+          "attributes": {
+            "Breite": 1.52,
+            "Höhe": 3.485
+          }
+        },
+        {
+          "component_id": 527765,
+          "name": "WINDOW  ETL_OG2_Fassade_Süd_Festverglasung_001(66)",
+          "attributes": {
+            "Breite": 1.82,
+            "Höhe": 3.485
+          }
+        },
+        {
+          "component_id": 527796,
+          "name": "DOORWINDOWASSEMBLY  ETL_OG2_Süd_001(6)",
+          "attributes": {
+            "Breite": 3.535,
+            "Höhe": 2.805
+          }
+        },
+        {
+          "component_id": 527758,
+          "name": "WINDOW  ETL_OG2_Fassade_Süd_Festverglasung_001(59)",
+          "attributes": {
+            "Breite": 1.82,
+            "Höhe": 3.485
+          }
+        },
+        {
+          "component_id": 527777,
+          "name": "WINDOW  ETL_OG2_Drehflügel_001(1)",
+          "attributes": {
+            "Breite": 1.09,
+            "Höhe": 1.58
+          }
+        },
+        {
+          "component_id": 527781,
+          "name": "DOORWINDOWASSEMBLY  ETL_OG2_Nord_002(2)",
+          "attributes": {
+            "Breite": 3.34,
+            "Höhe": 2.805
+          }
+        },
+        {
+          "component_id": 527754,
+          "name": "WINDOW  ETL_OG2_Fassade_Süd_Festverglasung_001(55)",
+          "attributes": {
+            "Breite": 1.82,
+            "Höhe": 3.485
+          }
+        },
+        {
+          "component_id": 527785,
+          "name": "DOORWINDOWASSEMBLY  ETL_OG2_Nord_001(4)",
+          "attributes": {
+            "Breite": 3.45,
+            "Höhe": 2.805
+          }
+        },
+        {
+          "component_id": 527795,
+          "name": "DOORWINDOWASSEMBLY  ETL_OG2_Süd_001(5)",
+          "attributes": {
+            "Breite": 3.5,
+            "Höhe": 2.805
+          }
+        },
+        {
+          "component_id": 527789,
+          "name": "DOORWINDOWASSEMBLY  ETL_OG2_Nord_001(8)",
+          "attributes": {
+            "Breite": 3.45,
+            "Höhe": 2.805
+          }
+        },
+        {
+          "component_id": 527787,
+          "name": "DOORWINDOWASSEMBLY  ETL_OG2_Nord_001(6)",
+          "attributes": {
+            "Breite": 2.296168833,
+            "Höhe": 2.805
+          }
+        },
+        {
+          "component_id": 527760,
+          "name": "WINDOW  ETL_OG2_Fassade_Süd_Festverglasung_001(61)",
+          "attributes": {
+            "Breite": 1.679889342,
+            "Höhe": 3.485
+          }
+        },
+        {
+          "component_id": 527799,
+          "name": "DOORWINDOWASSEMBLY  ETL_OG2_Süd_001(9)",
+          "attributes": {
+            "Breite": 3.5,
+            "Höhe": 2.805
+          }
+        },
+        {
+          "component_id": 527757,
+          "name": "WINDOW  ETL_OG2_Fassade_Süd_Festverglasung_001(58)",
+          "attributes": {
+            "Breite": 1.82,
+            "Höhe": 3.485
+          }
+        },
+        {
+          "component_id": 527767,
+          "name": "WINDOW  ETL_OG2_Fassade_Süd_Festverglasung_001(68)",
+          "attributes": {
+            "Breite": 1.82,
+            "Höhe": 3.485
+          }
+        },
+        {
+          "component_id": 527200,
+          "name": "WINDOW  ETL_OG2_Fassade_Süd_Festverglasung_001(51)",
+          "attributes": {
+            "Breite": 1.82,
+            "Höhe": 3.485
+          }
+        },
+        {
+          "component_id": 527766,
+          "name": "WINDOW  ETL_OG2_Fassade_Süd_Festverglasung_001(67)",
+          "attributes": {
+            "Breite": 1.82,
+            "Höhe": 3.485
+          }
+        }
+      ],
+      "facility_id": 124851
+    },
+    "expected_answer_values": [
+      52
+    ],
+    "answer_kind": "number",
+    "answer_tolerance": 0.0,
+    "execution_ok": true,
+    "note": null
+  },
+  {
+    "query_id": "q28",
+    "query_text": "What are the dimensions of the doors on the ground floor?",
+    "category": "attribute",
+    "complexity_level": "L2",
+    "paraphrase_group_id": "g12",
+    "is_standard_wording": true,
+    "expected_function": "get_component_attributes",
+    "expected_arguments": {
+      "component_type": "IfcDoor",
+      "floor": "Erdgeschoss"
+    },
+    "expected_result": {
+      "component_type": "IfcDoor",
+      "floor": "Erdgeschoss",
+      "requested_attributes": [
+        "height",
+        "width"
+      ],
+      "resolved_attributes": [
+        {
+          "original": "height",
+          "normalized": "Höhe",
+          "method": "synonym"
+        },
+        {
+          "original": "width",
+          "normalized": "Breite",
+          "method": "synonym"
+        }
+      ],
+      "result_count": 5,
+      "components": [
+        {
+          "component_id": 521726,
+          "name": "DOOR WINDOW ASSEMBLY  ETL_EG_Nord_001(4)",
+          "attributes": {
+            "Breite": 3.45,
+            "Höhe": 2.805
+          }
+        },
+        {
+          "component_id": 521723,
+          "name": "DOORWINDOWASSEMBLY  ETL_EG_Nord_001(1)",
+          "attributes": {
+            "Breite": 3.34,
+            "Höhe": 2.805
+          }
+        },
+        {
+          "component_id": 521725,
+          "name": "DOORWINDOWASSEMBLY  ETL_EG_Nord_001(3)",
+          "attributes": {
+            "Breite": 3.45,
+            "Höhe": 2.805
+          }
+        },
+        {
+          "component_id": 521724,
+          "name": "DOORWINDOWASSEMBLY  ETL_EG_Nord_001(2)",
+          "attributes": {
+            "Breite": 3.45,
+            "Höhe": 2.805
+          }
+        },
+        {
+          "component_id": 522344,
+          "name": "DOORWINDOWASSEMBLY  ETL_EG_TFK-TH_001(1)",
+          "attributes": {
+            "Breite": 5.222203364,
+            "Höhe": 2.9
+          }
+        }
+      ],
+      "facility_id": 124851
+    },
+    "expected_answer_values": [
+      5
+    ],
+    "answer_kind": "number",
+    "answer_tolerance": 0.0,
+    "execution_ok": true,
+    "note": null
+  },
+  {
+    "query_id": "q29",
+    "query_text": "Show me the height and width of doors in the Erdgeschoss.",
+    "category": "attribute",
+    "complexity_level": "L2",
+    "paraphrase_group_id": "g12",
+    "is_standard_wording": false,
+    "expected_function": "get_component_attributes",
+    "expected_arguments": {
+      "component_type": "IfcDoor",
+      "floor": "Erdgeschoss"
+    },
+    "expected_result": {
+      "component_type": "IfcDoor",
+      "floor": "Erdgeschoss",
+      "requested_attributes": [
+        "height",
+        "width"
+      ],
+      "resolved_attributes": [
+        {
+          "original": "height",
+          "normalized": "Höhe",
+          "method": "synonym"
+        },
+        {
+          "original": "width",
+          "normalized": "Breite",
+          "method": "synonym"
+        }
+      ],
+      "result_count": 5,
+      "components": [
+        {
+          "component_id": 521726,
+          "name": "DOOR WINDOW ASSEMBLY  ETL_EG_Nord_001(4)",
+          "attributes": {
+            "Breite": 3.45,
+            "Höhe": 2.805
+          }
+        },
+        {
+          "component_id": 521723,
+          "name": "DOORWINDOWASSEMBLY  ETL_EG_Nord_001(1)",
+          "attributes": {
+            "Breite": 3.34,
+            "Höhe": 2.805
+          }
+        },
+        {
+          "component_id": 521725,
+          "name": "DOORWINDOWASSEMBLY  ETL_EG_Nord_001(3)",
+          "attributes": {
+            "Breite": 3.45,
+            "Höhe": 2.805
+          }
+        },
+        {
+          "component_id": 521724,
+          "name": "DOORWINDOWASSEMBLY  ETL_EG_Nord_001(2)",
+          "attributes": {
+            "Breite": 3.45,
+            "Höhe": 2.805
+          }
+        },
+        {
+          "component_id": 522344,
+          "name": "DOORWINDOWASSEMBLY  ETL_EG_TFK-TH_001(1)",
+          "attributes": {
+            "Breite": 5.222203364,
+            "Höhe": 2.9
+          }
+        }
+      ],
+      "facility_id": 124851
+    },
+    "expected_answer_values": [
+      5
+    ],
+    "answer_kind": "number",
+    "answer_tolerance": 0.0,
+    "execution_ok": true,
+    "note": null
+  },
+  {
+    "query_id": "q30",
+    "query_text": "What is the total window area in the building?",
+    "category": "aggregation",
+    "complexity_level": "L3",
+    "paraphrase_group_id": "g13",
+    "is_standard_wording": true,
+    "expected_function": "calculate_total_component_area",
+    "expected_arguments": {
+      "component_type": "IfcWindow"
+    },
+    "expected_result": {
+      "total_area": 1787.953,
+      "unit": "m²",
+      "method": "width_x_height",
+      "method_breakdown": {
+        "stored_area": 0,
+        "width_x_height": 272,
+        "no_area_data": 0
+      },
+      "components_with_area": 272,
+      "source_component_ids": [
+        528584,
+        525978,
+        528569,
+        525997,
+        527772,
+        526569,
+        484455,
+        526585,
+        526571,
+        528587,
+        527780,
+        525988,
+        525982,
+        484467,
+        484483,
+        527151,
+        525987,
+        527156,
+        484454,
+        484451,
+        526588,
+        525959,
+        528591,
+        526591,
+        484456,
+        528560,
+        527770,
+        527167,
+        528561,
+        528586,
+        527781,
+        525961,
+        527197,
+        527198,
+        527754,
+        526579,
+        526554,
+        484489,
+        484476,
+        484453,
+        525995,
+        485067,
+        527785,
+        525971,
+        527175,
+        526597,
+        527795,
+        527189,
+        526561,
+        525986,
+        525985,
+        483798,
+        527170,
+        526593,
+        525993,
+        528572,
+        527753,
+        527752,
+        526573,
+        484471,
+        526562,
+        527800,
+        527776,
+        527762,
+        525957,
+        525999,
+        527793,
+        527788,
+        526596,
+        527177,
+        527797,
+        525965,
+        525975,
+        527166,
+        484482,
+        527773,
+        527153,
+        528565,
+        527192,
+        527157,
+        484484,
+        526565,
+        526564,
+        528574,
+        525977,
+        484487,
+        527783,
+        528567,
+        526595,
+        483799,
+        527152,
+        525973,
+        525970,
+        525994,
+        485066,
+        484452,
+        526570,
+        483780,
+        527769,
+        527789,
+        527787,
+        525958,
+        527751,
+        526578,
+        526563,
+        528573,
+        528570,
+        528582,
+        525962,
+        526581,
+        525996,
+        527794,
+        525967,
+        527778,
+        527768,
+        528559,
+        527760,
+        525968,
+        527173,
+        526572,
+        528588,
+        527178,
+        526557,
+        484458,
+        525966,
+        527181,
+        526584,
+        527160,
+        527790,
+        526582,
+        525960,
+        525972,
+        526568,
+        484488,
+        528571,
+        526587,
+        527763,
+        526555,
+        527791,
+        527172,
+        527180,
+        525956,
+        528553,
+        527199,
+        484490,
+        527761,
+        527162,
+        484491,
+        527155,
+        527764,
+        525955,
+        527154,
+        528580,
+        527191,
+        525984,
+        528564,
+        526589,
+        527190,
+        525989,
+        527195,
+        526558,
+        527186,
+        525954,
+        525990,
+        527782,
+        526583,
+        526000,
+        527158,
+        527184,
+        526600,
+        527784,
+        527179,
+        527799,
+        483788,
+        525964,
+        528577,
+        527165,
+        525963,
+        527755,
+        528551,
+        527765,
+        528585,
+        526577,
+        526575,
+        484462,
+        528592,
+        527774,
+        526594,
+        527792,
+        525981,
+        525991,
+        485064,
+        528558,
+        527757,
+        527188,
+        528576,
+        484485,
+        527779,
+        528575,
+        527168,
+        527176,
+        528556,
+        528562,
+        527183,
+        527171,
+        526599,
+        528589,
+        527187,
+        527767,
+        527174,
+        527169,
+        526580,
+        527185,
+        525979,
+        528554,
+        525976,
+        527159,
+        526551,
+        527194,
+        527200,
+        525992,
+        484486,
+        526574,
+        526586,
+        526598,
+        526567,
+        525974,
+        526566,
+        527766,
+        528590,
+        526590,
+        525998,
+        527771,
+        484481,
+        527756,
+        526553,
+        526552,
+        528583,
+        527796,
+        527786,
+        527193,
+        528552,
+        528557,
+        528578,
+        525983,
+        484459,
+        527163,
+        526556,
+        527759,
+        526559,
+        525980,
+        527758,
+        528568,
+        527196,
+        528563,
+        528581,
+        526592,
+        484475,
+        528555,
+        526576,
+        527164,
+        527798,
+        527182,
+        528566,
+        527161,
+        526560,
+        528579,
+        483800,
+        525969,
+        484468,
+        527777,
+        527775
+      ],
+      "component_type": "IfcWindow",
+      "floor": null,
+      "facility_id": 124851
+    },
+    "expected_answer_values": [
+      1787.953
+    ],
+    "answer_kind": "number",
+    "answer_tolerance": 1.0,
+    "execution_ok": true,
+    "note": null
+  },
+  {
+    "query_id": "q31",
+    "query_text": "Calculate the overall area of all windows.",
+    "category": "aggregation",
+    "complexity_level": "L3",
+    "paraphrase_group_id": "g13",
+    "is_standard_wording": false,
+    "expected_function": "calculate_total_component_area",
+    "expected_arguments": {
+      "component_type": "IfcWindow"
+    },
+    "expected_result": {
+      "total_area": 1787.953,
+      "unit": "m²",
+      "method": "width_x_height",
+      "method_breakdown": {
+        "stored_area": 0,
+        "width_x_height": 272,
+        "no_area_data": 0
+      },
+      "components_with_area": 272,
+      "source_component_ids": [
+        528584,
+        525978,
+        528569,
+        525997,
+        527772,
+        526569,
+        484455,
+        526585,
+        526571,
+        528587,
+        527780,
+        525988,
+        525982,
+        484467,
+        484483,
+        527151,
+        525987,
+        527156,
+        484454,
+        484451,
+        526588,
+        525959,
+        528591,
+        526591,
+        484456,
+        528560,
+        527770,
+        527167,
+        528561,
+        528586,
+        527781,
+        525961,
+        527197,
+        527198,
+        527754,
+        526579,
+        526554,
+        484489,
+        484476,
+        484453,
+        525995,
+        485067,
+        527785,
+        525971,
+        527175,
+        526597,
+        527795,
+        527189,
+        526561,
+        525986,
+        525985,
+        483798,
+        527170,
+        526593,
+        525993,
+        528572,
+        527753,
+        527752,
+        526573,
+        484471,
+        526562,
+        527800,
+        527776,
+        527762,
+        525957,
+        525999,
+        527793,
+        527788,
+        526596,
+        527177,
+        527797,
+        525965,
+        525975,
+        527166,
+        484482,
+        527773,
+        527153,
+        528565,
+        527192,
+        527157,
+        484484,
+        526565,
+        526564,
+        528574,
+        525977,
+        484487,
+        527783,
+        528567,
+        526595,
+        483799,
+        527152,
+        525973,
+        525970,
+        525994,
+        485066,
+        484452,
+        526570,
+        483780,
+        527769,
+        527789,
+        527787,
+        525958,
+        527751,
+        526578,
+        526563,
+        528573,
+        528570,
+        528582,
+        525962,
+        526581,
+        525996,
+        527794,
+        525967,
+        527778,
+        527768,
+        528559,
+        527760,
+        525968,
+        527173,
+        526572,
+        528588,
+        527178,
+        526557,
+        484458,
+        525966,
+        527181,
+        526584,
+        527160,
+        527790,
+        526582,
+        525960,
+        525972,
+        526568,
+        484488,
+        528571,
+        526587,
+        527763,
+        526555,
+        527791,
+        527172,
+        527180,
+        525956,
+        528553,
+        527199,
+        484490,
+        527761,
+        527162,
+        484491,
+        527155,
+        527764,
+        525955,
+        527154,
+        528580,
+        527191,
+        525984,
+        528564,
+        526589,
+        527190,
+        525989,
+        527195,
+        526558,
+        527186,
+        525954,
+        525990,
+        527782,
+        526583,
+        526000,
+        527158,
+        527184,
+        526600,
+        527784,
+        527179,
+        527799,
+        483788,
+        525964,
+        528577,
+        527165,
+        525963,
+        527755,
+        528551,
+        527765,
+        528585,
+        526577,
+        526575,
+        484462,
+        528592,
+        527774,
+        526594,
+        527792,
+        525981,
+        525991,
+        485064,
+        528558,
+        527757,
+        527188,
+        528576,
+        484485,
+        527779,
+        528575,
+        527168,
+        527176,
+        528556,
+        528562,
+        527183,
+        527171,
+        526599,
+        528589,
+        527187,
+        527767,
+        527174,
+        527169,
+        526580,
+        527185,
+        525979,
+        528554,
+        525976,
+        527159,
+        526551,
+        527194,
+        527200,
+        525992,
+        484486,
+        526574,
+        526586,
+        526598,
+        526567,
+        525974,
+        526566,
+        527766,
+        528590,
+        526590,
+        525998,
+        527771,
+        484481,
+        527756,
+        526553,
+        526552,
+        528583,
+        527796,
+        527786,
+        527193,
+        528552,
+        528557,
+        528578,
+        525983,
+        484459,
+        527163,
+        526556,
+        527759,
+        526559,
+        525980,
+        527758,
+        528568,
+        527196,
+        528563,
+        528581,
+        526592,
+        484475,
+        528555,
+        526576,
+        527164,
+        527798,
+        527182,
+        528566,
+        527161,
+        526560,
+        528579,
+        483800,
+        525969,
+        484468,
+        527777,
+        527775
+      ],
+      "component_type": "IfcWindow",
+      "floor": null,
+      "facility_id": 124851
+    },
+    "expected_answer_values": [
+      1787.953
+    ],
+    "answer_kind": "number",
+    "answer_tolerance": 1.0,
+    "execution_ok": true,
+    "note": null
+  },
+  {
+    "query_id": "q32",
+    "query_text": "How many square meters of windows are there in total?",
+    "category": "aggregation",
+    "complexity_level": "L3",
+    "paraphrase_group_id": "g13",
+    "is_standard_wording": false,
+    "expected_function": "calculate_total_component_area",
+    "expected_arguments": {
+      "component_type": "IfcWindow"
+    },
+    "expected_result": {
+      "total_area": 1787.953,
+      "unit": "m²",
+      "method": "width_x_height",
+      "method_breakdown": {
+        "stored_area": 0,
+        "width_x_height": 272,
+        "no_area_data": 0
+      },
+      "components_with_area": 272,
+      "source_component_ids": [
+        528584,
+        525978,
+        528569,
+        525997,
+        527772,
+        526569,
+        484455,
+        526585,
+        526571,
+        528587,
+        527780,
+        525988,
+        525982,
+        484467,
+        484483,
+        527151,
+        525987,
+        527156,
+        484454,
+        484451,
+        526588,
+        525959,
+        528591,
+        526591,
+        484456,
+        528560,
+        527770,
+        527167,
+        528561,
+        528586,
+        527781,
+        525961,
+        527197,
+        527198,
+        527754,
+        526579,
+        526554,
+        484489,
+        484476,
+        484453,
+        525995,
+        485067,
+        527785,
+        525971,
+        527175,
+        526597,
+        527795,
+        527189,
+        526561,
+        525986,
+        525985,
+        483798,
+        527170,
+        526593,
+        525993,
+        528572,
+        527753,
+        527752,
+        526573,
+        484471,
+        526562,
+        527800,
+        527776,
+        527762,
+        525957,
+        525999,
+        527793,
+        527788,
+        526596,
+        527177,
+        527797,
+        525965,
+        525975,
+        527166,
+        484482,
+        527773,
+        527153,
+        528565,
+        527192,
+        527157,
+        484484,
+        526565,
+        526564,
+        528574,
+        525977,
+        484487,
+        527783,
+        528567,
+        526595,
+        483799,
+        527152,
+        525973,
+        525970,
+        525994,
+        485066,
+        484452,
+        526570,
+        483780,
+        527769,
+        527789,
+        527787,
+        525958,
+        527751,
+        526578,
+        526563,
+        528573,
+        528570,
+        528582,
+        525962,
+        526581,
+        525996,
+        527794,
+        525967,
+        527778,
+        527768,
+        528559,
+        527760,
+        525968,
+        527173,
+        526572,
+        528588,
+        527178,
+        526557,
+        484458,
+        525966,
+        527181,
+        526584,
+        527160,
+        527790,
+        526582,
+        525960,
+        525972,
+        526568,
+        484488,
+        528571,
+        526587,
+        527763,
+        526555,
+        527791,
+        527172,
+        527180,
+        525956,
+        528553,
+        527199,
+        484490,
+        527761,
+        527162,
+        484491,
+        527155,
+        527764,
+        525955,
+        527154,
+        528580,
+        527191,
+        525984,
+        528564,
+        526589,
+        527190,
+        525989,
+        527195,
+        526558,
+        527186,
+        525954,
+        525990,
+        527782,
+        526583,
+        526000,
+        527158,
+        527184,
+        526600,
+        527784,
+        527179,
+        527799,
+        483788,
+        525964,
+        528577,
+        527165,
+        525963,
+        527755,
+        528551,
+        527765,
+        528585,
+        526577,
+        526575,
+        484462,
+        528592,
+        527774,
+        526594,
+        527792,
+        525981,
+        525991,
+        485064,
+        528558,
+        527757,
+        527188,
+        528576,
+        484485,
+        527779,
+        528575,
+        527168,
+        527176,
+        528556,
+        528562,
+        527183,
+        527171,
+        526599,
+        528589,
+        527187,
+        527767,
+        527174,
+        527169,
+        526580,
+        527185,
+        525979,
+        528554,
+        525976,
+        527159,
+        526551,
+        527194,
+        527200,
+        525992,
+        484486,
+        526574,
+        526586,
+        526598,
+        526567,
+        525974,
+        526566,
+        527766,
+        528590,
+        526590,
+        525998,
+        527771,
+        484481,
+        527756,
+        526553,
+        526552,
+        528583,
+        527796,
+        527786,
+        527193,
+        528552,
+        528557,
+        528578,
+        525983,
+        484459,
+        527163,
+        526556,
+        527759,
+        526559,
+        525980,
+        527758,
+        528568,
+        527196,
+        528563,
+        528581,
+        526592,
+        484475,
+        528555,
+        526576,
+        527164,
+        527798,
+        527182,
+        528566,
+        527161,
+        526560,
+        528579,
+        483800,
+        525969,
+        484468,
+        527777,
+        527775
+      ],
+      "component_type": "IfcWindow",
+      "floor": null,
+      "facility_id": 124851
+    },
+    "expected_answer_values": [
+      1787.953
+    ],
+    "answer_kind": "number",
+    "answer_tolerance": 1.0,
+    "execution_ok": true,
+    "note": null
+  },
+  {
+    "query_id": "q33",
+    "query_text": "What is the total window area on the second floor?",
+    "category": "aggregation",
+    "complexity_level": "L3",
+    "paraphrase_group_id": "g14",
+    "is_standard_wording": true,
+    "expected_function": "calculate_total_component_area",
+    "expected_arguments": {
+      "component_type": "IfcWindow",
+      "floor": "2. Obergeschoss"
+    },
+    "expected_result": {
+      "total_area": 384.078,
+      "unit": "m²",
+      "method": "width_x_height",
+      "method_breakdown": {
+        "stored_area": 0,
+        "width_x_height": 52,
+        "no_area_data": 0
+      },
+      "components_with_area": 52,
+      "source_component_ids": [
+        527198,
+        527199,
+        527200,
+        527751,
+        527752,
+        527753,
+        527754,
+        527755,
+        527756,
+        527757,
+        527758,
+        527759,
+        527760,
+        527761,
+        527762,
+        527763,
+        527764,
+        527765,
+        527766,
+        527767,
+        527768,
+        527769,
+        527770,
+        527771,
+        527772,
+        527773,
+        527777,
+        527778,
+        527779,
+        527780,
+        527781,
+        527782,
+        527783,
+        527784,
+        527785,
+        527786,
+        527787,
+        527788,
+        527789,
+        527791,
+        527792,
+        527793,
+        527794,
+        527795,
+        527796,
+        527797,
+        527798,
+        527799,
+        527800,
+        528551,
+        528553,
+        528556
+      ],
+      "component_type": "IfcWindow",
+      "floor": "2. Obergeschoss",
+      "facility_id": 124851
+    },
+    "expected_answer_values": [
+      384.078
+    ],
+    "answer_kind": "number",
+    "answer_tolerance": 1.0,
+    "execution_ok": true,
+    "note": null
+  },
+  {
+    "query_id": "q34",
+    "query_text": "Calculate the window area on level two.",
+    "category": "aggregation",
+    "complexity_level": "L3",
+    "paraphrase_group_id": "g14",
+    "is_standard_wording": false,
+    "expected_function": "calculate_total_component_area",
+    "expected_arguments": {
+      "component_type": "IfcWindow",
+      "floor": "2. Obergeschoss"
+    },
+    "expected_result": {
+      "total_area": 384.078,
+      "unit": "m²",
+      "method": "width_x_height",
+      "method_breakdown": {
+        "stored_area": 0,
+        "width_x_height": 52,
+        "no_area_data": 0
+      },
+      "components_with_area": 52,
+      "source_component_ids": [
+        527198,
+        527199,
+        527200,
+        527751,
+        527752,
+        527753,
+        527754,
+        527755,
+        527756,
+        527757,
+        527758,
+        527759,
+        527760,
+        527761,
+        527762,
+        527763,
+        527764,
+        527765,
+        527766,
+        527767,
+        527768,
+        527769,
+        527770,
+        527771,
+        527772,
+        527773,
+        527777,
+        527778,
+        527779,
+        527780,
+        527781,
+        527782,
+        527783,
+        527784,
+        527785,
+        527786,
+        527787,
+        527788,
+        527789,
+        527791,
+        527792,
+        527793,
+        527794,
+        527795,
+        527796,
+        527797,
+        527798,
+        527799,
+        527800,
+        528551,
+        528553,
+        528556
+      ],
+      "component_type": "IfcWindow",
+      "floor": "2. Obergeschoss",
+      "facility_id": 124851
+    },
+    "expected_answer_values": [
+      384.078
+    ],
+    "answer_kind": "number",
+    "answer_tolerance": 1.0,
+    "execution_ok": true,
+    "note": null
+  },
+  {
+    "query_id": "q35",
+    "query_text": "How many square meters of windows are on the second upper floor?",
+    "category": "aggregation",
+    "complexity_level": "L3",
+    "paraphrase_group_id": "g14",
+    "is_standard_wording": false,
+    "expected_function": "calculate_total_component_area",
+    "expected_arguments": {
+      "component_type": "IfcWindow",
+      "floor": "2. Obergeschoss"
+    },
+    "expected_result": {
+      "total_area": 384.078,
+      "unit": "m²",
+      "method": "width_x_height",
+      "method_breakdown": {
+        "stored_area": 0,
+        "width_x_height": 52,
+        "no_area_data": 0
+      },
+      "components_with_area": 52,
+      "source_component_ids": [
+        527198,
+        527199,
+        527200,
+        527751,
+        527752,
+        527753,
+        527754,
+        527755,
+        527756,
+        527757,
+        527758,
+        527759,
+        527760,
+        527761,
+        527762,
+        527763,
+        527764,
+        527765,
+        527766,
+        527767,
+        527768,
+        527769,
+        527770,
+        527771,
+        527772,
+        527773,
+        527777,
+        527778,
+        527779,
+        527780,
+        527781,
+        527782,
+        527783,
+        527784,
+        527785,
+        527786,
+        527787,
+        527788,
+        527789,
+        527791,
+        527792,
+        527793,
+        527794,
+        527795,
+        527796,
+        527797,
+        527798,
+        527799,
+        527800,
+        528551,
+        528553,
+        528556
+      ],
+      "component_type": "IfcWindow",
+      "floor": "2. Obergeschoss",
+      "facility_id": 124851
+    },
+    "expected_answer_values": [
+      384.078
+    ],
+    "answer_kind": "number",
+    "answer_tolerance": 1.0,
+    "execution_ok": true,
+    "note": null
+  },
+  {
+    "query_id": "q36",
+    "query_text": "What is the total door area in the building?",
+    "category": "aggregation",
+    "complexity_level": "L3",
+    "paraphrase_group_id": "g15",
+    "is_standard_wording": true,
+    "expected_function": "calculate_total_component_area",
+    "expected_arguments": {
+      "component_type": "IfcDoor"
+    },
+    "expected_result": {
+      "total_area": 419.021,
+      "unit": "m²",
+      "method": "width_x_height",
+      "method_breakdown": {
+        "stored_area": 0,
+        "width_x_height": 122,
+        "no_area_data": 0
+      },
+      "components_with_area": 122,
+      "source_component_ids": [
+        522315,
+        522304,
+        480673,
+        522322,
+        480670,
+        522334,
+        522313,
+        521732,
+        480658,
+        522314,
+        522348,
+        522319,
+        522853,
+        521749,
+        522310,
+        522330,
+        522345,
+        522333,
+        522311,
+        480678,
+        522855,
+        521725,
+        521735,
+        480684,
+        522325,
+        480690,
+        521748,
+        522327,
+        521726,
+        522312,
+        522350,
+        480666,
+        480660,
+        521720,
+        480676,
+        521738,
+        521733,
+        522347,
+        480685,
+        522343,
+        480682,
+        522339,
+        522308,
+        522852,
+        522301,
+        522346,
+        522856,
+        522331,
+        521750,
+        522344,
+        480687,
+        521743,
+        522336,
+        521736,
+        480681,
+        480677,
+        521741,
+        480679,
+        480674,
+        521731,
+        480672,
+        522338,
+        521730,
+        522349,
+        521747,
+        480669,
+        480675,
+        522321,
+        521721,
+        480691,
+        522332,
+        522329,
+        522302,
+        480689,
+        480665,
+        521722,
+        522317,
+        480671,
+        522318,
+        522337,
+        522340,
+        480697,
+        521728,
+        522341,
+        521742,
+        480686,
+        480692,
+        522335,
+        521734,
+        522316,
+        521746,
+        480663,
+        522303,
+        521745,
+        521723,
+        480688,
+        522320,
+        480667,
+        522326,
+        480668,
+        522342,
+        521727,
+        480680,
+        521737,
+        521740,
+        521729,
+        522324,
+        522851,
+        522309,
+        522854,
+        522328,
+        521739,
+        480659,
+        522305,
+        480662,
+        522307,
+        521724,
+        480661,
+        480664,
+        522306,
+        522323,
+        521744
+      ],
+      "component_type": "IfcDoor",
+      "floor": null,
+      "facility_id": 124851
+    },
+    "expected_answer_values": [
+      419.021
+    ],
+    "answer_kind": "number",
+    "answer_tolerance": 1.0,
+    "execution_ok": true,
+    "note": null
+  },
+  {
+    "query_id": "q37",
+    "query_text": "Calculate the combined area of all doors.",
+    "category": "aggregation",
+    "complexity_level": "L3",
+    "paraphrase_group_id": "g15",
+    "is_standard_wording": false,
+    "expected_function": "calculate_total_component_area",
+    "expected_arguments": {
+      "component_type": "IfcDoor"
+    },
+    "expected_result": {
+      "total_area": 419.021,
+      "unit": "m²",
+      "method": "width_x_height",
+      "method_breakdown": {
+        "stored_area": 0,
+        "width_x_height": 122,
+        "no_area_data": 0
+      },
+      "components_with_area": 122,
+      "source_component_ids": [
+        522315,
+        522304,
+        480673,
+        522322,
+        480670,
+        522334,
+        522313,
+        521732,
+        480658,
+        522314,
+        522348,
+        522319,
+        522853,
+        521749,
+        522310,
+        522330,
+        522345,
+        522333,
+        522311,
+        480678,
+        522855,
+        521725,
+        521735,
+        480684,
+        522325,
+        480690,
+        521748,
+        522327,
+        521726,
+        522312,
+        522350,
+        480666,
+        480660,
+        521720,
+        480676,
+        521738,
+        521733,
+        522347,
+        480685,
+        522343,
+        480682,
+        522339,
+        522308,
+        522852,
+        522301,
+        522346,
+        522856,
+        522331,
+        521750,
+        522344,
+        480687,
+        521743,
+        522336,
+        521736,
+        480681,
+        480677,
+        521741,
+        480679,
+        480674,
+        521731,
+        480672,
+        522338,
+        521730,
+        522349,
+        521747,
+        480669,
+        480675,
+        522321,
+        521721,
+        480691,
+        522332,
+        522329,
+        522302,
+        480689,
+        480665,
+        521722,
+        522317,
+        480671,
+        522318,
+        522337,
+        522340,
+        480697,
+        521728,
+        522341,
+        521742,
+        480686,
+        480692,
+        522335,
+        521734,
+        522316,
+        521746,
+        480663,
+        522303,
+        521745,
+        521723,
+        480688,
+        522320,
+        480667,
+        522326,
+        480668,
+        522342,
+        521727,
+        480680,
+        521737,
+        521740,
+        521729,
+        522324,
+        522851,
+        522309,
+        522854,
+        522328,
+        521739,
+        480659,
+        522305,
+        480662,
+        522307,
+        521724,
+        480661,
+        480664,
+        522306,
+        522323,
+        521744
+      ],
+      "component_type": "IfcDoor",
+      "floor": null,
+      "facility_id": 124851
+    },
+    "expected_answer_values": [
+      419.021
+    ],
+    "answer_kind": "number",
+    "answer_tolerance": 1.0,
+    "execution_ok": true,
+    "note": null
+  },
+  {
+    "query_id": "q38",
+    "query_text": "What is the window area on each floor?",
+    "category": "aggregation",
+    "complexity_level": "L3",
+    "paraphrase_group_id": "g16",
+    "is_standard_wording": true,
+    "expected_function": "calculate_area_by_floor",
+    "expected_arguments": {
+      "component_type": "IfcWindow"
+    },
+    "expected_result": {
+      "component_type": "IfcWindow",
+      "facility_id": 124851,
+      "by_floor": [
+        {
+          "floor": "Untergeschoss",
+          "order_index": -1,
+          "total_area": 8.806,
+          "unit": "m²",
+          "components_with_area": 15,
+          "method_breakdown": {
+            "stored_area": 0,
+            "width_x_height": 15,
+            "no_area_data": 0
+          }
+        },
+        {
+          "floor": "Erdgeschoss",
+          "order_index": 0,
+          "total_area": 98.098,
+          "unit": "m²",
+          "components_with_area": 16,
+          "method_breakdown": {
+            "stored_area": 0,
+            "width_x_height": 16,
+            "no_area_data": 0
+          }
+        },
+        {
+          "floor": "1. Obergeschoss",
+          "order_index": 1,
+          "total_area": 560.59,
+          "unit": "m²",
+          "components_with_area": 79,
+          "method_breakdown": {
+            "stored_area": 0,
+            "width_x_height": 79,
+            "no_area_data": 0
+          }
+        },
+        {
+          "floor": "2. Obergeschoss",
+          "order_index": 2,
+          "total_area": 384.078,
+          "unit": "m²",
+          "components_with_area": 52,
+          "method_breakdown": {
+            "stored_area": 0,
+            "width_x_height": 52,
+            "no_area_data": 0
+          }
+        },
+        {
+          "floor": "Dachgeschoss",
+          "order_index": 1000,
+          "total_area": 1.722,
+          "unit": "m²",
+          "components_with_area": 1,
+          "method_breakdown": {
+            "stored_area": 0,
+            "width_x_height": 1,
+            "no_area_data": 0
+          }
+        }
+      ]
+    },
+    "expected_answer_values": [],
+    "answer_kind": "any",
+    "answer_tolerance": 0.0,
+    "execution_ok": true,
+    "note": null
+  },
+  {
+    "query_id": "q39",
+    "query_text": "Break down the window area by storey.",
+    "category": "aggregation",
+    "complexity_level": "L3",
+    "paraphrase_group_id": "g16",
+    "is_standard_wording": false,
+    "expected_function": "calculate_area_by_floor",
+    "expected_arguments": {
+      "component_type": "IfcWindow"
+    },
+    "expected_result": {
+      "component_type": "IfcWindow",
+      "facility_id": 124851,
+      "by_floor": [
+        {
+          "floor": "Untergeschoss",
+          "order_index": -1,
+          "total_area": 8.806,
+          "unit": "m²",
+          "components_with_area": 15,
+          "method_breakdown": {
+            "stored_area": 0,
+            "width_x_height": 15,
+            "no_area_data": 0
+          }
+        },
+        {
+          "floor": "Erdgeschoss",
+          "order_index": 0,
+          "total_area": 98.098,
+          "unit": "m²",
+          "components_with_area": 16,
+          "method_breakdown": {
+            "stored_area": 0,
+            "width_x_height": 16,
+            "no_area_data": 0
+          }
+        },
+        {
+          "floor": "1. Obergeschoss",
+          "order_index": 1,
+          "total_area": 560.59,
+          "unit": "m²",
+          "components_with_area": 79,
+          "method_breakdown": {
+            "stored_area": 0,
+            "width_x_height": 79,
+            "no_area_data": 0
+          }
+        },
+        {
+          "floor": "2. Obergeschoss",
+          "order_index": 2,
+          "total_area": 384.078,
+          "unit": "m²",
+          "components_with_area": 52,
+          "method_breakdown": {
+            "stored_area": 0,
+            "width_x_height": 52,
+            "no_area_data": 0
+          }
+        },
+        {
+          "floor": "Dachgeschoss",
+          "order_index": 1000,
+          "total_area": 1.722,
+          "unit": "m²",
+          "components_with_area": 1,
+          "method_breakdown": {
+            "stored_area": 0,
+            "width_x_height": 1,
+            "no_area_data": 0
+          }
+        }
+      ]
+    },
+    "expected_answer_values": [],
+    "answer_kind": "any",
+    "answer_tolerance": 0.0,
+    "execution_ok": true,
+    "note": null
+  },
+  {
+    "query_id": "q40",
+    "query_text": "Which floor has the largest total window area?",
+    "category": "multistep",
+    "complexity_level": "L4",
+    "paraphrase_group_id": "g17",
+    "is_standard_wording": true,
+    "expected_function": "find_floor_with_largest_component_area",
+    "expected_arguments": {
+      "component_type": "IfcWindow"
+    },
+    "expected_result": {
+      "component_type": "IfcWindow",
+      "facility_id": 124851,
+      "largest_floor": "1. Obergeschoss",
+      "total_area": 560.59,
+      "unit": "m²",
+      "by_floor": [
+        {
+          "floor": "Untergeschoss",
+          "order_index": -1,
+          "total_area": 8.806,
+          "unit": "m²",
+          "components_with_area": 15,
+          "method_breakdown": {
+            "stored_area": 0,
+            "width_x_height": 15,
+            "no_area_data": 0
+          }
+        },
+        {
+          "floor": "Erdgeschoss",
+          "order_index": 0,
+          "total_area": 98.098,
+          "unit": "m²",
+          "components_with_area": 16,
+          "method_breakdown": {
+            "stored_area": 0,
+            "width_x_height": 16,
+            "no_area_data": 0
+          }
+        },
+        {
+          "floor": "1. Obergeschoss",
+          "order_index": 1,
+          "total_area": 560.59,
+          "unit": "m²",
+          "components_with_area": 79,
+          "method_breakdown": {
+            "stored_area": 0,
+            "width_x_height": 79,
+            "no_area_data": 0
+          }
+        },
+        {
+          "floor": "2. Obergeschoss",
+          "order_index": 2,
+          "total_area": 384.078,
+          "unit": "m²",
+          "components_with_area": 52,
+          "method_breakdown": {
+            "stored_area": 0,
+            "width_x_height": 52,
+            "no_area_data": 0
+          }
+        },
+        {
+          "floor": "Dachgeschoss",
+          "order_index": 1000,
+          "total_area": 1.722,
+          "unit": "m²",
+          "components_with_area": 1,
+          "method_breakdown": {
+            "stored_area": 0,
+            "width_x_height": 1,
+            "no_area_data": 0
+          }
+        }
+      ]
+    },
+    "expected_answer_values": [
+      "1. Obergeschoss"
+    ],
+    "answer_kind": "string",
+    "answer_tolerance": 0.0,
+    "execution_ok": true,
+    "note": null
+  },
+  {
+    "query_id": "q41",
+    "query_text": "Where is the biggest amount of window area?",
+    "category": "multistep",
+    "complexity_level": "L4",
+    "paraphrase_group_id": "g17",
+    "is_standard_wording": false,
+    "expected_function": "find_floor_with_largest_component_area",
+    "expected_arguments": {
+      "component_type": "IfcWindow"
+    },
+    "expected_result": {
+      "component_type": "IfcWindow",
+      "facility_id": 124851,
+      "largest_floor": "1. Obergeschoss",
+      "total_area": 560.59,
+      "unit": "m²",
+      "by_floor": [
+        {
+          "floor": "Untergeschoss",
+          "order_index": -1,
+          "total_area": 8.806,
+          "unit": "m²",
+          "components_with_area": 15,
+          "method_breakdown": {
+            "stored_area": 0,
+            "width_x_height": 15,
+            "no_area_data": 0
+          }
+        },
+        {
+          "floor": "Erdgeschoss",
+          "order_index": 0,
+          "total_area": 98.098,
+          "unit": "m²",
+          "components_with_area": 16,
+          "method_breakdown": {
+            "stored_area": 0,
+            "width_x_height": 16,
+            "no_area_data": 0
+          }
+        },
+        {
+          "floor": "1. Obergeschoss",
+          "order_index": 1,
+          "total_area": 560.59,
+          "unit": "m²",
+          "components_with_area": 79,
+          "method_breakdown": {
+            "stored_area": 0,
+            "width_x_height": 79,
+            "no_area_data": 0
+          }
+        },
+        {
+          "floor": "2. Obergeschoss",
+          "order_index": 2,
+          "total_area": 384.078,
+          "unit": "m²",
+          "components_with_area": 52,
+          "method_breakdown": {
+            "stored_area": 0,
+            "width_x_height": 52,
+            "no_area_data": 0
+          }
+        },
+        {
+          "floor": "Dachgeschoss",
+          "order_index": 1000,
+          "total_area": 1.722,
+          "unit": "m²",
+          "components_with_area": 1,
+          "method_breakdown": {
+            "stored_area": 0,
+            "width_x_height": 1,
+            "no_area_data": 0
+          }
+        }
+      ]
+    },
+    "expected_answer_values": [
+      "1. Obergeschoss"
+    ],
+    "answer_kind": "string",
+    "answer_tolerance": 0.0,
+    "execution_ok": true,
+    "note": null
+  },
+  {
+    "query_id": "q42",
+    "query_text": "Which storey has the most glazing?",
+    "category": "multistep",
+    "complexity_level": "L4",
+    "paraphrase_group_id": "g17",
+    "is_standard_wording": false,
+    "expected_function": "find_floor_with_largest_component_area",
+    "expected_arguments": {
+      "component_type": "IfcWindow"
+    },
+    "expected_result": {
+      "component_type": "IfcWindow",
+      "facility_id": 124851,
+      "largest_floor": "1. Obergeschoss",
+      "total_area": 560.59,
+      "unit": "m²",
+      "by_floor": [
+        {
+          "floor": "Untergeschoss",
+          "order_index": -1,
+          "total_area": 8.806,
+          "unit": "m²",
+          "components_with_area": 15,
+          "method_breakdown": {
+            "stored_area": 0,
+            "width_x_height": 15,
+            "no_area_data": 0
+          }
+        },
+        {
+          "floor": "Erdgeschoss",
+          "order_index": 0,
+          "total_area": 98.098,
+          "unit": "m²",
+          "components_with_area": 16,
+          "method_breakdown": {
+            "stored_area": 0,
+            "width_x_height": 16,
+            "no_area_data": 0
+          }
+        },
+        {
+          "floor": "1. Obergeschoss",
+          "order_index": 1,
+          "total_area": 560.59,
+          "unit": "m²",
+          "components_with_area": 79,
+          "method_breakdown": {
+            "stored_area": 0,
+            "width_x_height": 79,
+            "no_area_data": 0
+          }
+        },
+        {
+          "floor": "2. Obergeschoss",
+          "order_index": 2,
+          "total_area": 384.078,
+          "unit": "m²",
+          "components_with_area": 52,
+          "method_breakdown": {
+            "stored_area": 0,
+            "width_x_height": 52,
+            "no_area_data": 0
+          }
+        },
+        {
+          "floor": "Dachgeschoss",
+          "order_index": 1000,
+          "total_area": 1.722,
+          "unit": "m²",
+          "components_with_area": 1,
+          "method_breakdown": {
+            "stored_area": 0,
+            "width_x_height": 1,
+            "no_area_data": 0
+          }
+        }
+      ]
+    },
+    "expected_answer_values": [
+      "1. Obergeschoss"
+    ],
+    "answer_kind": "string",
+    "answer_tolerance": 0.0,
+    "execution_ok": true,
+    "note": null
+  },
+  {
+    "query_id": "q43",
+    "query_text": "Are there more windows on the first or the second upper floor?",
+    "category": "multistep",
+    "complexity_level": "L4",
+    "paraphrase_group_id": "g18",
+    "is_standard_wording": true,
+    "expected_function": "compare_component_count_between_floors",
+    "expected_arguments": {
+      "component_type": "IfcWindow",
+      "floor_a": "1. Obergeschoss",
+      "floor_b": "2. Obergeschoss"
+    },
+    "expected_result": {
+      "component_type": "IfcWindow",
+      "facility_id": 124851,
+      "floor_a": "1. Obergeschoss",
+      "floor_b": "2. Obergeschoss",
+      "count_a": 79,
+      "count_b": 52,
+      "difference": 27,
+      "more_on": "1. Obergeschoss"
+    },
+    "expected_answer_values": [
+      "1. Obergeschoss"
+    ],
+    "answer_kind": "string",
+    "answer_tolerance": 0.0,
+    "execution_ok": true,
+    "note": null
+  },
+  {
+    "query_id": "q44",
+    "query_text": "Compare window counts between the first and second floor.",
+    "category": "multistep",
+    "complexity_level": "L4",
+    "paraphrase_group_id": "g18",
+    "is_standard_wording": false,
+    "expected_function": "compare_component_count_between_floors",
+    "expected_arguments": {
+      "component_type": "IfcWindow",
+      "floor_a": "1. Obergeschoss",
+      "floor_b": "2. Obergeschoss"
+    },
+    "expected_result": {
+      "component_type": "IfcWindow",
+      "facility_id": 124851,
+      "floor_a": "1. Obergeschoss",
+      "floor_b": "2. Obergeschoss",
+      "count_a": 79,
+      "count_b": 52,
+      "difference": 27,
+      "more_on": "1. Obergeschoss"
+    },
+    "expected_answer_values": [
+      "1. Obergeschoss"
+    ],
+    "answer_kind": "string",
+    "answer_tolerance": 0.0,
+    "execution_ok": true,
+    "note": null
+  },
+  {
+    "query_id": "q45",
+    "query_text": "Which has more windows, level one or level two?",
+    "category": "multistep",
+    "complexity_level": "L4",
+    "paraphrase_group_id": "g18",
+    "is_standard_wording": false,
+    "expected_function": "compare_component_count_between_floors",
+    "expected_arguments": {
+      "component_type": "IfcWindow",
+      "floor_a": "1. Obergeschoss",
+      "floor_b": "2. Obergeschoss"
+    },
+    "expected_result": {
+      "component_type": "IfcWindow",
+      "facility_id": 124851,
+      "floor_a": "1. Obergeschoss",
+      "floor_b": "2. Obergeschoss",
+      "count_a": 79,
+      "count_b": 52,
+      "difference": 27,
+      "more_on": "1. Obergeschoss"
+    },
+    "expected_answer_values": [
+      "1. Obergeschoss"
+    ],
+    "answer_kind": "string",
+    "answer_tolerance": 0.0,
+    "execution_ok": true,
+    "note": null
+  },
+  {
+    "query_id": "q46",
+    "query_text": "Is the window area larger on the first or the second floor?",
+    "category": "multistep",
+    "complexity_level": "L4",
+    "paraphrase_group_id": "g19",
+    "is_standard_wording": true,
+    "expected_function": "compare_component_area_between_floors",
+    "expected_arguments": {
+      "component_type": "IfcWindow",
+      "floor_a": "1. Obergeschoss",
+      "floor_b": "2. Obergeschoss"
+    },
+    "expected_result": {
+      "component_type": "IfcWindow",
+      "facility_id": 124851,
+      "floor_a": "1. Obergeschoss",
+      "floor_b": "2. Obergeschoss",
+      "area_a": 560.59,
+      "area_b": 384.078,
+      "unit": "m²",
+      "difference": 176.512,
+      "more_on": "1. Obergeschoss"
+    },
+    "expected_answer_values": [
+      "1. Obergeschoss"
+    ],
+    "answer_kind": "string",
+    "answer_tolerance": 0.0,
+    "execution_ok": true,
+    "note": null
+  },
+  {
+    "query_id": "q47",
+    "query_text": "Compare the window area between level one and level two.",
+    "category": "multistep",
+    "complexity_level": "L4",
+    "paraphrase_group_id": "g19",
+    "is_standard_wording": false,
+    "expected_function": "compare_component_area_between_floors",
+    "expected_arguments": {
+      "component_type": "IfcWindow",
+      "floor_a": "1. Obergeschoss",
+      "floor_b": "2. Obergeschoss"
+    },
+    "expected_result": {
+      "component_type": "IfcWindow",
+      "facility_id": 124851,
+      "floor_a": "1. Obergeschoss",
+      "floor_b": "2. Obergeschoss",
+      "area_a": 560.59,
+      "area_b": 384.078,
+      "unit": "m²",
+      "difference": 176.512,
+      "more_on": "1. Obergeschoss"
+    },
+    "expected_answer_values": [
+      "1. Obergeschoss"
+    ],
+    "answer_kind": "string",
+    "answer_tolerance": 0.0,
+    "execution_ok": true,
+    "note": null
+  },
+  {
+    "query_id": "q48",
+    "query_text": "Which floor has more window surface, the first or second upper floor?",
+    "category": "multistep",
+    "complexity_level": "L4",
+    "paraphrase_group_id": "g19",
+    "is_standard_wording": false,
+    "expected_function": "compare_component_area_between_floors",
+    "expected_arguments": {
+      "component_type": "IfcWindow",
+      "floor_a": "1. Obergeschoss",
+      "floor_b": "2. Obergeschoss"
+    },
+    "expected_result": {
+      "component_type": "IfcWindow",
+      "facility_id": 124851,
+      "floor_a": "1. Obergeschoss",
+      "floor_b": "2. Obergeschoss",
+      "area_a": 560.59,
+      "area_b": 384.078,
+      "unit": "m²",
+      "difference": 176.512,
+      "more_on": "1. Obergeschoss"
+    },
+    "expected_answer_values": [
+      "1. Obergeschoss"
+    ],
+    "answer_kind": "string",
+    "answer_tolerance": 0.0,
+    "execution_ok": true,
+    "note": null
+  },
+  {
+    "query_id": "q49",
+    "query_text": "Are there more doors on the ground floor or the second floor?",
+    "category": "multistep",
+    "complexity_level": "L4",
+    "paraphrase_group_id": "g20",
+    "is_standard_wording": true,
+    "expected_function": "compare_component_count_between_floors",
+    "expected_arguments": {
+      "component_type": "IfcDoor",
+      "floor_a": "Erdgeschoss",
+      "floor_b": "2. Obergeschoss"
+    },
+    "expected_result": {
+      "component_type": "IfcDoor",
+      "facility_id": 124851,
+      "floor_a": "Erdgeschoss",
+      "floor_b": "2. Obergeschoss",
+      "count_a": 5,
+      "count_b": 1,
+      "difference": 4,
+      "more_on": "Erdgeschoss"
+    },
+    "expected_answer_values": [
+      "Erdgeschoss"
+    ],
+    "answer_kind": "string",
+    "answer_tolerance": 0.0,
+    "execution_ok": true,
+    "note": null
+  },
+  {
+    "query_id": "q50",
+    "query_text": "Compare the number of doors between the Erdgeschoss and level two.",
+    "category": "multistep",
+    "complexity_level": "L4",
+    "paraphrase_group_id": "g20",
+    "is_standard_wording": false,
+    "expected_function": "compare_component_count_between_floors",
+    "expected_arguments": {
+      "component_type": "IfcDoor",
+      "floor_a": "Erdgeschoss",
+      "floor_b": "2. Obergeschoss"
+    },
+    "expected_result": {
+      "component_type": "IfcDoor",
+      "facility_id": 124851,
+      "floor_a": "Erdgeschoss",
+      "floor_b": "2. Obergeschoss",
+      "count_a": 5,
+      "count_b": 1,
+      "difference": 4,
+      "more_on": "Erdgeschoss"
+    },
+    "expected_answer_values": [
+      "Erdgeschoss"
+    ],
+    "answer_kind": "string",
+    "answer_tolerance": 0.0,
+    "execution_ok": true,
+    "note": null
+  },
+  {
+    "query_id": "q51",
+    "query_text": "How many windows are on the top floor?",
+    "category": "counting",
+    "complexity_level": "L2",
+    "paraphrase_group_id": "g21",
+    "is_standard_wording": true,
+    "expected_function": "count_components",
+    "expected_arguments": {
+      "component_type": "IfcWindow",
+      "floor": "Dachgeschoss"
+    },
+    "expected_result": {
+      "count": 1,
+      "component_type": "IfcWindow",
+      "floor": "Dachgeschoss",
+      "facility_id": 124851
+    },
+    "expected_answer_values": [
+      1
+    ],
+    "answer_kind": "number",
+    "answer_tolerance": 0.0,
+    "execution_ok": true,
+    "note": null
+  },
+  {
+    "query_id": "q52",
+    "query_text": "Count the windows in the attic.",
+    "category": "counting",
+    "complexity_level": "L2",
+    "paraphrase_group_id": "g21",
+    "is_standard_wording": false,
+    "expected_function": "count_components",
+    "expected_arguments": {
+      "component_type": "IfcWindow",
+      "floor": "Dachgeschoss"
+    },
+    "expected_result": {
+      "count": 1,
+      "component_type": "IfcWindow",
+      "floor": "Dachgeschoss",
+      "facility_id": 124851
+    },
+    "expected_answer_values": [
+      1
+    ],
+    "answer_kind": "number",
+    "answer_tolerance": 0.0,
+    "execution_ok": true,
+    "note": null
+  },
+  {
+    "query_id": "q53",
+    "query_text": "How many windows are in the basement?",
+    "category": "counting",
+    "complexity_level": "L2",
+    "paraphrase_group_id": "g22",
+    "is_standard_wording": true,
+    "expected_function": "count_components",
+    "expected_arguments": {
+      "component_type": "IfcWindow",
+      "floor": "Untergeschoss"
+    },
+    "expected_result": {
+      "count": 15,
+      "component_type": "IfcWindow",
+      "floor": "Untergeschoss",
+      "facility_id": 124851
+    },
+    "expected_answer_values": [
+      15
+    ],
+    "answer_kind": "number",
+    "answer_tolerance": 0.0,
+    "execution_ok": true,
+    "note": null
+  },
+  {
+    "query_id": "q54",
+    "query_text": "Count the windows on the Untergeschoss.",
+    "category": "counting",
+    "complexity_level": "L2",
+    "paraphrase_group_id": "g22",
+    "is_standard_wording": false,
+    "expected_function": "count_components",
+    "expected_arguments": {
+      "component_type": "IfcWindow",
+      "floor": "Untergeschoss"
+    },
+    "expected_result": {
+      "count": 15,
+      "component_type": "IfcWindow",
+      "floor": "Untergeschoss",
+      "facility_id": 124851
+    },
+    "expected_answer_values": [
+      15
+    ],
+    "answer_kind": "number",
+    "answer_tolerance": 0.0,
+    "execution_ok": true,
+    "note": null
+  },
+  {
+    "query_id": "q55",
+    "query_text": "What is the total window area on the ground floor?",
+    "category": "aggregation",
+    "complexity_level": "L3",
+    "paraphrase_group_id": "g23",
+    "is_standard_wording": true,
+    "expected_function": "calculate_total_component_area",
+    "expected_arguments": {
+      "component_type": "IfcWindow",
+      "floor": "Erdgeschoss"
+    },
+    "expected_result": {
+      "total_area": 98.098,
+      "unit": "m²",
+      "method": "width_x_height",
+      "method_breakdown": {
+        "stored_area": 0,
+        "width_x_height": 16,
+        "no_area_data": 0
+      },
+      "components_with_area": 16,
+      "source_component_ids": [
+        525970,
+        525971,
+        525972,
+        525973,
+        525974,
+        525975,
+        527774,
+        527775,
+        528552,
+        528554,
+        528555,
+        528559,
+        528565,
+        528566,
+        528567,
+        528568
+      ],
+      "component_type": "IfcWindow",
+      "floor": "Erdgeschoss",
+      "facility_id": 124851
+    },
+    "expected_answer_values": [
+      98.098
+    ],
+    "answer_kind": "number",
+    "answer_tolerance": 1.0,
+    "execution_ok": true,
+    "note": null
+  },
+  {
+    "query_id": "q56",
+    "query_text": "Calculate the window area in the Erdgeschoss.",
+    "category": "aggregation",
+    "complexity_level": "L3",
+    "paraphrase_group_id": "g23",
+    "is_standard_wording": false,
+    "expected_function": "calculate_total_component_area",
+    "expected_arguments": {
+      "component_type": "IfcWindow",
+      "floor": "Erdgeschoss"
+    },
+    "expected_result": {
+      "total_area": 98.098,
+      "unit": "m²",
+      "method": "width_x_height",
+      "method_breakdown": {
+        "stored_area": 0,
+        "width_x_height": 16,
+        "no_area_data": 0
+      },
+      "components_with_area": 16,
+      "source_component_ids": [
+        525970,
+        525971,
+        525972,
+        525973,
+        525974,
+        525975,
+        527774,
+        527775,
+        528552,
+        528554,
+        528555,
+        528559,
+        528565,
+        528566,
+        528567,
+        528568
+      ],
+      "component_type": "IfcWindow",
+      "floor": "Erdgeschoss",
+      "facility_id": 124851
+    },
+    "expected_answer_values": [
+      98.098
+    ],
+    "answer_kind": "number",
+    "answer_tolerance": 1.0,
+    "execution_ok": true,
+    "note": null
+  },
+  {
+    "query_id": "q57",
+    "query_text": "How many sanitary terminals are in the building?",
+    "category": "counting",
+    "complexity_level": "L2",
+    "paraphrase_group_id": "g24",
+    "is_standard_wording": true,
+    "expected_function": "count_components",
+    "expected_arguments": {
+      "component_type": "IfcSanitaryTerminal"
+    },
+    "expected_result": {
+      "count": 30,
+      "component_type": "IfcSanitaryTerminal",
+      "floor": null,
+      "facility_id": 124851
+    },
+    "expected_answer_values": [
+      30
+    ],
+    "answer_kind": "number",
+    "answer_tolerance": 0.0,
+    "execution_ok": true,
+    "note": null
+  },
+  {
+    "query_id": "q58",
+    "query_text": "Count the sanitary fixtures in the facility.",
+    "category": "counting",
+    "complexity_level": "L2",
+    "paraphrase_group_id": "g24",
+    "is_standard_wording": false,
+    "expected_function": "count_components",
+    "expected_arguments": {
+      "component_type": "IfcSanitaryTerminal"
+    },
+    "expected_result": {
+      "count": 30,
+      "component_type": "IfcSanitaryTerminal",
+      "floor": null,
+      "facility_id": 124851
+    },
+    "expected_answer_values": [
+      30
+    ],
+    "answer_kind": "number",
+    "answer_tolerance": 0.0,
+    "execution_ok": true,
+    "note": null
+  },
+  {
+    "query_id": "q59",
+    "query_text": "How many sensors does the building have?",
+    "category": "counting",
+    "complexity_level": "L2",
+    "paraphrase_group_id": "g25",
+    "is_standard_wording": true,
+    "expected_function": "count_components",
+    "expected_arguments": {
+      "component_type": "IfcSensor"
+    },
+    "expected_result": {
+      "count": 50,
+      "component_type": "IfcSensor",
+      "floor": null,
+      "facility_id": 124851
+    },
+    "expected_answer_values": [
+      50
+    ],
+    "answer_kind": "number",
+    "answer_tolerance": 0.0,
+    "execution_ok": true,
+    "note": null
+  },
+  {
+    "query_id": "q60",
+    "query_text": "Count all sensors in the facility.",
+    "category": "counting",
+    "complexity_level": "L2",
+    "paraphrase_group_id": "g25",
+    "is_standard_wording": false,
+    "expected_function": "count_components",
+    "expected_arguments": {
+      "component_type": "IfcSensor"
+    },
+    "expected_result": {
+      "count": 50,
+      "component_type": "IfcSensor",
+      "floor": null,
+      "facility_id": 124851
+    },
+    "expected_answer_values": [
+      50
+    ],
+    "answer_kind": "number",
+    "answer_tolerance": 0.0,
+    "execution_ok": true,
+    "note": null
+  },
+  {
+    "query_id": "q61",
+    "query_text": "Which floor has the largest total door area?",
+    "category": "multistep",
+    "complexity_level": "L4",
+    "paraphrase_group_id": "g26",
+    "is_standard_wording": true,
+    "expected_function": "find_floor_with_largest_component_area",
+    "expected_arguments": {
+      "component_type": "IfcDoor"
+    },
+    "expected_result": {
+      "component_type": "IfcDoor",
+      "facility_id": 124851,
+      "largest_floor": "Erdgeschoss",
+      "total_area": 53.545,
+      "unit": "m²",
+      "by_floor": [
+        {
+          "floor": "Untergeschoss",
+          "order_index": -1,
+          "total_area": 27.247,
+          "unit": "m²",
+          "components_with_area": 10,
+          "method_breakdown": {
+            "stored_area": 0,
+            "width_x_height": 10,
+            "no_area_data": 0
+          }
+        },
+        {
+          "floor": "Erdgeschoss",
+          "order_index": 0,
+          "total_area": 53.545,
+          "unit": "m²",
+          "components_with_area": 5,
+          "method_breakdown": {
+            "stored_area": 0,
+            "width_x_height": 5,
+            "no_area_data": 0
+          }
+        },
+        {
+          "floor": "1. Obergeschoss",
+          "order_index": 1,
+          "total_area": 15.144,
+          "unit": "m²",
+          "components_with_area": 1,
+          "method_breakdown": {
+            "stored_area": 0,
+            "width_x_height": 1,
+            "no_area_data": 0
+          }
+        },
+        {
+          "floor": "2. Obergeschoss",
+          "order_index": 2,
+          "total_area": 15.147,
+          "unit": "m²",
+          "components_with_area": 1,
+          "method_breakdown": {
+            "stored_area": 0,
+            "width_x_height": 1,
+            "no_area_data": 0
+          }
+        },
+        {
+          "floor": "Dachgeschoss",
+          "order_index": 1000,
+          "total_area": 2.066,
+          "unit": "m²",
+          "components_with_area": 1,
+          "method_breakdown": {
+            "stored_area": 0,
+            "width_x_height": 1,
+            "no_area_data": 0
+          }
+        }
+      ]
+    },
+    "expected_answer_values": [
+      "Erdgeschoss"
+    ],
+    "answer_kind": "string",
+    "answer_tolerance": 0.0,
+    "execution_ok": true,
+    "note": null
+  },
+  {
+    "query_id": "q62",
+    "query_text": "On which storey is the door area the biggest?",
+    "category": "multistep",
+    "complexity_level": "L4",
+    "paraphrase_group_id": "g26",
+    "is_standard_wording": false,
+    "expected_function": "find_floor_with_largest_component_area",
+    "expected_arguments": {
+      "component_type": "IfcDoor"
+    },
+    "expected_result": {
+      "component_type": "IfcDoor",
+      "facility_id": 124851,
+      "largest_floor": "Erdgeschoss",
+      "total_area": 53.545,
+      "unit": "m²",
+      "by_floor": [
+        {
+          "floor": "Untergeschoss",
+          "order_index": -1,
+          "total_area": 27.247,
+          "unit": "m²",
+          "components_with_area": 10,
+          "method_breakdown": {
+            "stored_area": 0,
+            "width_x_height": 10,
+            "no_area_data": 0
+          }
+        },
+        {
+          "floor": "Erdgeschoss",
+          "order_index": 0,
+          "total_area": 53.545,
+          "unit": "m²",
+          "components_with_area": 5,
+          "method_breakdown": {
+            "stored_area": 0,
+            "width_x_height": 5,
+            "no_area_data": 0
+          }
+        },
+        {
+          "floor": "1. Obergeschoss",
+          "order_index": 1,
+          "total_area": 15.144,
+          "unit": "m²",
+          "components_with_area": 1,
+          "method_breakdown": {
+            "stored_area": 0,
+            "width_x_height": 1,
+            "no_area_data": 0
+          }
+        },
+        {
+          "floor": "2. Obergeschoss",
+          "order_index": 2,
+          "total_area": 15.147,
+          "unit": "m²",
+          "components_with_area": 1,
+          "method_breakdown": {
+            "stored_area": 0,
+            "width_x_height": 1,
+            "no_area_data": 0
+          }
+        },
+        {
+          "floor": "Dachgeschoss",
+          "order_index": 1000,
+          "total_area": 2.066,
+          "unit": "m²",
+          "components_with_area": 1,
+          "method_breakdown": {
+            "stored_area": 0,
+            "width_x_height": 1,
+            "no_area_data": 0
+          }
+        }
+      ]
+    },
+    "expected_answer_values": [
+      "Erdgeschoss"
+    ],
+    "answer_kind": "string",
+    "answer_tolerance": 0.0,
+    "execution_ok": true,
+    "note": null
+  },
+  {
+    "query_id": "q63",
+    "query_text": "How many slabs are in the building?",
+    "category": "counting",
+    "complexity_level": "L2",
+    "paraphrase_group_id": "g27",
+    "is_standard_wording": true,
+    "expected_function": "count_components",
+    "expected_arguments": {
+      "component_type": "IfcSlab"
+    },
+    "expected_result": {
+      "count": 245,
+      "component_type": "IfcSlab",
+      "floor": null,
+      "facility_id": 124851
+    },
+    "expected_answer_values": [
+      245
+    ],
+    "answer_kind": "number",
+    "answer_tolerance": 0.0,
+    "execution_ok": true,
+    "note": null
+  },
+  {
+    "query_id": "q64",
+    "query_text": "Count the floor slabs in the facility.",
+    "category": "counting",
+    "complexity_level": "L2",
+    "paraphrase_group_id": "g27",
+    "is_standard_wording": false,
+    "expected_function": "count_components",
+    "expected_arguments": {
+      "component_type": "IfcSlab"
+    },
+    "expected_result": {
+      "count": 245,
+      "component_type": "IfcSlab",
+      "floor": null,
+      "facility_id": 124851
+    },
+    "expected_answer_values": [
+      245
+    ],
+    "answer_kind": "number",
+    "answer_tolerance": 0.0,
+    "execution_ok": true,
+    "note": null
+  },
+  {
+    "query_id": "q65",
+    "query_text": "What is the door area on each floor?",
+    "category": "aggregation",
+    "complexity_level": "L3",
+    "paraphrase_group_id": "g28",
+    "is_standard_wording": true,
+    "expected_function": "calculate_area_by_floor",
+    "expected_arguments": {
+      "component_type": "IfcDoor"
+    },
+    "expected_result": {
+      "component_type": "IfcDoor",
+      "facility_id": 124851,
+      "by_floor": [
+        {
+          "floor": "Untergeschoss",
+          "order_index": -1,
+          "total_area": 27.247,
+          "unit": "m²",
+          "components_with_area": 10,
+          "method_breakdown": {
+            "stored_area": 0,
+            "width_x_height": 10,
+            "no_area_data": 0
+          }
+        },
+        {
+          "floor": "Erdgeschoss",
+          "order_index": 0,
+          "total_area": 53.545,
+          "unit": "m²",
+          "components_with_area": 5,
+          "method_breakdown": {
+            "stored_area": 0,
+            "width_x_height": 5,
+            "no_area_data": 0
+          }
+        },
+        {
+          "floor": "1. Obergeschoss",
+          "order_index": 1,
+          "total_area": 15.144,
+          "unit": "m²",
+          "components_with_area": 1,
+          "method_breakdown": {
+            "stored_area": 0,
+            "width_x_height": 1,
+            "no_area_data": 0
+          }
+        },
+        {
+          "floor": "2. Obergeschoss",
+          "order_index": 2,
+          "total_area": 15.147,
+          "unit": "m²",
+          "components_with_area": 1,
+          "method_breakdown": {
+            "stored_area": 0,
+            "width_x_height": 1,
+            "no_area_data": 0
+          }
+        },
+        {
+          "floor": "Dachgeschoss",
+          "order_index": 1000,
+          "total_area": 2.066,
+          "unit": "m²",
+          "components_with_area": 1,
+          "method_breakdown": {
+            "stored_area": 0,
+            "width_x_height": 1,
+            "no_area_data": 0
+          }
+        }
+      ]
+    },
+    "expected_answer_values": [],
+    "answer_kind": "any",
+    "answer_tolerance": 0.0,
+    "execution_ok": true,
+    "note": null
+  },
+  {
+    "query_id": "q66",
+    "query_text": "Break down door area per storey.",
+    "category": "aggregation",
+    "complexity_level": "L3",
+    "paraphrase_group_id": "g28",
+    "is_standard_wording": false,
+    "expected_function": "calculate_area_by_floor",
+    "expected_arguments": {
+      "component_type": "IfcDoor"
+    },
+    "expected_result": {
+      "component_type": "IfcDoor",
+      "facility_id": 124851,
+      "by_floor": [
+        {
+          "floor": "Untergeschoss",
+          "order_index": -1,
+          "total_area": 27.247,
+          "unit": "m²",
+          "components_with_area": 10,
+          "method_breakdown": {
+            "stored_area": 0,
+            "width_x_height": 10,
+            "no_area_data": 0
+          }
+        },
+        {
+          "floor": "Erdgeschoss",
+          "order_index": 0,
+          "total_area": 53.545,
+          "unit": "m²",
+          "components_with_area": 5,
+          "method_breakdown": {
+            "stored_area": 0,
+            "width_x_height": 5,
+            "no_area_data": 0
+          }
+        },
+        {
+          "floor": "1. Obergeschoss",
+          "order_index": 1,
+          "total_area": 15.144,
+          "unit": "m²",
+          "components_with_area": 1,
+          "method_breakdown": {
+            "stored_area": 0,
+            "width_x_height": 1,
+            "no_area_data": 0
+          }
+        },
+        {
+          "floor": "2. Obergeschoss",
+          "order_index": 2,
+          "total_area": 15.147,
+          "unit": "m²",
+          "components_with_area": 1,
+          "method_breakdown": {
+            "stored_area": 0,
+            "width_x_height": 1,
+            "no_area_data": 0
+          }
+        },
+        {
+          "floor": "Dachgeschoss",
+          "order_index": 1000,
+          "total_area": 2.066,
+          "unit": "m²",
+          "components_with_area": 1,
+          "method_breakdown": {
+            "stored_area": 0,
+            "width_x_height": 1,
+            "no_area_data": 0
+          }
+        }
+      ]
+    },
+    "expected_answer_values": [],
+    "answer_kind": "any",
+    "answer_tolerance": 0.0,
+    "execution_ok": true,
+    "note": null
+  },
+  {
+    "query_id": "q67",
+    "query_text": "How many windows are on the first floor?",
+    "category": "counting",
+    "complexity_level": "L2",
+    "paraphrase_group_id": "g29",
+    "is_standard_wording": true,
+    "expected_function": "count_components",
+    "expected_arguments": {
+      "component_type": "IfcWindow",
+      "floor": "1. Obergeschoss"
+    },
+    "expected_result": {
+      "count": 79,
+      "component_type": "IfcWindow",
+      "floor": "1. Obergeschoss",
+      "facility_id": 124851
+    },
+    "expected_answer_values": [
+      79
+    ],
+    "answer_kind": "number",
+    "answer_tolerance": 0.0,
+    "execution_ok": true,
+    "note": null
+  },
+  {
+    "query_id": "q68",
+    "query_text": "Count the windows on the 1. Obergeschoss.",
+    "category": "counting",
+    "complexity_level": "L2",
+    "paraphrase_group_id": "g29",
+    "is_standard_wording": false,
+    "expected_function": "count_components",
+    "expected_arguments": {
+      "component_type": "IfcWindow",
+      "floor": "1. Obergeschoss"
+    },
+    "expected_result": {
+      "count": 79,
+      "component_type": "IfcWindow",
+      "floor": "1. Obergeschoss",
+      "facility_id": 124851
+    },
+    "expected_answer_values": [
+      79
+    ],
+    "answer_kind": "number",
+    "answer_tolerance": 0.0,
+    "execution_ok": true,
+    "note": null
+  },
+  {
+    "query_id": "q69",
+    "query_text": "What is the total window area on the first floor?",
+    "category": "aggregation",
+    "complexity_level": "L3",
+    "paraphrase_group_id": "g30",
+    "is_standard_wording": true,
+    "expected_function": "calculate_total_component_area",
+    "expected_arguments": {
+      "component_type": "IfcWindow",
+      "floor": "1. Obergeschoss"
+    },
+    "expected_result": {
+      "total_area": 560.59,
+      "unit": "m²",
+      "method": "width_x_height",
+      "method_breakdown": {
+        "stored_area": 0,
+        "width_x_height": 79,
+        "no_area_data": 0
+      },
+      "components_with_area": 79,
+      "source_component_ids": [
+        483788,
+        483798,
+        483800,
+        484451,
+        484452,
+        484453,
+        484455,
+        484456,
+        484458,
+        484467,
+        484475,
+        484476,
+        484481,
+        484482,
+        484483,
+        484484,
+        484485,
+        484486,
+        484487,
+        484488,
+        484489,
+        484490,
+        484491,
+        485064,
+        525976,
+        525977,
+        525978,
+        525979,
+        525980,
+        525981,
+        525982,
+        525983,
+        525984,
+        525985,
+        525986,
+        525987,
+        525988,
+        525989,
+        525990,
+        525991,
+        525992,
+        525993,
+        525994,
+        525995,
+        525996,
+        525997,
+        526560,
+        526561,
+        526562,
+        526563,
+        526600,
+        527151,
+        527152,
+        527153,
+        527154,
+        527155,
+        527156,
+        527157,
+        527158,
+        527159,
+        527160,
+        527161,
+        527162,
+        527163,
+        527164,
+        527165,
+        527166,
+        527167,
+        527168,
+        527169,
+        527170,
+        527171,
+        527184,
+        527185,
+        527186,
+        527187,
+        527776,
+        528591,
+        528592
+      ],
+      "component_type": "IfcWindow",
+      "floor": "1. Obergeschoss",
+      "facility_id": 124851
+    },
+    "expected_answer_values": [
+      560.59
+    ],
+    "answer_kind": "number",
+    "answer_tolerance": 1.0,
+    "execution_ok": true,
+    "note": null
+  },
+  {
+    "query_id": "q70",
+    "query_text": "Calculate the window area on level one.",
+    "category": "aggregation",
+    "complexity_level": "L3",
+    "paraphrase_group_id": "g30",
+    "is_standard_wording": false,
+    "expected_function": "calculate_total_component_area",
+    "expected_arguments": {
+      "component_type": "IfcWindow",
+      "floor": "1. Obergeschoss"
+    },
+    "expected_result": {
+      "total_area": 560.59,
+      "unit": "m²",
+      "method": "width_x_height",
+      "method_breakdown": {
+        "stored_area": 0,
+        "width_x_height": 79,
+        "no_area_data": 0
+      },
+      "components_with_area": 79,
+      "source_component_ids": [
+        483788,
+        483798,
+        483800,
+        484451,
+        484452,
+        484453,
+        484455,
+        484456,
+        484458,
+        484467,
+        484475,
+        484476,
+        484481,
+        484482,
+        484483,
+        484484,
+        484485,
+        484486,
+        484487,
+        484488,
+        484489,
+        484490,
+        484491,
+        485064,
+        525976,
+        525977,
+        525978,
+        525979,
+        525980,
+        525981,
+        525982,
+        525983,
+        525984,
+        525985,
+        525986,
+        525987,
+        525988,
+        525989,
+        525990,
+        525991,
+        525992,
+        525993,
+        525994,
+        525995,
+        525996,
+        525997,
+        526560,
+        526561,
+        526562,
+        526563,
+        526600,
+        527151,
+        527152,
+        527153,
+        527154,
+        527155,
+        527156,
+        527157,
+        527158,
+        527159,
+        527160,
+        527161,
+        527162,
+        527163,
+        527164,
+        527165,
+        527166,
+        527167,
+        527168,
+        527169,
+        527170,
+        527171,
+        527184,
+        527185,
+        527186,
+        527187,
+        527776,
+        528591,
+        528592
+      ],
+      "component_type": "IfcWindow",
+      "floor": "1. Obergeschoss",
+      "facility_id": 124851
+    },
+    "expected_answer_values": [
+      560.59
+    ],
+    "answer_kind": "number",
+    "answer_tolerance": 1.0,
+    "execution_ok": true,
+    "note": null
+  }
+]

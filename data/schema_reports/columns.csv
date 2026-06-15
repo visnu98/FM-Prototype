@@ -1,0 +1,2862 @@
+table_schema,table_name,column_name,ordinal_position,data_type,is_nullable,column_default,character_maximum_length,numeric_precision,numeric_scale
+public,acceptance,id,1,bigint,NO,nextval('acceptance_id_seq'::regclass),,64.0,0.0
+public,acceptance,name,2,character varying,NO,,255.0,,
+public,acceptance,created_on,3,timestamp without time zone,YES,,,,
+public,acceptance,category,4,character varying,YES,,255.0,,
+public,acceptance,start_date,5,timestamp without time zone,YES,,,,
+public,acceptance,end_date,6,timestamp without time zone,YES,,,,
+public,acceptance,result,7,character varying,YES,,255.0,,
+public,acceptance,deadline,8,timestamp without time zone,YES,,,,
+public,acceptance,location,9,character varying,YES,,255.0,,
+public,acceptance,created_by_id,10,bigint,YES,,,64.0,0.0
+public,acceptance,company_id,11,bigint,YES,,,64.0,0.0
+public,acceptance,system_id,12,bigint,NO,,,64.0,0.0
+public,acceptance,technical_system_id,13,bigint,YES,,,64.0,0.0
+public,acceptance,floor_id,14,bigint,YES,,,64.0,0.0
+public,acceptance,task_id,15,bigint,YES,,,64.0,0.0
+public,acceptance,created_by_user,16,character varying,YES,,50.0,,
+public,acceptance,created_date,17,timestamp without time zone,YES,now(),,,
+public,acceptance,last_modified_by,18,character varying,YES,,50.0,,
+public,acceptance,last_modified_date,19,timestamp without time zone,YES,,,,
+public,acceptance,jhi_version,20,bigint,YES,,,64.0,0.0
+public,acceptance,description_txt,21,text,YES,,,,
+public,acceptance,comment_txt,22,text,YES,,,,
+public,acceptance,sub_project_id,23,bigint,YES,,,64.0,0.0
+public,ai_chat,id,1,bigint,NO,,,64.0,0.0
+public,ai_chat,name,2,character varying,NO,,255.0,,
+public,ai_chat,guid,3,character varying,NO,,255.0,,
+public,ai_chat,is_favorite,4,boolean,NO,false,,,
+public,ai_chat,owning_facility_id,5,bigint,NO,,,64.0,0.0
+public,ai_chat,created_by_user,6,character varying,YES,,50.0,,
+public,ai_chat,created_date,7,timestamp without time zone,YES,now(),,,
+public,ai_chat,last_modified_by,8,character varying,YES,,50.0,,
+public,ai_chat,last_modified_date,9,timestamp without time zone,YES,,,,
+public,ai_chat_reaction,id,1,bigint,NO,,,64.0,0.0
+public,ai_chat_reaction,is_thumb_up,2,boolean,NO,false,,,
+public,ai_chat_reaction,timestamp_identifier,3,character varying,NO,,255.0,,
+public,ai_chat_reaction,ai_chat_id,4,bigint,NO,,,64.0,0.0
+public,ai_chat_reaction,created_by_user,5,character varying,YES,,50.0,,
+public,ai_chat_reaction,created_date,6,timestamp without time zone,YES,now(),,,
+public,ai_chat_reaction,last_modified_by,7,character varying,YES,,50.0,,
+public,ai_chat_reaction,last_modified_date,8,timestamp without time zone,YES,,,,
+public,alert,id,1,bigint,NO,nextval('alert_id_seq'::regclass),,64.0,0.0
+public,alert,reason,2,character varying,NO,,255.0,,
+public,alert,category,3,character varying,YES,,255.0,,
+public,alert,technical_id,4,character varying,YES,,255.0,,
+public,alert,description,5,character varying,YES,,255.0,,
+public,alert,status,6,character varying,YES,,255.0,,
+public,alert,is_archived,7,boolean,NO,false,,,
+public,alert,is_technical,8,boolean,NO,false,,,
+public,alert,contact_mail,9,character varying,YES,,255.0,,
+public,alert,contact_surname,10,character varying,YES,,255.0,,
+public,alert,contact_name,11,character varying,YES,,255.0,,
+public,alert,contact_phone,12,character varying,YES,,255.0,,
+public,alert,image_guid,13,character varying,YES,,255.0,,
+public,alert,task_id,14,bigint,YES,,,64.0,0.0
+public,alert,priority_id,15,bigint,YES,,,64.0,0.0
+public,alert,facility_id,16,bigint,YES,,,64.0,0.0
+public,alert,floor_id,17,bigint,YES,,,64.0,0.0
+public,alert,space_id,18,bigint,YES,,,64.0,0.0
+public,alert,component_id,19,bigint,YES,,,64.0,0.0
+public,alert,technical_system_id,20,bigint,YES,,,64.0,0.0
+public,alert,project_id,21,bigint,NO,,,64.0,0.0
+public,alert,created_by_user,22,character varying,YES,,50.0,,
+public,alert,created_date,23,timestamp without time zone,YES,now(),,,
+public,alert,last_modified_by,24,character varying,YES,,50.0,,
+public,alert,last_modified_date,25,timestamp without time zone,YES,,,,
+public,alert_log_entry,id,1,bigint,NO,nextval('alert_log_entry_id_seq'::regclass),,64.0,0.0
+public,alert_log_entry,status,2,character varying,NO,,255.0,,
+public,alert_log_entry,jhi_time,3,timestamp without time zone,NO,,,,
+public,alert_log_entry,editor,4,character varying,NO,,255.0,,
+public,alert_log_entry,note,5,character varying,YES,,255.0,,
+public,alert_log_entry,alert_id,6,bigint,NO,,,64.0,0.0
+public,alert_priority,id,1,bigint,NO,nextval('alert_priority_id_seq'::regclass),,64.0,0.0
+public,alert_priority,name,2,character varying,NO,,255.0,,
+public,alert_priority,jhi_value,3,integer,NO,,,32.0,0.0
+public,alert_priority,reaction_time,4,bigint,YES,,,64.0,0.0
+public,alert_priority,intervention_time,5,bigint,YES,,,64.0,0.0
+public,alert_priority,editing_time,6,bigint,YES,,,64.0,0.0
+public,alert_priority,completion_time,7,bigint,YES,,,64.0,0.0
+public,alert_priority,reaction_time_holiday,8,bigint,YES,,,64.0,0.0
+public,alert_priority,intervention_time_holiday,9,bigint,YES,,,64.0,0.0
+public,alert_priority,editing_time_holiday,10,bigint,YES,,,64.0,0.0
+public,alert_priority,completion_time_holiday,11,bigint,YES,,,64.0,0.0
+public,alert_priority,is_sla_relevant,12,boolean,NO,true,,,
+public,alert_priority,project_id,13,bigint,NO,,,64.0,0.0
+public,alert_priority,created_by_user,14,character varying,YES,,50.0,,
+public,alert_priority,created_date,15,timestamp without time zone,YES,now(),,,
+public,alert_priority,last_modified_by,16,character varying,YES,,50.0,,
+public,alert_priority,last_modified_date,17,timestamp without time zone,YES,,,,
+public,alert_priority_aud,id,1,bigint,NO,,,64.0,0.0
+public,alert_priority_aud,name,2,character varying,YES,,255.0,,
+public,alert_priority_aud,jhi_value,3,integer,YES,,,32.0,0.0
+public,alert_priority_aud,reaction_time,4,bigint,YES,,,64.0,0.0
+public,alert_priority_aud,intervention_time,5,bigint,YES,,,64.0,0.0
+public,alert_priority_aud,editing_time,6,bigint,YES,,,64.0,0.0
+public,alert_priority_aud,completion_time,7,bigint,YES,,,64.0,0.0
+public,alert_priority_aud,reaction_time_holiday,8,bigint,YES,,,64.0,0.0
+public,alert_priority_aud,intervention_time_holiday,9,bigint,YES,,,64.0,0.0
+public,alert_priority_aud,editing_time_holiday,10,bigint,YES,,,64.0,0.0
+public,alert_priority_aud,completion_time_holiday,11,bigint,YES,,,64.0,0.0
+public,alert_priority_aud,is_sla_relevant,12,boolean,YES,true,,,
+public,alert_priority_aud,project_id,13,bigint,YES,,,64.0,0.0
+public,alert_priority_aud,rev,14,bigint,NO,,,64.0,0.0
+public,alert_priority_aud,revend,15,bigint,YES,,,64.0,0.0
+public,alert_priority_aud,revtype,16,smallint,NO,,,16.0,0.0
+public,alert_priority_aud,created_by_user,17,character varying,YES,,50.0,,
+public,alert_priority_aud,created_date,18,timestamp without time zone,YES,now(),,,
+public,alert_priority_aud,last_modified_by,19,character varying,YES,,50.0,,
+public,alert_priority_aud,last_modified_date,20,timestamp without time zone,YES,,,,
+public,api_key,id,1,bigint,NO,,,64.0,0.0
+public,api_key,description,2,character varying,YES,,255.0,,
+public,api_key,x_api_key,3,character varying,NO,,30.0,,
+public,api_key,id_token,4,character varying,NO,,510.0,,
+public,api_key,user_id,5,bigint,YES,,,64.0,0.0
+public,api_key,is_active,6,boolean,NO,,,,
+public,api_key,created_by_user,7,character varying,YES,,50.0,,
+public,api_key,created_date,8,timestamp without time zone,YES,now(),,,
+public,api_key,last_modified_by,9,character varying,YES,,50.0,,
+public,api_key,last_modified_date,10,timestamp without time zone,YES,,,,
+public,asset_component,id,1,bigint,NO,,,64.0,0.0
+public,asset_component,name,2,character varying,NO,,255.0,,
+public,asset_component,created_on,3,timestamp without time zone,YES,,,,
+public,asset_component,ext_system,4,character varying,YES,,255.0,,
+public,asset_component,ext_object,5,character varying,YES,,255.0,,
+public,asset_component,ext_identifier,6,character varying,YES,,255.0,,
+public,asset_component,category,7,character varying,YES,,255.0,,
+public,asset_component,serial_number,8,character varying,YES,,255.0,,
+public,asset_component,installation_date,9,date,YES,,,,
+public,asset_component,warranty_start_date,10,date,YES,,,,
+public,asset_component,asset_identifier,11,character varying,YES,,255.0,,
+public,asset_component,bar_code,12,character varying,YES,,255.0,,
+public,asset_component,tag_number,13,character varying,YES,,255.0,,
+public,asset_component,image_guid,14,character varying,YES,,255.0,,
+public,asset_component,type_id,15,bigint,YES,,,64.0,0.0
+public,asset_component,owning_facility_id,16,bigint,NO,,,64.0,0.0
+public,asset_component,created_by_id,17,bigint,YES,,,64.0,0.0
+public,asset_component,ifc_reference,18,character varying,YES,,255.0,,
+public,asset_component,created_by_user,19,character varying,YES,,50.0,,
+public,asset_component,created_date,20,timestamp without time zone,YES,now(),,,
+public,asset_component,last_modified_by,21,character varying,YES,,50.0,,
+public,asset_component,last_modified_date,22,timestamp without time zone,YES,,,,
+public,asset_component,jhi_version,23,bigint,YES,,,64.0,0.0
+public,asset_component,system_id,24,bigint,YES,,,64.0,0.0
+public,asset_component,predefined_type,25,character varying,YES,,255.0,,
+public,asset_component,model_id,26,bigint,YES,,,64.0,0.0
+public,asset_component,description_txt,27,text,YES,,,,
+public,asset_component,operating_status,28,character varying,NO,'BUILT_IN'::character varying,255.0,,
+public,asset_component_assembly,id,1,bigint,NO,,,64.0,0.0
+public,asset_component_assembly,name,2,character varying,NO,,255.0,,
+public,asset_component_assembly,created_on,3,timestamp without time zone,YES,,,,
+public,asset_component_assembly,assembly_type,4,character varying,YES,,255.0,,
+public,asset_component_assembly,ext_system,5,character varying,YES,,255.0,,
+public,asset_component_assembly,ext_object,6,character varying,YES,,255.0,,
+public,asset_component_assembly,ext_identifier,7,character varying,YES,,255.0,,
+public,asset_component_assembly,image_guid,8,character varying,YES,,255.0,,
+public,asset_component_assembly,owning_facility_id,9,bigint,NO,,,64.0,0.0
+public,asset_component_assembly,created_by_id,10,bigint,YES,,,64.0,0.0
+public,asset_component_assembly,parent_id,11,bigint,YES,,,64.0,0.0
+public,asset_component_assembly,ifc_reference,12,character varying,YES,,255.0,,
+public,asset_component_assembly,created_by_user,13,character varying,YES,,50.0,,
+public,asset_component_assembly,created_date,14,timestamp without time zone,YES,now(),,,
+public,asset_component_assembly,last_modified_by,15,character varying,YES,,50.0,,
+public,asset_component_assembly,last_modified_date,16,timestamp without time zone,YES,,,,
+public,asset_component_assembly,jhi_version,17,bigint,YES,,,64.0,0.0
+public,asset_component_assembly,system_id,18,bigint,YES,,,64.0,0.0
+public,asset_component_assembly,predefined_type,19,character varying,YES,,255.0,,
+public,asset_component_assembly,model_id,20,bigint,YES,,,64.0,0.0
+public,asset_component_assembly,description_txt,21,text,YES,,,,
+public,asset_component_assembly_attributes,attributes_id,1,bigint,NO,,,64.0,0.0
+public,asset_component_assembly_attributes,asset_component_assemblies_id,2,bigint,NO,,,64.0,0.0
+public,asset_component_assembly_attributes_aud,asset_component_assemblies_id,1,bigint,NO,,,64.0,0.0
+public,asset_component_assembly_attributes_aud,attributes_id,2,bigint,NO,,,64.0,0.0
+public,asset_component_assembly_attributes_aud,rev,3,bigint,NO,,,64.0,0.0
+public,asset_component_assembly_attributes_aud,revend,4,bigint,YES,,,64.0,0.0
+public,asset_component_assembly_attributes_aud,revtype,5,smallint,YES,,,16.0,0.0
+public,asset_component_assembly_aud,id,1,bigint,NO,,,64.0,0.0
+public,asset_component_assembly_aud,name,2,character varying,YES,,255.0,,
+public,asset_component_assembly_aud,created_on,3,timestamp without time zone,YES,,,,
+public,asset_component_assembly_aud,assembly_type,4,character varying,YES,,255.0,,
+public,asset_component_assembly_aud,ext_system,5,character varying,YES,,255.0,,
+public,asset_component_assembly_aud,ext_object,6,character varying,YES,,255.0,,
+public,asset_component_assembly_aud,ext_identifier,7,character varying,YES,,255.0,,
+public,asset_component_assembly_aud,image_guid,8,character varying,YES,,255.0,,
+public,asset_component_assembly_aud,ifc_reference,9,character varying,YES,,255.0,,
+public,asset_component_assembly_aud,owning_facility_id,10,bigint,YES,,,64.0,0.0
+public,asset_component_assembly_aud,created_by_id,11,bigint,YES,,,64.0,0.0
+public,asset_component_assembly_aud,parent_id,12,bigint,YES,,,64.0,0.0
+public,asset_component_assembly_aud,rev,13,bigint,NO,,,64.0,0.0
+public,asset_component_assembly_aud,revend,14,bigint,YES,,,64.0,0.0
+public,asset_component_assembly_aud,revtype,15,smallint,NO,,,16.0,0.0
+public,asset_component_assembly_aud,created_by_user,16,character varying,YES,,50.0,,
+public,asset_component_assembly_aud,created_date,17,timestamp without time zone,YES,now(),,,
+public,asset_component_assembly_aud,last_modified_by,18,character varying,YES,,50.0,,
+public,asset_component_assembly_aud,last_modified_date,19,timestamp without time zone,YES,,,,
+public,asset_component_assembly_aud,system_id,20,bigint,YES,,,64.0,0.0
+public,asset_component_assembly_aud,predefined_type,21,character varying,YES,,255.0,,
+public,asset_component_assembly_aud,description_txt,22,text,YES,,,,
+public,asset_component_assembly_components,components_id,1,bigint,NO,,,64.0,0.0
+public,asset_component_assembly_components,asset_component_assemblies_id,2,bigint,NO,,,64.0,0.0
+public,asset_component_assembly_components_aud,asset_component_assemblies_id,1,bigint,NO,,,64.0,0.0
+public,asset_component_assembly_components_aud,components_id,2,bigint,NO,,,64.0,0.0
+public,asset_component_assembly_components_aud,rev,3,bigint,NO,,,64.0,0.0
+public,asset_component_assembly_components_aud,revend,4,bigint,YES,,,64.0,0.0
+public,asset_component_assembly_components_aud,revtype,5,smallint,YES,,,16.0,0.0
+public,asset_component_assembly_documents,documents_id,1,bigint,NO,,,64.0,0.0
+public,asset_component_assembly_documents,asset_component_assemblies_id,2,bigint,NO,,,64.0,0.0
+public,asset_component_assembly_documents_aud,asset_component_assemblies_id,1,bigint,NO,,,64.0,0.0
+public,asset_component_assembly_documents_aud,documents_id,2,bigint,NO,,,64.0,0.0
+public,asset_component_assembly_documents_aud,rev,3,bigint,NO,,,64.0,0.0
+public,asset_component_assembly_documents_aud,revend,4,bigint,YES,,,64.0,0.0
+public,asset_component_assembly_documents_aud,revtype,5,smallint,YES,,,16.0,0.0
+public,asset_component_assembly_impacts,impacts_id,1,bigint,NO,,,64.0,0.0
+public,asset_component_assembly_impacts,asset_component_assemblies_id,2,bigint,NO,,,64.0,0.0
+public,asset_component_assembly_impacts_aud,asset_component_assemblies_id,1,bigint,NO,,,64.0,0.0
+public,asset_component_assembly_impacts_aud,impacts_id,2,bigint,NO,,,64.0,0.0
+public,asset_component_assembly_impacts_aud,rev,3,bigint,NO,,,64.0,0.0
+public,asset_component_assembly_impacts_aud,revend,4,bigint,YES,,,64.0,0.0
+public,asset_component_assembly_impacts_aud,revtype,5,smallint,YES,,,16.0,0.0
+public,asset_component_attributes,attributes_id,1,bigint,NO,,,64.0,0.0
+public,asset_component_attributes,asset_components_id,2,bigint,NO,,,64.0,0.0
+public,asset_component_attributes_aud,asset_components_id,1,bigint,NO,,,64.0,0.0
+public,asset_component_attributes_aud,attributes_id,2,bigint,NO,,,64.0,0.0
+public,asset_component_attributes_aud,rev,3,bigint,NO,,,64.0,0.0
+public,asset_component_attributes_aud,revend,4,bigint,YES,,,64.0,0.0
+public,asset_component_attributes_aud,revtype,5,smallint,YES,,,16.0,0.0
+public,asset_component_aud,id,1,bigint,NO,,,64.0,0.0
+public,asset_component_aud,name,2,character varying,YES,,255.0,,
+public,asset_component_aud,created_on,3,timestamp without time zone,YES,,,,
+public,asset_component_aud,ext_system,4,character varying,YES,,255.0,,
+public,asset_component_aud,ext_object,5,character varying,YES,,255.0,,
+public,asset_component_aud,ext_identifier,6,character varying,YES,,255.0,,
+public,asset_component_aud,category,7,character varying,YES,,255.0,,
+public,asset_component_aud,serial_number,8,character varying,YES,,255.0,,
+public,asset_component_aud,installation_date,9,date,YES,,,,
+public,asset_component_aud,warranty_start_date,10,date,YES,,,,
+public,asset_component_aud,asset_identifier,11,character varying,YES,,255.0,,
+public,asset_component_aud,bar_code,12,character varying,YES,,255.0,,
+public,asset_component_aud,tag_number,13,character varying,YES,,255.0,,
+public,asset_component_aud,ifc_reference,14,character varying,YES,,255.0,,
+public,asset_component_aud,image_guid,15,character varying,YES,,255.0,,
+public,asset_component_aud,type_id,16,bigint,YES,,,64.0,0.0
+public,asset_component_aud,owning_facility_id,17,bigint,YES,,,64.0,0.0
+public,asset_component_aud,created_by_id,18,bigint,YES,,,64.0,0.0
+public,asset_component_aud,rev,19,bigint,NO,,,64.0,0.0
+public,asset_component_aud,revend,20,bigint,YES,,,64.0,0.0
+public,asset_component_aud,revtype,21,smallint,NO,,,16.0,0.0
+public,asset_component_aud,created_by_user,22,character varying,YES,,50.0,,
+public,asset_component_aud,created_date,23,timestamp without time zone,YES,now(),,,
+public,asset_component_aud,last_modified_by,24,character varying,YES,,50.0,,
+public,asset_component_aud,last_modified_date,25,timestamp without time zone,YES,,,,
+public,asset_component_aud,system_id,26,bigint,YES,,,64.0,0.0
+public,asset_component_aud,predefined_type,27,character varying,YES,,255.0,,
+public,asset_component_aud,description_txt,28,text,YES,,,,
+public,asset_component_aud,operating_status,29,character varying,YES,'BUILT_IN'::character varying,255.0,,
+public,asset_component_documents,documents_id,1,bigint,NO,,,64.0,0.0
+public,asset_component_documents,asset_components_id,2,bigint,NO,,,64.0,0.0
+public,asset_component_documents_aud,asset_components_id,1,bigint,NO,,,64.0,0.0
+public,asset_component_documents_aud,documents_id,2,bigint,NO,,,64.0,0.0
+public,asset_component_documents_aud,rev,3,bigint,NO,,,64.0,0.0
+public,asset_component_documents_aud,revend,4,bigint,YES,,,64.0,0.0
+public,asset_component_documents_aud,revtype,5,smallint,YES,,,16.0,0.0
+public,asset_component_impacts,impacts_id,1,bigint,NO,,,64.0,0.0
+public,asset_component_impacts,asset_components_id,2,bigint,NO,,,64.0,0.0
+public,asset_component_impacts_aud,asset_components_id,1,bigint,NO,,,64.0,0.0
+public,asset_component_impacts_aud,impacts_id,2,bigint,NO,,,64.0,0.0
+public,asset_component_impacts_aud,rev,3,bigint,NO,,,64.0,0.0
+public,asset_component_impacts_aud,revend,4,bigint,YES,,,64.0,0.0
+public,asset_component_impacts_aud,revtype,5,smallint,YES,,,16.0,0.0
+public,attribute,id,1,bigint,NO,,,64.0,0.0
+public,attribute,name,2,character varying,NO,,255.0,,
+public,attribute,created_on,3,timestamp without time zone,YES,,,,
+public,attribute,ext_system,4,character varying,YES,,255.0,,
+public,attribute,ext_object,5,character varying,YES,,255.0,,
+public,attribute,ext_identifier,6,character varying,YES,,255.0,,
+public,attribute,category,7,character varying,YES,,255.0,,
+public,attribute,owning_facility_id,8,bigint,YES,,,64.0,0.0
+public,attribute,created_by_id,9,bigint,YES,,,64.0,0.0
+public,attribute,property_id,10,bigint,YES,,,64.0,0.0
+public,attribute,unit_id,11,bigint,YES,,,64.0,0.0
+public,attribute,created_by_user,12,character varying,YES,,50.0,,
+public,attribute,created_date,13,timestamp without time zone,YES,now(),,,
+public,attribute,last_modified_by,14,character varying,YES,,50.0,,
+public,attribute,last_modified_date,15,timestamp without time zone,YES,,,,
+public,attribute,model_id,16,bigint,YES,,,64.0,0.0
+public,attribute,jhi_value_txt,17,text,YES,,,,
+public,attribute,description_txt,18,text,YES,,,,
+public,attribute,allowed_values_txt,19,text,YES,,,,
+public,attribute_aud,id,1,bigint,NO,,,64.0,0.0
+public,attribute_aud,name,2,character varying,YES,,255.0,,
+public,attribute_aud,created_on,3,timestamp without time zone,YES,,,,
+public,attribute_aud,ext_system,4,character varying,YES,,255.0,,
+public,attribute_aud,ext_object,5,character varying,YES,,255.0,,
+public,attribute_aud,ext_identifier,6,character varying,YES,,255.0,,
+public,attribute_aud,category,7,character varying,YES,,255.0,,
+public,attribute_aud,owning_facility_id,8,bigint,YES,,,64.0,0.0
+public,attribute_aud,created_by_id,9,bigint,YES,,,64.0,0.0
+public,attribute_aud,property_id,10,bigint,YES,,,64.0,0.0
+public,attribute_aud,unit_id,11,bigint,YES,,,64.0,0.0
+public,attribute_aud,rev,12,bigint,NO,,,64.0,0.0
+public,attribute_aud,revend,13,bigint,YES,,,64.0,0.0
+public,attribute_aud,revtype,14,smallint,NO,,,16.0,0.0
+public,attribute_aud,created_by_user,15,character varying,YES,,50.0,,
+public,attribute_aud,created_date,16,timestamp without time zone,YES,now(),,,
+public,attribute_aud,last_modified_by,17,character varying,YES,,50.0,,
+public,attribute_aud,last_modified_date,18,timestamp without time zone,YES,,,,
+public,attribute_aud,jhi_value_txt,19,text,YES,,,,
+public,attribute_aud,description_txt,20,text,YES,,,,
+public,attribute_aud,allowed_values_txt,21,text,YES,,,,
+public,background_task,id,1,bigint,NO,,,64.0,0.0
+public,background_task,name,2,character varying,NO,,255.0,,
+public,background_task,started,3,timestamp without time zone,YES,,,,
+public,background_task,finished,4,timestamp without time zone,YES,,,,
+public,background_task,state,5,character varying,NO,,255.0,,
+public,bcf_bitmap,id,1,bigint,NO,,,64.0,0.0
+public,bcf_bitmap,guid,2,character varying,YES,,255.0,,
+public,bcf_bitmap,bitmap_type,3,character varying,NO,,255.0,,
+public,bcf_bitmap,bitmap_data,4,text,NO,,,,
+public,bcf_bitmap,height,5,numeric,NO,,,10.0,2.0
+public,bcf_bitmap,location_id,6,bigint,NO,,,64.0,0.0
+public,bcf_bitmap,normal_id,7,bigint,NO,,,64.0,0.0
+public,bcf_bitmap,up_id,8,bigint,NO,,,64.0,0.0
+public,bcf_bitmap,view_point_id,9,bigint,NO,,,64.0,0.0
+public,bcf_clipping_plane,id,1,bigint,NO,,,64.0,0.0
+public,bcf_clipping_plane,location_id,2,bigint,NO,,,64.0,0.0
+public,bcf_clipping_plane,direction_id,3,bigint,NO,,,64.0,0.0
+public,bcf_clipping_plane,view_point_id,4,bigint,NO,,,64.0,0.0
+public,bcf_coloring,id,1,bigint,NO,,,64.0,0.0
+public,bcf_coloring,color,2,character varying,NO,,255.0,,
+public,bcf_coloring,container_id,3,bigint,NO,,,64.0,0.0
+public,bcf_comment,id,1,bigint,NO,,,64.0,0.0
+public,bcf_comment,guid,2,character varying,YES,,255.0,,
+public,bcf_comment,comment,3,text,YES,,,,
+public,bcf_comment,author,4,character varying,YES,,255.0,,
+public,bcf_comment,date,5,timestamp without time zone,YES,,,,
+public,bcf_comment,modified_date,6,timestamp without time zone,YES,,,,
+public,bcf_comment,modified_author,7,character varying,YES,,255.0,,
+public,bcf_comment,view_point_id,8,bigint,YES,,,64.0,0.0
+public,bcf_comment,topic_id,9,bigint,NO,,,64.0,0.0
+public,bcf_comment_event,id,1,bigint,NO,,,64.0,0.0
+public,bcf_comment_event,bitmap_type,2,character varying,NO,,255.0,,
+public,bcf_comment_event,jhi_value,3,character varying,YES,,255.0,,
+public,bcf_comment_event,container_id,4,bigint,NO,,,64.0,0.0
+public,bcf_comment_event_container,id,1,bigint,NO,,,64.0,0.0
+public,bcf_comment_event_container,author,2,character varying,NO,,255.0,,
+public,bcf_comment_event_container,date,3,timestamp without time zone,NO,,,,
+public,bcf_comment_event_container,comment_id,4,bigint,NO,,,64.0,0.0
+public,bcf_component,id,1,bigint,NO,,,64.0,0.0
+public,bcf_component,ifc_guid,2,character varying,YES,,255.0,,
+public,bcf_component,originating_system,3,character varying,YES,,255.0,,
+public,bcf_component,authoring_tool_id,4,character varying,YES,,255.0,,
+public,bcf_component,container_id,5,bigint,YES,,,64.0,0.0
+public,bcf_component,coloring_id,6,bigint,YES,,,64.0,0.0
+public,bcf_component,visibility_id,7,bigint,YES,,,64.0,0.0
+public,bcf_components_container,id,1,bigint,NO,,,64.0,0.0
+public,bcf_components_container,view_point_id,2,bigint,NO,,,64.0,0.0
+public,bcf_direction,id,1,bigint,NO,,,64.0,0.0
+public,bcf_direction,x,2,numeric,NO,,,10.0,2.0
+public,bcf_direction,y,3,numeric,NO,,,10.0,2.0
+public,bcf_direction,z,4,numeric,NO,,,10.0,2.0
+public,bcf_document,id,1,bigint,NO,,,64.0,0.0
+public,bcf_document,guid,2,character varying,NO,,255.0,,
+public,bcf_document,document_guid,3,character varying,YES,,255.0,,
+public,bcf_document,file_name,4,character varying,NO,,255.0,,
+public,bcf_document,project_id,5,bigint,NO,,,64.0,0.0
+public,bcf_document_reference,id,1,bigint,NO,,,64.0,0.0
+public,bcf_document_reference,guid,2,character varying,YES,,255.0,,
+public,bcf_document_reference,document_guid,3,character varying,YES,,255.0,,
+public,bcf_document_reference,description,4,character varying,YES,,255.0,,
+public,bcf_document_reference,url,5,character varying,YES,,255.0,,
+public,bcf_document_reference,topic_id,6,bigint,NO,,,64.0,0.0
+public,bcf_file,id,1,bigint,NO,,,64.0,0.0
+public,bcf_file,ifc_project,2,character varying,YES,,255.0,,
+public,bcf_file,file_name,3,character varying,YES,,255.0,,
+public,bcf_file,reference,4,character varying,YES,,255.0,,
+public,bcf_file,topic_id,5,bigint,NO,,,64.0,0.0
+public,bcf_line,id,1,bigint,NO,,,64.0,0.0
+public,bcf_line,start_point_id,2,bigint,NO,,,64.0,0.0
+public,bcf_line,end_point_id,3,bigint,NO,,,64.0,0.0
+public,bcf_line,view_point_id,4,bigint,NO,,,64.0,0.0
+public,bcf_orthogonal_camera,id,1,bigint,NO,,,64.0,0.0
+public,bcf_orthogonal_camera,view_to_world_scale,2,numeric,NO,,,10.0,2.0
+public,bcf_orthogonal_camera,aspect_ratio,3,numeric,NO,,,10.0,2.0
+public,bcf_orthogonal_camera,camera_view_point_id,4,bigint,NO,,,64.0,0.0
+public,bcf_orthogonal_camera,camera_direction_id,5,bigint,NO,,,64.0,0.0
+public,bcf_orthogonal_camera,camera_up_vector_id,6,bigint,NO,,,64.0,0.0
+public,bcf_orthogonal_camera,view_point_id,7,bigint,NO,,,64.0,0.0
+public,bcf_perspective_camera,id,1,bigint,NO,,,64.0,0.0
+public,bcf_perspective_camera,field_of_view,2,numeric,NO,,,10.0,2.0
+public,bcf_perspective_camera,aspect_ratio,3,numeric,NO,,,10.0,2.0
+public,bcf_perspective_camera,camera_view_point_id,4,bigint,NO,,,64.0,0.0
+public,bcf_perspective_camera,camera_direction_id,5,bigint,NO,,,64.0,0.0
+public,bcf_perspective_camera,camera_up_vector_id,6,bigint,NO,,,64.0,0.0
+public,bcf_perspective_camera,view_point_id,7,bigint,NO,,,64.0,0.0
+public,bcf_point,id,1,bigint,NO,,,64.0,0.0
+public,bcf_point,x,2,numeric,NO,,,10.0,2.0
+public,bcf_point,y,3,numeric,NO,,,10.0,2.0
+public,bcf_point,z,4,numeric,NO,,,10.0,2.0
+public,bcf_project,id,1,bigint,NO,,,64.0,0.0
+public,bcf_project,project_id,2,character varying,NO,,255.0,,
+public,bcf_project,name,3,character varying,NO,,255.0,,
+public,bcf_project,owning_facility_id,4,bigint,NO,,,64.0,0.0
+public,bcf_project_extensions,id,1,bigint,NO,,,64.0,0.0
+public,bcf_project_extensions,project_id,2,bigint,NO,,,64.0,0.0
+public,bcf_project_extensions_priorities,bcf_project_extensions_id,1,bigint,NO,,,64.0,0.0
+public,bcf_project_extensions_priorities,priority,2,character varying,YES,,255.0,,
+public,bcf_project_extensions_snippet_types,bcf_project_extensions_id,1,bigint,NO,,,64.0,0.0
+public,bcf_project_extensions_snippet_types,snippet_type,2,character varying,YES,,255.0,,
+public,bcf_project_extensions_stages,bcf_project_extensions_id,1,bigint,NO,,,64.0,0.0
+public,bcf_project_extensions_stages,stage,2,character varying,YES,,255.0,,
+public,bcf_project_extensions_topic_labels,bcf_project_extensions_id,1,bigint,NO,,,64.0,0.0
+public,bcf_project_extensions_topic_labels,topic_label,2,character varying,YES,,255.0,,
+public,bcf_project_extensions_topic_status,bcf_project_extensions_id,1,bigint,NO,,,64.0,0.0
+public,bcf_project_extensions_topic_status,topic_status,2,character varying,YES,,255.0,,
+public,bcf_project_extensions_topic_types,bcf_project_extensions_id,1,bigint,NO,,,64.0,0.0
+public,bcf_project_extensions_topic_types,topic_type,2,character varying,YES,,255.0,,
+public,bcf_project_extensions_users,bcf_project_extensions_id,1,bigint,NO,,,64.0,0.0
+public,bcf_project_extensions_users,jhi_user,2,character varying,YES,,255.0,,
+public,bcf_snapshot,id,1,bigint,NO,,,64.0,0.0
+public,bcf_snapshot,snapshot_type,2,character varying,NO,,255.0,,
+public,bcf_snapshot,snapshot_data,3,text,NO,,,,
+public,bcf_snapshot,view_point_id,4,bigint,NO,,,64.0,0.0
+public,bcf_snippet,id,1,bigint,NO,,,64.0,0.0
+public,bcf_snippet,snippet_type,2,character varying,NO,,255.0,,
+public,bcf_snippet,is_external,3,boolean,NO,,,,
+public,bcf_snippet,reference,4,character varying,NO,,255.0,,
+public,bcf_snippet,reference_schema,5,character varying,NO,,255.0,,
+public,bcf_snippet,document_guid,6,character varying,YES,,255.0,,
+public,bcf_topic,id,1,bigint,NO,,,64.0,0.0
+public,bcf_topic,guid,2,character varying,YES,,255.0,,
+public,bcf_topic,topic_type,3,character varying,YES,,255.0,,
+public,bcf_topic,topic_status,4,character varying,YES,,255.0,,
+public,bcf_topic,title,5,character varying,NO,,255.0,,
+public,bcf_topic,field_value,6,character varying,YES,,255.0,,
+public,bcf_topic,index,7,integer,YES,,,32.0,0.0
+public,bcf_topic,creation_date,8,timestamp without time zone,YES,,,,
+public,bcf_topic,creation_author,9,character varying,YES,,255.0,,
+public,bcf_topic,modified_date,10,timestamp without time zone,YES,,,,
+public,bcf_topic,modified_author,11,character varying,YES,,255.0,,
+public,bcf_topic,assigned_to,12,character varying,YES,,255.0,,
+public,bcf_topic,state,13,character varying,YES,,255.0,,
+public,bcf_topic,description,14,text,YES,,,,
+public,bcf_topic,due_date,15,timestamp without time zone,YES,,,,
+public,bcf_topic,bim_snippet_id,16,bigint,YES,,,64.0,0.0
+public,bcf_topic,project_id,17,bigint,NO,,,64.0,0.0
+public,bcf_topic_event,id,1,bigint,NO,,,64.0,0.0
+public,bcf_topic_event,bitmap_type,2,character varying,NO,,255.0,,
+public,bcf_topic_event,jhi_value,3,character varying,YES,,1024.0,,
+public,bcf_topic_event,container_id,4,bigint,NO,,,64.0,0.0
+public,bcf_topic_event_container,id,1,bigint,NO,,,64.0,0.0
+public,bcf_topic_event_container,author,2,character varying,NO,,255.0,,
+public,bcf_topic_event_container,date,3,timestamp without time zone,NO,,,,
+public,bcf_topic_event_container,topic_id,4,bigint,NO,,,64.0,0.0
+public,bcf_topic_labels,bcf_topic_id,1,bigint,NO,,,64.0,0.0
+public,bcf_topic_labels,label,2,character varying,YES,,255.0,,
+public,bcf_topic_reference_links,bcf_topic_id,1,bigint,NO,,,64.0,0.0
+public,bcf_topic_reference_links,reference_link,2,character varying,YES,,255.0,,
+public,bcf_topic_related_topics,bcf_topic_id,1,bigint,NO,,,64.0,0.0
+public,bcf_topic_related_topics,related_topic,2,character varying,YES,,255.0,,
+public,bcf_view_point,id,1,bigint,NO,,,64.0,0.0
+public,bcf_view_point,guid,2,character varying,YES,,255.0,,
+public,bcf_view_point,index,3,integer,YES,,,32.0,0.0
+public,bcf_view_point,topic_id,4,bigint,YES,,,64.0,0.0
+public,bcf_visibility,id,1,bigint,NO,,,64.0,0.0
+public,bcf_visibility,spaces_visible,2,boolean,NO,false,,,
+public,bcf_visibility,space_boundaries_visible,3,boolean,NO,false,,,
+public,bcf_visibility,openings_visible,4,boolean,NO,false,,,
+public,bcf_visibility,default_visibility,5,boolean,NO,false,,,
+public,bcf_visibility,container_id,6,bigint,NO,,,64.0,0.0
+public,cobie_attributes,id,1,bigint,NO,nextval('cobie_attributes_id_seq'::regclass),,64.0,0.0
+public,cobie_attributes,idp_cobie_attributes_id,2,bigint,NO,,,64.0,0.0
+public,cobie_attributes,attribute,3,character varying,YES,,255.0,,
+public,cobie_diff,id,1,bigint,NO,,,64.0,0.0
+public,cobie_diff,cobie_entity,2,character varying,NO,,255.0,,
+public,cobie_diff,modification,3,character varying,NO,,255.0,,
+public,cobie_diff,ext_identifier,4,character varying,NO,,255.0,,
+public,cobie_diff,name,5,character varying,NO,,255.0,,
+public,cobie_diff,current_revision,6,jsonb,YES,,,,
+public,cobie_diff,new_revision,7,jsonb,YES,,,,
+public,cobie_diff,current_model,8,jsonb,YES,,,,
+public,cobie_diff,target_revision,9,jsonb,YES,,,,
+public,cobie_diff,model_id,10,bigint,NO,,,64.0,0.0
+public,cobie_diff,file_operation_id,11,bigint,NO,,,64.0,0.0
+public,cobie_diff,helper_id,12,bigint,YES,,,64.0,0.0
+public,cobie_diff_summary,id,1,bigint,NO,,,64.0,0.0
+public,cobie_diff_summary,cobie_entity,2,character varying,NO,,255.0,,
+public,cobie_diff_summary,added,3,bigint,NO,,,64.0,0.0
+public,cobie_diff_summary,modified,4,bigint,NO,,,64.0,0.0
+public,cobie_diff_summary,conflicted,5,bigint,NO,,,64.0,0.0
+public,cobie_diff_summary,deleted,6,bigint,NO,,,64.0,0.0
+public,cobie_diff_summary,file_operation_id,7,bigint,NO,,,64.0,0.0
+public,cobie_diff_summary,validation_guid,8,character varying,YES,,255.0,,
+public,connection,id,1,bigint,NO,,,64.0,0.0
+public,connection,name,2,character varying,NO,,255.0,,
+public,connection,created_on,3,timestamp without time zone,YES,,,,
+public,connection,connection_type,4,character varying,YES,,255.0,,
+public,connection,realizing_element,5,character varying,YES,,255.0,,
+public,connection,port_name_1,6,character varying,YES,,255.0,,
+public,connection,port_name_2,7,character varying,YES,,255.0,,
+public,connection,ext_system,8,character varying,YES,,255.0,,
+public,connection,ext_object,9,character varying,YES,,255.0,,
+public,connection,ext_identifier,10,character varying,YES,,255.0,,
+public,connection,image_guid,11,character varying,YES,,255.0,,
+public,connection,owning_facility_id,12,bigint,NO,,,64.0,0.0
+public,connection,created_by_id,13,bigint,YES,,,64.0,0.0
+public,connection,component_id,14,bigint,YES,,,64.0,0.0
+public,connection,related_component_id,15,bigint,YES,,,64.0,0.0
+public,connection,ifc_reference,16,character varying,YES,,255.0,,
+public,connection,created_by_user,17,character varying,YES,,50.0,,
+public,connection,created_date,18,timestamp without time zone,YES,now(),,,
+public,connection,last_modified_by,19,character varying,YES,,50.0,,
+public,connection,last_modified_date,20,timestamp without time zone,YES,,,,
+public,connection,jhi_version,21,bigint,YES,,,64.0,0.0
+public,connection,system_id,22,bigint,YES,,,64.0,0.0
+public,connection,predefined_type,23,character varying,YES,,255.0,,
+public,connection,model_id,24,bigint,YES,,,64.0,0.0
+public,connection,description_txt,25,text,YES,,,,
+public,connection_attributes,attributes_id,1,bigint,NO,,,64.0,0.0
+public,connection_attributes,connections_id,2,bigint,NO,,,64.0,0.0
+public,connection_attributes_aud,connections_id,1,bigint,NO,,,64.0,0.0
+public,connection_attributes_aud,attributes_id,2,bigint,NO,,,64.0,0.0
+public,connection_attributes_aud,rev,3,bigint,NO,,,64.0,0.0
+public,connection_attributes_aud,revend,4,bigint,YES,,,64.0,0.0
+public,connection_attributes_aud,revtype,5,smallint,YES,,,16.0,0.0
+public,connection_aud,id,1,bigint,NO,,,64.0,0.0
+public,connection_aud,name,2,character varying,YES,,255.0,,
+public,connection_aud,created_on,3,timestamp without time zone,YES,,,,
+public,connection_aud,connection_type,4,character varying,YES,,255.0,,
+public,connection_aud,realizing_element,5,character varying,YES,,255.0,,
+public,connection_aud,port_name_1,6,character varying,YES,,255.0,,
+public,connection_aud,port_name_2,7,character varying,YES,,255.0,,
+public,connection_aud,ext_system,8,character varying,YES,,255.0,,
+public,connection_aud,ext_object,9,character varying,YES,,255.0,,
+public,connection_aud,ext_identifier,10,character varying,YES,,255.0,,
+public,connection_aud,ifc_reference,11,character varying,YES,,255.0,,
+public,connection_aud,image_guid,12,character varying,YES,,255.0,,
+public,connection_aud,owning_facility_id,13,bigint,YES,,,64.0,0.0
+public,connection_aud,created_by_id,14,bigint,YES,,,64.0,0.0
+public,connection_aud,component_id,15,bigint,YES,,,64.0,0.0
+public,connection_aud,related_component_id,16,bigint,YES,,,64.0,0.0
+public,connection_aud,rev,17,bigint,NO,,,64.0,0.0
+public,connection_aud,revend,18,bigint,YES,,,64.0,0.0
+public,connection_aud,revtype,19,smallint,NO,,,16.0,0.0
+public,connection_aud,created_by_user,20,character varying,YES,,50.0,,
+public,connection_aud,created_date,21,timestamp without time zone,YES,now(),,,
+public,connection_aud,last_modified_by,22,character varying,YES,,50.0,,
+public,connection_aud,last_modified_date,23,timestamp without time zone,YES,,,,
+public,connection_aud,system_id,24,bigint,YES,,,64.0,0.0
+public,connection_aud,predefined_type,25,character varying,YES,,255.0,,
+public,connection_aud,description_txt,26,text,YES,,,,
+public,connection_documents,documents_id,1,bigint,NO,,,64.0,0.0
+public,connection_documents,connections_id,2,bigint,NO,,,64.0,0.0
+public,connection_documents_aud,connections_id,1,bigint,NO,,,64.0,0.0
+public,connection_documents_aud,documents_id,2,bigint,NO,,,64.0,0.0
+public,connection_documents_aud,rev,3,bigint,NO,,,64.0,0.0
+public,connection_documents_aud,revend,4,bigint,YES,,,64.0,0.0
+public,connection_documents_aud,revtype,5,smallint,YES,,,16.0,0.0
+public,connection_impacts,impacts_id,1,bigint,NO,,,64.0,0.0
+public,connection_impacts,connections_id,2,bigint,NO,,,64.0,0.0
+public,connection_impacts_aud,connections_id,1,bigint,NO,,,64.0,0.0
+public,connection_impacts_aud,impacts_id,2,bigint,NO,,,64.0,0.0
+public,connection_impacts_aud,rev,3,bigint,NO,,,64.0,0.0
+public,connection_impacts_aud,revend,4,bigint,YES,,,64.0,0.0
+public,connection_impacts_aud,revtype,5,smallint,YES,,,16.0,0.0
+public,contact,id,1,bigint,NO,,,64.0,0.0
+public,contact,email,2,character varying,NO,,255.0,,
+public,contact,created_by,3,character varying,YES,,255.0,,
+public,contact,created_on,4,timestamp without time zone,YES,,,,
+public,contact,ext_system,5,character varying,YES,,255.0,,
+public,contact,ext_object,6,character varying,YES,,255.0,,
+public,contact,ext_identifier,7,character varying,YES,,255.0,,
+public,contact,category,8,character varying,YES,,255.0,,
+public,contact,country,9,character varying,YES,,255.0,,
+public,contact,town,10,character varying,YES,,255.0,,
+public,contact,given_name,11,character varying,YES,,255.0,,
+public,contact,postal_code,12,character varying,YES,,255.0,,
+public,contact,phone,13,character varying,YES,,255.0,,
+public,contact,organization_code,14,character varying,YES,,255.0,,
+public,contact,street,15,character varying,YES,,255.0,,
+public,contact,family_name,16,character varying,YES,,255.0,,
+public,contact,state_region,17,character varying,YES,,255.0,,
+public,contact,company,18,character varying,YES,,255.0,,
+public,contact,postal_box,19,character varying,YES,,255.0,,
+public,contact,department,20,character varying,YES,,255.0,,
+public,contact,is_self_created,21,boolean,NO,,,,
+public,contact,image_guid,22,character varying,YES,,255.0,,
+public,contact,project_id,23,bigint,YES,,,64.0,0.0
+public,contact,created_by_user,24,character varying,YES,,50.0,,
+public,contact,created_date,25,timestamp without time zone,YES,now(),,,
+public,contact,last_modified_by,26,character varying,YES,,50.0,,
+public,contact,last_modified_date,27,timestamp without time zone,YES,,,,
+public,contact,jhi_version,28,bigint,YES,,,64.0,0.0
+public,contact,predefined_type,29,character varying,YES,,255.0,,
+public,contact,parent_id,30,bigint,YES,,,64.0,0.0
+public,contact,phone_alt,31,character varying,YES,,255.0,,
+public,contact,model_id,32,bigint,YES,,,64.0,0.0
+public,contact_attributes,attributes_id,1,bigint,NO,,,64.0,0.0
+public,contact_attributes,contacts_id,2,bigint,NO,,,64.0,0.0
+public,contact_attributes_aud,contacts_id,1,bigint,NO,,,64.0,0.0
+public,contact_attributes_aud,attributes_id,2,bigint,NO,,,64.0,0.0
+public,contact_attributes_aud,rev,3,bigint,NO,,,64.0,0.0
+public,contact_attributes_aud,revend,4,bigint,YES,,,64.0,0.0
+public,contact_attributes_aud,revtype,5,smallint,YES,,,16.0,0.0
+public,contact_aud,id,1,bigint,NO,,,64.0,0.0
+public,contact_aud,email,2,character varying,YES,,255.0,,
+public,contact_aud,created_by,3,character varying,YES,,255.0,,
+public,contact_aud,created_on,4,timestamp without time zone,YES,,,,
+public,contact_aud,ext_system,5,character varying,YES,,255.0,,
+public,contact_aud,ext_object,6,character varying,YES,,255.0,,
+public,contact_aud,ext_identifier,7,character varying,YES,,255.0,,
+public,contact_aud,category,8,character varying,YES,,255.0,,
+public,contact_aud,country,9,character varying,YES,,255.0,,
+public,contact_aud,town,10,character varying,YES,,255.0,,
+public,contact_aud,given_name,11,character varying,YES,,255.0,,
+public,contact_aud,postal_code,12,character varying,YES,,255.0,,
+public,contact_aud,phone,13,character varying,YES,,255.0,,
+public,contact_aud,organization_code,14,character varying,YES,,255.0,,
+public,contact_aud,street,15,character varying,YES,,255.0,,
+public,contact_aud,family_name,16,character varying,YES,,255.0,,
+public,contact_aud,state_region,17,character varying,YES,,255.0,,
+public,contact_aud,company,18,character varying,YES,,255.0,,
+public,contact_aud,postal_box,19,character varying,YES,,255.0,,
+public,contact_aud,department,20,character varying,YES,,255.0,,
+public,contact_aud,is_self_created,21,boolean,YES,,,,
+public,contact_aud,image_guid,22,character varying,YES,,255.0,,
+public,contact_aud,rev,23,bigint,NO,,,64.0,0.0
+public,contact_aud,revend,24,bigint,YES,,,64.0,0.0
+public,contact_aud,revtype,25,smallint,NO,,,16.0,0.0
+public,contact_aud,created_by_user,26,character varying,YES,,50.0,,
+public,contact_aud,created_date,27,timestamp without time zone,YES,now(),,,
+public,contact_aud,last_modified_by,28,character varying,YES,,50.0,,
+public,contact_aud,last_modified_date,29,timestamp without time zone,YES,,,,
+public,contact_aud,predefined_type,30,character varying,YES,,255.0,,
+public,contact_aud,parent_id,31,bigint,YES,,,64.0,0.0
+public,contact_aud,phone_alt,32,character varying,YES,,255.0,,
+public,contact_documents,documents_id,1,bigint,NO,,,64.0,0.0
+public,contact_documents,contacts_id,2,bigint,NO,,,64.0,0.0
+public,contact_documents_aud,contacts_id,1,bigint,NO,,,64.0,0.0
+public,contact_documents_aud,documents_id,2,bigint,NO,,,64.0,0.0
+public,contact_documents_aud,rev,3,bigint,NO,,,64.0,0.0
+public,contact_documents_aud,revend,4,bigint,YES,,,64.0,0.0
+public,contact_documents_aud,revtype,5,smallint,YES,,,16.0,0.0
+public,contact_impacts,impacts_id,1,bigint,NO,,,64.0,0.0
+public,contact_impacts,contacts_id,2,bigint,NO,,,64.0,0.0
+public,contact_impacts_aud,contacts_id,1,bigint,NO,,,64.0,0.0
+public,contact_impacts_aud,impacts_id,2,bigint,NO,,,64.0,0.0
+public,contact_impacts_aud,rev,3,bigint,NO,,,64.0,0.0
+public,contact_impacts_aud,revend,4,bigint,YES,,,64.0,0.0
+public,contact_impacts_aud,revtype,5,smallint,YES,,,16.0,0.0
+public,contract,id,1,bigint,NO,,,64.0,0.0
+public,contract,created_on,2,timestamp without time zone,YES,,,,
+public,contract,contract_type,3,character varying,NO,,255.0,,
+public,contract,description,4,character varying,NO,,255.0,,
+public,contract,contract_basis,5,character varying,NO,,255.0,,
+public,contract,contract_number,6,character varying,NO,,255.0,,
+public,contract,contract_date,7,date,YES,,,,
+public,contract,contract_term,8,numeric,YES,,,21.0,2.0
+public,contract,notice_period,9,numeric,YES,,,21.0,2.0
+public,contract,termination_effective_from,10,date,YES,,,,
+public,contract,offer_number,11,character varying,YES,,255.0,,
+public,contract,offer_date,12,date,YES,,,,
+public,contract,offer_sum,13,numeric,YES,,,21.0,2.0
+public,contract,basic_billing,14,character varying,YES,,255.0,,
+public,contract,warranty_period,15,numeric,YES,,,21.0,2.0
+public,contract,payment_deadline,16,date,YES,,,,
+public,contract,supplied_documents,17,character varying,YES,,255.0,,
+public,contract,contract_performance_guarantee,18,bigint,YES,,,64.0,0.0
+public,contract,warranty_bond,19,bigint,YES,,,64.0,0.0
+public,contract,invoice_deductions,20,bigint,YES,,,64.0,0.0
+public,contract,contract_term_unit_id,21,bigint,YES,,,64.0,0.0
+public,contract,notice_period_unit_id,22,bigint,YES,,,64.0,0.0
+public,contract,warranty_period_unit_id,23,bigint,YES,,,64.0,0.0
+public,contract,warranty_ends_reminder_unit_id,24,bigint,YES,,,64.0,0.0
+public,contract,client_id,25,bigint,YES,,,64.0,0.0
+public,contract,contractor_id,26,bigint,YES,,,64.0,0.0
+public,contract,created_by_id,27,bigint,YES,,,64.0,0.0
+public,contract,owning_facility_id,28,bigint,NO,,,64.0,0.0
+public,contract,created_by_user,29,character varying,YES,,50.0,,
+public,contract,created_date,30,timestamp without time zone,YES,now(),,,
+public,contract,last_modified_by,31,character varying,YES,,50.0,,
+public,contract,last_modified_date,32,timestamp without time zone,YES,,,,
+public,contract,jhi_version,33,bigint,YES,,,64.0,0.0
+public,contract,sub_project_id,34,bigint,YES,,,64.0,0.0
+public,contract_aud,id,1,bigint,NO,,,64.0,0.0
+public,contract_aud,created_on,2,timestamp without time zone,YES,,,,
+public,contract_aud,contract_type,3,character varying,YES,,255.0,,
+public,contract_aud,description,4,character varying,YES,,255.0,,
+public,contract_aud,contract_basis,5,character varying,YES,,255.0,,
+public,contract_aud,contract_number,6,character varying,YES,,255.0,,
+public,contract_aud,contract_date,7,date,YES,,,,
+public,contract_aud,contract_term,8,numeric,YES,,,21.0,2.0
+public,contract_aud,notice_period,9,numeric,YES,,,21.0,2.0
+public,contract_aud,termination_effective_from,10,date,YES,,,,
+public,contract_aud,offer_number,11,character varying,YES,,255.0,,
+public,contract_aud,offer_date,12,date,YES,,,,
+public,contract_aud,offer_sum,13,numeric,YES,,,21.0,2.0
+public,contract_aud,basic_billing,14,character varying,YES,,255.0,,
+public,contract_aud,warranty_period,15,numeric,YES,,,21.0,2.0
+public,contract_aud,payment_deadline,16,date,YES,,,,
+public,contract_aud,supplied_documents,17,character varying,YES,,255.0,,
+public,contract_aud,contract_performance_guarantee,18,bigint,YES,,,64.0,0.0
+public,contract_aud,warranty_bond,19,bigint,YES,,,64.0,0.0
+public,contract_aud,invoice_deductions,20,bigint,YES,,,64.0,0.0
+public,contract_aud,contract_term_unit_id,21,bigint,YES,,,64.0,0.0
+public,contract_aud,notice_period_unit_id,22,bigint,YES,,,64.0,0.0
+public,contract_aud,warranty_period_unit_id,23,bigint,YES,,,64.0,0.0
+public,contract_aud,warranty_ends_reminder_unit_id,24,bigint,YES,,,64.0,0.0
+public,contract_aud,client_id,25,bigint,YES,,,64.0,0.0
+public,contract_aud,contractor_id,26,bigint,YES,,,64.0,0.0
+public,contract_aud,created_by_id,27,bigint,YES,,,64.0,0.0
+public,contract_aud,owning_facility_id,28,bigint,YES,,,64.0,0.0
+public,contract_aud,rev,29,bigint,NO,,,64.0,0.0
+public,contract_aud,revend,30,bigint,YES,,,64.0,0.0
+public,contract_aud,revtype,31,smallint,NO,,,16.0,0.0
+public,contract_aud,created_by_user,32,character varying,YES,,50.0,,
+public,contract_aud,created_date,33,timestamp without time zone,YES,now(),,,
+public,contract_aud,last_modified_by,34,character varying,YES,,50.0,,
+public,contract_aud,last_modified_date,35,timestamp without time zone,YES,,,,
+public,contract_documents,documents_id,1,bigint,NO,,,64.0,0.0
+public,contract_documents,contracts_id,2,bigint,NO,,,64.0,0.0
+public,contract_documents_aud,contracts_id,1,bigint,NO,,,64.0,0.0
+public,contract_documents_aud,documents_id,2,bigint,NO,,,64.0,0.0
+public,contract_documents_aud,rev,3,bigint,NO,,,64.0,0.0
+public,contract_documents_aud,revend,4,bigint,YES,,,64.0,0.0
+public,contract_documents_aud,revtype,5,smallint,YES,,,16.0,0.0
+public,contract_systems,systems_id,1,bigint,NO,,,64.0,0.0
+public,contract_systems,contracts_id,2,bigint,NO,,,64.0,0.0
+public,contract_systems_aud,contracts_id,1,bigint,NO,,,64.0,0.0
+public,contract_systems_aud,systems_id,2,bigint,NO,,,64.0,0.0
+public,contract_systems_aud,rev,3,bigint,NO,,,64.0,0.0
+public,contract_systems_aud,revend,4,bigint,YES,,,64.0,0.0
+public,contract_systems_aud,revtype,5,smallint,YES,,,16.0,0.0
+public,coordinate,id,1,bigint,NO,,,64.0,0.0
+public,coordinate,name,2,character varying,NO,,255.0,,
+public,coordinate,created_on,3,timestamp without time zone,YES,,,,
+public,coordinate,category,4,character varying,YES,,255.0,,
+public,coordinate,coordinate_x_axis,5,numeric,YES,,,,
+public,coordinate,coordinate_y_axis,6,numeric,YES,,,,
+public,coordinate,coordinate_z_axis,7,numeric,YES,,,,
+public,coordinate,ext_system,8,character varying,YES,,255.0,,
+public,coordinate,ext_object,9,character varying,YES,,255.0,,
+public,coordinate,ext_identifier,10,character varying,YES,,255.0,,
+public,coordinate,clockwise_rotation,11,numeric,YES,,,,
+public,coordinate,elevational_rotation,12,numeric,YES,,,,
+public,coordinate,yaw_rotation,13,numeric,YES,,,10.0,2.0
+public,coordinate,relative_to,14,character varying,YES,,255.0,,
+public,coordinate,lrm,15,character varying,YES,,255.0,,
+public,coordinate,owning_facility_id,16,bigint,YES,,,64.0,0.0
+public,coordinate,created_by_id,17,bigint,YES,,,64.0,0.0
+public,coordinate,facility_id,18,bigint,YES,,,64.0,0.0
+public,coordinate,floor_id,19,bigint,YES,,,64.0,0.0
+public,coordinate,space_id,20,bigint,YES,,,64.0,0.0
+public,coordinate,asset_component_id,21,bigint,YES,,,64.0,0.0
+public,coordinate,asset_component_assembly_id,22,bigint,YES,,,64.0,0.0
+public,coordinate,predefined_type,23,character varying,YES,,255.0,,
+public,coordinate,model_id,24,bigint,YES,,,64.0,0.0
+public,coordinate_attributes,attributes_id,1,bigint,NO,,,64.0,0.0
+public,coordinate_attributes,coordinates_id,2,bigint,NO,,,64.0,0.0
+public,coordination_document,id,1,bigint,NO,,,64.0,0.0
+public,coordination_document,entity_id,2,bigint,NO,,,64.0,0.0
+public,coordination_document,entity_type,3,character varying,NO,,255.0,,
+public,coordination_document,document_id,4,bigint,NO,,,64.0,0.0
+public,coordination_document,owning_facility_id,5,bigint,NO,,,64.0,0.0
+public,coordination_document,created_by_user,6,character varying,YES,,50.0,,
+public,coordination_document,created_date,7,timestamp without time zone,YES,now(),,,
+public,coordination_document,last_modified_by,8,character varying,YES,,50.0,,
+public,coordination_document,last_modified_date,9,timestamp without time zone,YES,,,,
+public,dashboard_entry,id,1,bigint,NO,,,64.0,0.0
+public,dashboard_entry,category,2,character varying,NO,,255.0,,
+public,dashboard_entry,content,3,jsonb,YES,,,,
+public,dashboard_entry,configuration,4,jsonb,YES,,,,
+public,dashboard_entry,owning_facility_id,5,bigint,NO,,,64.0,0.0
+public,dashboard_entry,created_by_user,6,character varying,YES,,50.0,,
+public,dashboard_entry,created_date,7,timestamp without time zone,YES,now(),,,
+public,dashboard_entry,last_modified_by,8,character varying,YES,,50.0,,
+public,dashboard_entry,last_modified_date,9,timestamp without time zone,YES,,,,
+public,data_format_entry,id,1,bigint,NO,,,64.0,0.0
+public,data_format_entry,name,2,character varying,NO,,255.0,,
+public,data_format_entry,data_type,3,character varying,NO,,255.0,,
+public,data_format_entry,unit,4,character varying,YES,,255.0,,
+public,data_format_entry,template_id,5,bigint,NO,,,64.0,0.0
+public,data_format_template,id,1,bigint,NO,,,64.0,0.0
+public,data_format_template,name,2,character varying,NO,,255.0,,
+public,data_sample,id,1,bigint,NO,,,64.0,0.0
+public,data_sample,name,2,character varying,NO,,255.0,,
+public,data_sample,type,3,character varying,NO,,255.0,,
+public,data_sample,state,4,character varying,NO,'FINISHED'::character varying,255.0,,
+public,data_sample,template_id,5,bigint,NO,,,64.0,0.0
+public,data_set,id,1,bigint,NO,,,64.0,0.0
+public,data_set,sample_id,2,bigint,NO,,,64.0,0.0
+public,data_set,vuid,3,character varying,NO,,255.0,,
+public,data_set,attributes,4,json,NO,,,,
+public,data_sheet,id,1,bigint,NO,,,64.0,0.0
+public,data_sheet,name,2,character varying,NO,,255.0,,
+public,data_sheet,created_on,3,timestamp without time zone,YES,,,,
+public,data_sheet,sample_id,4,bigint,YES,,,64.0,0.0
+public,data_sheet,description,5,character varying,YES,,255.0,,
+public,data_sheet,asset_component_id,6,bigint,YES,,,64.0,0.0
+public,data_sheet,owning_facility_id,7,bigint,NO,,,64.0,0.0
+public,data_sheet,created_by_id,8,bigint,YES,,,64.0,0.0
+public,data_sheet,created_by_user,9,character varying,YES,,50.0,,
+public,data_sheet,created_date,10,timestamp without time zone,YES,now(),,,
+public,data_sheet,last_modified_by,11,character varying,YES,,50.0,,
+public,data_sheet,last_modified_date,12,timestamp without time zone,YES,,,,
+public,data_sheet,data_sample_id,13,bigint,YES,,,64.0,0.0
+public,databasechangelog,id,1,character varying,NO,,255.0,,
+public,databasechangelog,author,2,character varying,NO,,255.0,,
+public,databasechangelog,filename,3,character varying,NO,,255.0,,
+public,databasechangelog,dateexecuted,4,timestamp without time zone,NO,,,,
+public,databasechangelog,orderexecuted,5,integer,NO,,,32.0,0.0
+public,databasechangelog,exectype,6,character varying,NO,,10.0,,
+public,databasechangelog,md5sum,7,character varying,YES,,35.0,,
+public,databasechangelog,description,8,character varying,YES,,255.0,,
+public,databasechangelog,comments,9,character varying,YES,,255.0,,
+public,databasechangelog,tag,10,character varying,YES,,255.0,,
+public,databasechangelog,liquibase,11,character varying,YES,,20.0,,
+public,databasechangelog,contexts,12,character varying,YES,,255.0,,
+public,databasechangelog,labels,13,character varying,YES,,255.0,,
+public,databasechangelog,deployment_id,14,character varying,YES,,10.0,,
+public,databasechangeloglock,id,1,integer,NO,,,32.0,0.0
+public,databasechangeloglock,locked,2,boolean,NO,,,,
+public,databasechangeloglock,lockgranted,3,timestamp without time zone,YES,,,,
+public,databasechangeloglock,lockedby,4,character varying,YES,,255.0,,
+public,dictionary_reference,id,1,bigint,NO,,,64.0,0.0
+public,dictionary_reference,dictionary_identifier,2,character varying,NO,,255.0,,
+public,dictionary_reference,dictionary_namespace,3,character varying,YES,,255.0,,
+public,dictionary_reference,dictionary_web_uri,4,character varying,YES,,255.0,,
+public,dictionary_reference,dictionary_api_uri,5,character varying,YES,,255.0,,
+public,dictionary_reference,ifd_guid,6,character varying,YES,,255.0,,
+public,dictionary_reference,legacy_guid,7,character varying,YES,,255.0,,
+public,dictionary_reference,legacy_guid_as_ifc_global_id,8,character varying,YES,,255.0,,
+public,document,id,1,bigint,NO,,,64.0,0.0
+public,document,name,2,character varying,NO,,255.0,,
+public,document,created_on,3,timestamp without time zone,YES,,,,
+public,document,category,4,character varying,YES,,255.0,,
+public,document,approval_by,5,character varying,YES,,255.0,,
+public,document,stage,6,character varying,YES,,255.0,,
+public,document,ext_system,7,character varying,YES,,255.0,,
+public,document,ext_object,8,character varying,YES,,255.0,,
+public,document,ext_identifier,9,character varying,YES,,255.0,,
+public,document,document_guid,10,character varying,YES,,255.0,,
+public,document,owning_facility_id,11,bigint,NO,,,64.0,0.0
+public,document,created_by_id,12,bigint,YES,,,64.0,0.0
+public,document,created_by_user,13,character varying,YES,,50.0,,
+public,document,created_date,14,timestamp without time zone,YES,now(),,,
+public,document,last_modified_by,15,character varying,YES,,50.0,,
+public,document,last_modified_date,16,timestamp without time zone,YES,,,,
+public,document,system_id,17,bigint,YES,,,64.0,0.0
+public,document,file_size,18,bigint,YES,,,64.0,0.0
+public,document,version,19,bigint,YES,,,64.0,0.0
+public,document,predefined_type,20,character varying,YES,,255.0,,
+public,document,is_folder,21,boolean,NO,false,,,
+public,document,is_contract,22,boolean,NO,false,,,
+public,document,model_id,23,bigint,YES,,,64.0,0.0
+public,document,jhi_directory_txt,24,text,YES,,,,
+public,document,jhi_file_txt,25,text,YES,,,,
+public,document,description_txt,26,text,YES,,,,
+public,document,reference_txt,27,text,YES,,,,
+public,document,origin_name,28,character varying,YES,NULL::character varying,255.0,,
+public,document,name_convention,29,character varying,YES,,255.0,,
+public,document,name_convention_description,30,character varying,YES,,255.0,,
+public,document,is_annotated,31,boolean,NO,false,,,
+public,document,is_locked,32,boolean,NO,false,,,
+public,document,thumbnail_guid,33,character varying,YES,NULL::character varying,255.0,,
+public,document,yaw_offset,34,character varying,YES,NULL::character varying,255.0,,
+public,document,pitch_offset,35,character varying,YES,NULL::character varying,255.0,,
+public,document,viewer_position,36,character varying,YES,NULL::character varying,255.0,,
+public,document_annotation,id,1,bigint,NO,,,64.0,0.0
+public,document_annotation,xfdf_string,2,text,NO,,,,
+public,document_annotation,document_guid,3,character varying,NO,,255.0,,
+public,document_annotation,document_id,4,bigint,YES,,,64.0,0.0
+public,document_annotation,created_by_user,5,character varying,YES,,50.0,,
+public,document_annotation,created_date,6,timestamp without time zone,YES,now(),,,
+public,document_annotation,last_modified_by,7,character varying,YES,,50.0,,
+public,document_annotation,last_modified_date,8,timestamp without time zone,YES,,,,
+public,document_attributes,attributes_id,1,bigint,NO,,,64.0,0.0
+public,document_attributes,documents_id,2,bigint,NO,,,64.0,0.0
+public,document_attributes_aud,documents_id,1,bigint,NO,,,64.0,0.0
+public,document_attributes_aud,attributes_id,2,bigint,NO,,,64.0,0.0
+public,document_attributes_aud,rev,3,bigint,NO,,,64.0,0.0
+public,document_attributes_aud,revend,4,bigint,YES,,,64.0,0.0
+public,document_attributes_aud,revtype,5,smallint,YES,,,16.0,0.0
+public,document_aud,id,1,bigint,NO,,,64.0,0.0
+public,document_aud,name,2,character varying,YES,,255.0,,
+public,document_aud,created_on,3,timestamp without time zone,YES,,,,
+public,document_aud,category,4,character varying,YES,,255.0,,
+public,document_aud,approval_by,5,character varying,YES,,255.0,,
+public,document_aud,stage,6,character varying,YES,,255.0,,
+public,document_aud,ext_system,7,character varying,YES,,255.0,,
+public,document_aud,ext_object,8,character varying,YES,,255.0,,
+public,document_aud,ext_identifier,9,character varying,YES,,255.0,,
+public,document_aud,document_guid,10,character varying,YES,,255.0,,
+public,document_aud,owning_facility_id,11,bigint,YES,,,64.0,0.0
+public,document_aud,created_by_id,12,bigint,YES,,,64.0,0.0
+public,document_aud,rev,13,bigint,NO,,,64.0,0.0
+public,document_aud,revend,14,bigint,YES,,,64.0,0.0
+public,document_aud,revtype,15,smallint,NO,,,16.0,0.0
+public,document_aud,created_by_user,16,character varying,YES,,50.0,,
+public,document_aud,created_date,17,timestamp without time zone,YES,now(),,,
+public,document_aud,last_modified_by,18,character varying,YES,,50.0,,
+public,document_aud,last_modified_date,19,timestamp without time zone,YES,,,,
+public,document_aud,system_id,20,bigint,YES,,,64.0,0.0
+public,document_aud,file_size,21,bigint,YES,,,64.0,0.0
+public,document_aud,version,22,bigint,YES,,,64.0,0.0
+public,document_aud,predefined_type,23,character varying,YES,,255.0,,
+public,document_aud,is_folder,24,boolean,YES,,,,
+public,document_aud,jhi_directory_txt,25,text,YES,,,,
+public,document_aud,jhi_file_txt,26,text,YES,,,,
+public,document_aud,description_txt,27,text,YES,,,,
+public,document_aud,reference_txt,28,text,YES,,,,
+public,document_aud,origin_name,29,character varying,YES,NULL::character varying,255.0,,
+public,document_aud,name_convention,30,character varying,YES,,255.0,,
+public,document_aud,name_convention_description,31,character varying,YES,,255.0,,
+public,document_aud,is_annotated,32,boolean,YES,,,,
+public,document_aud,is_locked,33,boolean,YES,,,,
+public,document_aud,thumbnail_guid,34,character varying,YES,NULL::character varying,255.0,,
+public,document_aud,yaw_offset,35,character varying,YES,NULL::character varying,255.0,,
+public,document_aud,pitch_offset,36,character varying,YES,NULL::character varying,255.0,,
+public,document_aud,viewer_position,37,character varying,YES,NULL::character varying,255.0,,
+public,document_authorized_editors,authorized_editors_id,1,bigint,NO,,,64.0,0.0
+public,document_authorized_editors,documents_id,2,bigint,NO,,,64.0,0.0
+public,document_authorized_editors_aud,documents_id,1,bigint,NO,,,64.0,0.0
+public,document_authorized_editors_aud,authorized_editors_id,2,bigint,NO,,,64.0,0.0
+public,document_authorized_editors_aud,rev,3,bigint,NO,,,64.0,0.0
+public,document_authorized_editors_aud,revend,4,bigint,YES,,,64.0,0.0
+public,document_authorized_editors_aud,revtype,5,smallint,YES,,,16.0,0.0
+public,document_documents,documents_id,1,bigint,NO,,,64.0,0.0
+public,document_documents,document_id,2,bigint,NO,,,64.0,0.0
+public,document_documents_aud,document_id,1,bigint,NO,,,64.0,0.0
+public,document_documents_aud,documents_id,2,bigint,NO,,,64.0,0.0
+public,document_documents_aud,rev,3,bigint,NO,,,64.0,0.0
+public,document_documents_aud,revend,4,bigint,YES,,,64.0,0.0
+public,document_documents_aud,revtype,5,smallint,YES,,,16.0,0.0
+public,document_download_link,id,1,bigint,NO,,,64.0,0.0
+public,document_download_link,id_token,2,character varying,YES,,510.0,,
+public,document_download_link,type,3,character varying,NO,,255.0,,
+public,document_download_link,validity_date,4,timestamp without time zone,NO,,,,
+public,document_download_link,user_id,5,bigint,NO,,,64.0,0.0
+public,document_download_link,document_id,6,bigint,NO,,,64.0,0.0
+public,document_download_link,created_on,7,timestamp without time zone,YES,,,,
+public,document_download_link,created_by_id,8,bigint,YES,,,64.0,0.0
+public,email,id,1,bigint,NO,,,64.0,0.0
+public,email,sent_date,2,timestamp without time zone,YES,,,,
+public,email,sent_status,3,character varying,YES,,255.0,,
+public,email,entity_type,4,character varying,YES,,255.0,,
+public,email,entity_type_category,5,character varying,YES,,255.0,,
+public,email,entity_type_id,6,bigint,YES,,,64.0,0.0
+public,email,checksum,7,character varying,YES,,32.0,,
+public,email,subject_txt,8,text,YES,,,,
+public,email,content_txt,9,text,YES,,,,
+public,email,recipients_txt,10,text,YES,,,,
+public,email,business_checksum,11,character varying,YES,,32.0,,
+public,facility,id,1,bigint,NO,,,64.0,0.0
+public,facility,name,2,character varying,NO,,255.0,,
+public,facility,created_on,3,timestamp without time zone,YES,,,,
+public,facility,external_site_object,4,character varying,YES,,255.0,,
+public,facility,external_project_object,5,character varying,YES,,255.0,,
+public,facility,external_facility_object,6,character varying,YES,,255.0,,
+public,facility,category,7,character varying,YES,,255.0,,
+public,facility,site_name,8,character varying,YES,,255.0,,
+public,facility,external_facility_identifier,9,character varying,YES,,255.0,,
+public,facility,external_site_identifier,10,character varying,YES,,255.0,,
+public,facility,external_project_identifier,11,character varying,YES,,255.0,,
+public,facility,phase,12,character varying,YES,,255.0,,
+public,facility,area_measurement,13,character varying,YES,,255.0,,
+public,facility,external_system,14,character varying,YES,,255.0,,
+public,facility,project_name,15,character varying,YES,,255.0,,
+public,facility,facility_type,16,character varying,YES,,255.0,,
+public,facility,facility_type_detail,17,character varying,YES,,255.0,,
+public,facility,facility_type_detail_name,18,character varying,YES,,255.0,,
+public,facility,image_guid,19,character varying,YES,,255.0,,
+public,facility,information_id,20,bigint,YES,,,64.0,0.0
+public,facility,created_by_id,21,bigint,YES,,,64.0,0.0
+public,facility,linear_unit_id,22,bigint,YES,,,64.0,0.0
+public,facility,area_unit_id,23,bigint,YES,,,64.0,0.0
+public,facility,volume_unit_id,24,bigint,YES,,,64.0,0.0
+public,facility,currency_unit_id,25,bigint,YES,,,64.0,0.0
+public,facility,project_id,26,bigint,NO,,,64.0,0.0
+public,facility,created_by_user,27,character varying,YES,,50.0,,
+public,facility,created_date,28,timestamp without time zone,YES,now(),,,
+public,facility,last_modified_by,29,character varying,YES,,50.0,,
+public,facility,last_modified_date,30,timestamp without time zone,YES,,,,
+public,facility,jhi_version,31,bigint,YES,,,64.0,0.0
+public,facility,webgl_guid,32,character varying,YES,,36.0,,
+public,facility,ifc_reference,33,character varying,YES,,255.0,,
+public,facility,predefined_type,34,character varying,YES,,255.0,,
+public,facility,description_txt,35,text,YES,,,,
+public,facility,site_description_txt,36,text,YES,,,,
+public,facility,project_description_txt,37,text,YES,,,,
+public,facility,laz_guid,38,character varying,YES,,36.0,,
+public,facility,preview_guid,39,character varying,YES,,255.0,,
+public,facility_attributes,attributes_id,1,bigint,NO,,,64.0,0.0
+public,facility_attributes,facilities_id,2,bigint,NO,,,64.0,0.0
+public,facility_attributes_aud,facilities_id,1,bigint,NO,,,64.0,0.0
+public,facility_attributes_aud,attributes_id,2,bigint,NO,,,64.0,0.0
+public,facility_attributes_aud,rev,3,bigint,NO,,,64.0,0.0
+public,facility_attributes_aud,revend,4,bigint,YES,,,64.0,0.0
+public,facility_attributes_aud,revtype,5,smallint,YES,,,16.0,0.0
+public,facility_aud,id,1,bigint,NO,,,64.0,0.0
+public,facility_aud,name,2,character varying,YES,,255.0,,
+public,facility_aud,created_on,3,timestamp without time zone,YES,,,,
+public,facility_aud,external_site_object,4,character varying,YES,,255.0,,
+public,facility_aud,external_project_object,5,character varying,YES,,255.0,,
+public,facility_aud,external_facility_object,6,character varying,YES,,255.0,,
+public,facility_aud,category,7,character varying,YES,,255.0,,
+public,facility_aud,site_name,8,character varying,YES,,255.0,,
+public,facility_aud,external_facility_identifier,9,character varying,YES,,255.0,,
+public,facility_aud,external_site_identifier,10,character varying,YES,,255.0,,
+public,facility_aud,external_project_identifier,11,character varying,YES,,255.0,,
+public,facility_aud,phase,12,character varying,YES,,255.0,,
+public,facility_aud,area_measurement,13,character varying,YES,,255.0,,
+public,facility_aud,external_system,14,character varying,YES,,255.0,,
+public,facility_aud,project_name,15,character varying,YES,,255.0,,
+public,facility_aud,facility_type,16,character varying,YES,,255.0,,
+public,facility_aud,facility_type_detail,17,character varying,YES,,255.0,,
+public,facility_aud,facility_type_detail_name,18,character varying,YES,,255.0,,
+public,facility_aud,image_guid,19,character varying,YES,,255.0,,
+public,facility_aud,information_id,20,bigint,YES,,,64.0,0.0
+public,facility_aud,created_by_id,21,bigint,YES,,,64.0,0.0
+public,facility_aud,linear_unit_id,22,bigint,YES,,,64.0,0.0
+public,facility_aud,area_unit_id,23,bigint,YES,,,64.0,0.0
+public,facility_aud,volume_unit_id,24,bigint,YES,,,64.0,0.0
+public,facility_aud,currency_unit_id,25,bigint,YES,,,64.0,0.0
+public,facility_aud,project_id,26,bigint,YES,,,64.0,0.0
+public,facility_aud,rev,27,bigint,NO,,,64.0,0.0
+public,facility_aud,revend,28,bigint,YES,,,64.0,0.0
+public,facility_aud,revtype,29,smallint,NO,,,16.0,0.0
+public,facility_aud,created_by_user,30,character varying,YES,,50.0,,
+public,facility_aud,created_date,31,timestamp without time zone,YES,now(),,,
+public,facility_aud,last_modified_by,32,character varying,YES,,50.0,,
+public,facility_aud,last_modified_date,33,timestamp without time zone,YES,,,,
+public,facility_aud,jhi_version,34,bigint,YES,,,64.0,0.0
+public,facility_aud,webgl_guid,35,character varying,YES,,36.0,,
+public,facility_aud,ifc_reference,36,character varying,YES,,255.0,,
+public,facility_aud,predefined_type,37,character varying,YES,,255.0,,
+public,facility_aud,description_txt,38,text,YES,,,,
+public,facility_aud,site_description_txt,39,text,YES,,,,
+public,facility_aud,project_description_txt,40,text,YES,,,,
+public,facility_aud,laz_guid,41,character varying,YES,,36.0,,
+public,facility_aud,preview_guid,42,character varying,YES,,255.0,,
+public,facility_documents,documents_id,1,bigint,NO,,,64.0,0.0
+public,facility_documents,facilities_id,2,bigint,NO,,,64.0,0.0
+public,facility_documents_aud,facilities_id,1,bigint,NO,,,64.0,0.0
+public,facility_documents_aud,documents_id,2,bigint,NO,,,64.0,0.0
+public,facility_documents_aud,rev,3,bigint,NO,,,64.0,0.0
+public,facility_documents_aud,revend,4,bigint,YES,,,64.0,0.0
+public,facility_documents_aud,revtype,5,smallint,YES,,,16.0,0.0
+public,facility_impacts,impacts_id,1,bigint,NO,,,64.0,0.0
+public,facility_impacts,facilities_id,2,bigint,NO,,,64.0,0.0
+public,facility_impacts_aud,facilities_id,1,bigint,NO,,,64.0,0.0
+public,facility_impacts_aud,impacts_id,2,bigint,NO,,,64.0,0.0
+public,facility_impacts_aud,rev,3,bigint,NO,,,64.0,0.0
+public,facility_impacts_aud,revend,4,bigint,YES,,,64.0,0.0
+public,facility_impacts_aud,revtype,5,smallint,YES,,,16.0,0.0
+public,file_operation,id,1,bigint,NO,,,64.0,0.0
+public,file_operation,name,2,character varying,NO,,255.0,,
+public,file_operation,status,3,character varying,NO,,255.0,,
+public,file_operation,jhi_type,4,character varying,NO,,255.0,,
+public,file_operation,started,5,timestamp without time zone,YES,,,,
+public,file_operation,finished,6,timestamp without time zone,YES,,,,
+public,file_operation,total,7,integer,YES,,,32.0,0.0
+public,file_operation,jhi_current,8,integer,YES,,,32.0,0.0
+public,file_operation,project_id,9,bigint,YES,,,64.0,0.0
+public,file_operation,file_document_guid,10,character varying,YES,,255.0,,
+public,file_operation,relation_type,11,character varying,YES,,255.0,,
+public,file_operation,relation_id,12,bigint,YES,,,64.0,0.0
+public,file_operation,validation_document_guid,13,character varying,YES,,255.0,,
+public,file_operation,alternative_document_guid,14,character varying,YES,,255.0,,
+public,file_operation,content_txt,15,text,YES,,,,
+public,file_operation,model_id,16,bigint,YES,,,64.0,0.0
+public,file_operation,created_by_user,17,character varying,YES,NULL::character varying,50.0,,
+public,file_operation,created_date,18,timestamp without time zone,YES,,,,
+public,file_operation,last_modified_by,19,character varying,YES,NULL::character varying,50.0,,
+public,file_operation,last_modified_date,20,timestamp without time zone,YES,,,,
+public,file_reference,id,1,bigint,NO,,,64.0,0.0
+public,file_reference,guid,2,character varying,NO,,255.0,,
+public,file_reference,name,3,character varying,NO,,255.0,,
+public,file_reference,jhi_type,4,character varying,NO,,255.0,,
+public,file_reference,project_id,5,bigint,YES,,,64.0,0.0
+public,file_reference,mime_type,6,character varying,YES,,255.0,,
+public,file_reference,origin_name,7,character varying,YES,,255.0,,
+public,file_reference,file_size,8,bigint,YES,,,64.0,0.0
+public,file_reference,created_by_user,9,character varying,YES,,50.0,,
+public,file_reference,created_date,10,timestamp without time zone,YES,now(),,,
+public,file_reference,last_modified_by,11,character varying,YES,,50.0,,
+public,file_reference,last_modified_date,12,timestamp without time zone,YES,now(),,,
+public,file_reference,alternative_guid,13,character varying,YES,,255.0,,
+public,floor,id,1,bigint,NO,,,64.0,0.0
+public,floor,name,2,character varying,NO,,255.0,,
+public,floor,created_on,3,timestamp without time zone,YES,,,,
+public,floor,ext_system,4,character varying,YES,,255.0,,
+public,floor,ext_object,5,character varying,YES,,255.0,,
+public,floor,ext_identifier,6,character varying,YES,,255.0,,
+public,floor,category,7,character varying,YES,,255.0,,
+public,floor,elevation,8,numeric,YES,,,,
+public,floor,height,9,numeric,YES,,,,
+public,floor,image_guid,10,character varying,YES,,255.0,,
+public,floor,created_by_id,11,bigint,YES,,,64.0,0.0
+public,floor,facility_id,12,bigint,NO,,,64.0,0.0
+public,floor,ifc_reference,13,character varying,YES,,255.0,,
+public,floor,created_by_user,14,character varying,YES,,50.0,,
+public,floor,created_date,15,timestamp without time zone,YES,now(),,,
+public,floor,last_modified_by,16,character varying,YES,,50.0,,
+public,floor,last_modified_date,17,timestamp without time zone,YES,,,,
+public,floor,jhi_version,18,bigint,YES,,,64.0,0.0
+public,floor,predefined_type,19,character varying,YES,,255.0,,
+public,floor,model_id,20,bigint,YES,,,64.0,0.0
+public,floor,description_txt,21,text,YES,,,,
+public,floor_attributes,attributes_id,1,bigint,NO,,,64.0,0.0
+public,floor_attributes,floors_id,2,bigint,NO,,,64.0,0.0
+public,floor_attributes_aud,floors_id,1,bigint,NO,,,64.0,0.0
+public,floor_attributes_aud,attributes_id,2,bigint,NO,,,64.0,0.0
+public,floor_attributes_aud,rev,3,bigint,NO,,,64.0,0.0
+public,floor_attributes_aud,revend,4,bigint,YES,,,64.0,0.0
+public,floor_attributes_aud,revtype,5,smallint,YES,,,16.0,0.0
+public,floor_aud,id,1,bigint,NO,,,64.0,0.0
+public,floor_aud,name,2,character varying,YES,,255.0,,
+public,floor_aud,created_on,3,timestamp without time zone,YES,,,,
+public,floor_aud,ext_system,4,character varying,YES,,255.0,,
+public,floor_aud,ext_object,5,character varying,YES,,255.0,,
+public,floor_aud,ext_identifier,6,character varying,YES,,255.0,,
+public,floor_aud,category,7,character varying,YES,,255.0,,
+public,floor_aud,elevation,8,numeric,YES,,,,
+public,floor_aud,height,9,numeric,YES,,,,
+public,floor_aud,ifc_reference,10,character varying,YES,,255.0,,
+public,floor_aud,image_guid,11,character varying,YES,,255.0,,
+public,floor_aud,created_by_id,12,bigint,YES,,,64.0,0.0
+public,floor_aud,facility_id,13,bigint,YES,,,64.0,0.0
+public,floor_aud,rev,14,bigint,NO,,,64.0,0.0
+public,floor_aud,revend,15,bigint,YES,,,64.0,0.0
+public,floor_aud,revtype,16,smallint,NO,,,16.0,0.0
+public,floor_aud,created_by_user,17,character varying,YES,,50.0,,
+public,floor_aud,created_date,18,timestamp without time zone,YES,now(),,,
+public,floor_aud,last_modified_by,19,character varying,YES,,50.0,,
+public,floor_aud,last_modified_date,20,timestamp without time zone,YES,,,,
+public,floor_aud,predefined_type,21,character varying,YES,,255.0,,
+public,floor_aud,description_txt,22,text,YES,,,,
+public,floor_documents,documents_id,1,bigint,NO,,,64.0,0.0
+public,floor_documents,floors_id,2,bigint,NO,,,64.0,0.0
+public,floor_documents_aud,floors_id,1,bigint,NO,,,64.0,0.0
+public,floor_documents_aud,documents_id,2,bigint,NO,,,64.0,0.0
+public,floor_documents_aud,rev,3,bigint,NO,,,64.0,0.0
+public,floor_documents_aud,revend,4,bigint,YES,,,64.0,0.0
+public,floor_documents_aud,revtype,5,smallint,YES,,,16.0,0.0
+public,floor_impacts,impacts_id,1,bigint,NO,,,64.0,0.0
+public,floor_impacts,floors_id,2,bigint,NO,,,64.0,0.0
+public,floor_impacts_aud,floors_id,1,bigint,NO,,,64.0,0.0
+public,floor_impacts_aud,impacts_id,2,bigint,NO,,,64.0,0.0
+public,floor_impacts_aud,rev,3,bigint,NO,,,64.0,0.0
+public,floor_impacts_aud,revend,4,bigint,YES,,,64.0,0.0
+public,floor_impacts_aud,revtype,5,smallint,YES,,,16.0,0.0
+public,general_individual_asset_identifier,id,1,bigint,NO,,,64.0,0.0
+public,general_individual_asset_identifier,giai,2,character varying,NO,,12.0,,
+public,general_individual_asset_identifier,entity_id,4,bigint,NO,,,64.0,0.0
+public,general_individual_asset_identifier,entity_type,5,character varying,NO,,255.0,,
+public,general_individual_asset_identifier,created_by_user,6,character varying,YES,,50.0,,
+public,general_individual_asset_identifier,created_date,7,timestamp without time zone,YES,now(),,,
+public,general_individual_asset_identifier,last_modified_by,8,character varying,YES,,50.0,,
+public,general_individual_asset_identifier,last_modified_date,9,timestamp without time zone,YES,,,,
+public,idp_applicability_template,id,1,bigint,NO,,,64.0,0.0
+public,idp_applicability_template,name,2,character varying,NO,,255.0,,
+public,idp_applicability_template,description,3,character varying,YES,,255.0,,
+public,idp_applicability_template,long_description,4,text,YES,,,,
+public,idp_applicability_template,image_guid,5,character varying,YES,,255.0,,
+public,idp_applicability_template,applicability,6,text,YES,,,,
+public,idp_applicability_template,project_type,7,character varying,NO,,255.0,,
+public,idp_applicability_template,project_id,8,bigint,YES,,,64.0,0.0
+public,idp_application,id,1,bigint,NO,,,64.0,0.0
+public,idp_application,name,2,character varying,NO,,255.0,,
+public,idp_application,description,3,character varying,YES,,255.0,,
+public,idp_application,is_active,4,boolean,NO,false,,,
+public,idp_application,template_id,5,bigint,NO,,,64.0,0.0
+public,idp_application_definition,id,1,bigint,NO,,,64.0,0.0
+public,idp_application_definition,description,2,character varying,YES,,255.0,,
+public,idp_application_definition,applicability,3,text,YES,,,,
+public,idp_application_definition,applicability_template_id,4,bigint,YES,,,64.0,0.0
+public,idp_application_definition,application_id,5,bigint,NO,,,64.0,0.0
+public,idp_application_definition_categories,idp_application_definition_id,1,bigint,NO,,,64.0,0.0
+public,idp_application_definition_categories,category,2,character varying,NO,,255.0,,
+public,idp_application_ifc_versions,idp_application_id,1,bigint,NO,,,64.0,0.0
+public,idp_application_ifc_versions,ifc_version,2,character varying,NO,,255.0,,
+public,idp_cobie_attributes,id,1,bigint,NO,nextval('idp_cobie_attributes_id_seq'::regclass),,64.0,0.0
+public,idp_cobie_attributes,phase_id,2,bigint,NO,,,64.0,0.0
+public,idp_cobie_attributes,cobie_entity,3,character varying,YES,,255.0,,
+public,idp_definition,id,1,bigint,NO,nextval('idp_definition_id_seq'::regclass),,64.0,0.0
+public,idp_definition,jhi_system,2,character varying,NO,,255.0,,
+public,idp_definition,template_id,3,bigint,YES,,,64.0,0.0
+public,idp_definition,category,4,character varying,YES,'SYSTEM'::character varying,255.0,,
+public,idp_definition_ifc_objects,ifc_objects_id,1,bigint,NO,,,64.0,0.0
+public,idp_definition_ifc_objects,idp_definitions_id,2,bigint,NO,,,64.0,0.0
+public,idp_document,id,1,bigint,NO,nextval('idp_document_id_seq'::regclass),,64.0,0.0
+public,idp_document,name,2,character varying,NO,,255.0,,
+public,idp_document,reference,3,character varying,YES,,255.0,,
+public,idp_document,description,4,character varying,YES,,255.0,,
+public,idp_document,category,5,character varying,YES,,255.0,,
+public,idp_document,ext_object,6,character varying,YES,,255.0,,
+public,idp_document,project_type,7,character varying,NO,,255.0,,
+public,idp_document,project_id,8,bigint,YES,,,64.0,0.0
+public,idp_document,is_folder,9,boolean,NO,false,,,
+public,idp_document,name_convention,10,character varying,YES,,255.0,,
+public,idp_document,name_convention_description,11,character varying,YES,,255.0,,
+public,idp_ifc_object,id,1,bigint,NO,nextval('idp_ifc_object_id_seq'::regclass),,64.0,0.0
+public,idp_ifc_object,name,2,character varying,NO,,255.0,,
+public,idp_mdt_document_definition,id,1,bigint,NO,nextval('idp_mdt_document_definition_id_seq'::regclass),,64.0,0.0
+public,idp_mdt_document_definition,template_id,2,bigint,YES,,,64.0,0.0
+public,idp_mdt_document_definition,name,3,character varying,NO,,255.0,,
+public,idp_mdt_document_definition_ifc_objects,ifc_objects_id,1,bigint,NO,,,64.0,0.0
+public,idp_mdt_document_definition_ifc_objects,idp_mdt_document_definition_id,2,bigint,NO,,,64.0,0.0
+public,idp_mdt_phase_documents,id,1,bigint,NO,nextval('idp_mdt_phase_documents_id_seq'::regclass),,64.0,0.0
+public,idp_mdt_phase_documents,phase_id,2,bigint,YES,,,64.0,0.0
+public,idp_mdt_phase_documents,definition_id,3,bigint,YES,,,64.0,0.0
+public,idp_mdt_phase_documents_documents,documents_id,1,bigint,NO,,,64.0,0.0
+public,idp_mdt_phase_documents_documents,idp_mdt_phase_documents_id,2,bigint,NO,,,64.0,0.0
+public,idp_mdt_pset_definition,id,1,bigint,NO,nextval('idp_mdt_pset_definition_id_seq'::regclass),,64.0,0.0
+public,idp_mdt_pset_definition,name,2,character varying,NO,,255.0,,
+public,idp_mdt_pset_definition,template_id,3,bigint,YES,,,64.0,0.0
+public,idp_mdt_pset_definition_ifc_objects,ifc_objects_id,1,bigint,NO,,,64.0,0.0
+public,idp_mdt_pset_definition_ifc_objects,idp_mdt_pset_definitions_id,2,bigint,NO,,,64.0,0.0
+public,idp_mdt_pset_definition_mdt_pset_categories,idp_mdt_pset_definitions_id,1,bigint,NO,,,64.0,0.0
+public,idp_mdt_pset_definition_mdt_pset_categories,mdt_pset_category_id,2,bigint,NO,,,64.0,0.0
+public,idp_phase,id,1,bigint,NO,nextval('idp_phase_id_seq'::regclass),,64.0,0.0
+public,idp_phase,name,2,character varying,NO,,255.0,,
+public,idp_phase,order_id,3,integer,NO,,,32.0,0.0
+public,idp_phase,template_id,4,bigint,YES,,,64.0,0.0
+public,idp_phase,description_txt,5,text,YES,,,,
+public,idp_phase_documents,id,1,bigint,NO,nextval('idp_phase_documents_id_seq'::regclass),,64.0,0.0
+public,idp_phase_documents,phase_id,2,bigint,YES,,,64.0,0.0
+public,idp_phase_documents,definition_id,3,bigint,YES,,,64.0,0.0
+public,idp_phase_documents_documents,documents_id,1,bigint,NO,,,64.0,0.0
+public,idp_phase_documents_documents,idp_phase_documents_id,2,bigint,NO,,,64.0,0.0
+public,idp_property,id,1,bigint,NO,nextval('idp_property_id_seq'::regclass),,64.0,0.0
+public,idp_property,phase_id,2,bigint,YES,,,64.0,0.0
+public,idp_property,property_id,3,bigint,YES,,,64.0,0.0
+public,idp_property,pset_id,4,bigint,YES,,,64.0,0.0
+public,idp_pset,id,1,bigint,NO,nextval('idp_pset_id_seq'::regclass),,64.0,0.0
+public,idp_pset,property_set_id,2,bigint,YES,,,64.0,0.0
+public,idp_pset,pset_definition_id,3,bigint,YES,,,64.0,0.0
+public,idp_pset,mdt_pset_definition_id,4,bigint,YES,,,64.0,0.0
+public,idp_pset_definition,id,1,bigint,NO,nextval('idp_pset_definition_id_seq'::regclass),,64.0,0.0
+public,idp_pset_definition,jhi_system,2,character varying,NO,,255.0,,
+public,idp_pset_definition,template_id,3,bigint,YES,,,64.0,0.0
+public,idp_pset_definition,category,4,character varying,YES,'SYSTEM'::character varying,255.0,,
+public,idp_pset_definition_ifc_objects,ifc_objects_id,1,bigint,NO,,,64.0,0.0
+public,idp_pset_definition_ifc_objects,idp_pset_definitions_id,2,bigint,NO,,,64.0,0.0
+public,idp_requirement,id,1,bigint,NO,,,64.0,0.0
+public,idp_requirement,requirements,2,text,YES,,,,
+public,idp_requirement,phase_id,3,bigint,NO,,,64.0,0.0
+public,idp_requirement,definition_id,4,bigint,NO,,,64.0,0.0
+public,idp_system_phase,id,1,bigint,NO,nextval('idp_system_phase_id_seq'::regclass),,64.0,0.0
+public,idp_system_phase,jhi_start,2,date,YES,,,,
+public,idp_system_phase,jhi_end,3,date,YES,,,,
+public,idp_system_phase,phase_id,4,bigint,YES,,,64.0,0.0
+public,idp_system_phase,system_id,5,bigint,YES,,,64.0,0.0
+public,idp_template,id,1,bigint,NO,nextval('idp_template_id_seq'::regclass),,64.0,0.0
+public,idp_template,name,2,character varying,NO,,255.0,,
+public,idp_template,project_type,3,character varying,NO,,255.0,,
+public,idp_template,project_id,4,bigint,YES,,,64.0,0.0
+public,idp_template,is_materials_validation,5,boolean,NO,false,,,
+public,impact,id,1,bigint,NO,,,64.0,0.0
+public,impact,name,2,character varying,NO,,255.0,,
+public,impact,created_on,3,timestamp without time zone,YES,,,,
+public,impact,impact_type,4,character varying,YES,,255.0,,
+public,impact,impact_stage,5,character varying,YES,,255.0,,
+public,impact,jhi_value,6,character varying,YES,,255.0,,
+public,impact,lead_in_time,7,numeric,YES,,,,
+public,impact,lead_out_time,8,numeric,YES,,,,
+public,impact,duration,9,integer,YES,,,32.0,0.0
+public,impact,ext_system,10,character varying,YES,,255.0,,
+public,impact,ext_object,11,character varying,YES,,255.0,,
+public,impact,ext_identifier,12,character varying,YES,,255.0,,
+public,impact,image_guid,13,character varying,YES,,255.0,,
+public,impact,owning_facility_id,14,bigint,NO,,,64.0,0.0
+public,impact,created_by_id,15,bigint,YES,,,64.0,0.0
+public,impact,impact_unit_id,16,bigint,YES,,,64.0,0.0
+public,impact,created_by_user,17,character varying,YES,,50.0,,
+public,impact,created_date,18,timestamp without time zone,YES,now(),,,
+public,impact,last_modified_by,19,character varying,YES,,50.0,,
+public,impact,last_modified_date,20,timestamp without time zone,YES,,,,
+public,impact,jhi_version,21,bigint,YES,,,64.0,0.0
+public,impact,system_id,22,bigint,YES,,,64.0,0.0
+public,impact,predefined_type,23,character varying,YES,,255.0,,
+public,impact,model_id,24,bigint,YES,,,64.0,0.0
+public,impact,description_txt,25,text,YES,,,,
+public,impact_attributes,attributes_id,1,bigint,NO,,,64.0,0.0
+public,impact_attributes,impacts_id,2,bigint,NO,,,64.0,0.0
+public,impact_attributes_aud,impacts_id,1,bigint,NO,,,64.0,0.0
+public,impact_attributes_aud,attributes_id,2,bigint,NO,,,64.0,0.0
+public,impact_attributes_aud,rev,3,bigint,NO,,,64.0,0.0
+public,impact_attributes_aud,revend,4,bigint,YES,,,64.0,0.0
+public,impact_attributes_aud,revtype,5,smallint,YES,,,16.0,0.0
+public,impact_aud,id,1,bigint,NO,,,64.0,0.0
+public,impact_aud,name,2,character varying,YES,,255.0,,
+public,impact_aud,created_on,3,timestamp without time zone,YES,,,,
+public,impact_aud,impact_type,4,character varying,YES,,255.0,,
+public,impact_aud,impact_stage,5,character varying,YES,,255.0,,
+public,impact_aud,jhi_value,6,character varying,YES,,255.0,,
+public,impact_aud,lead_in_time,7,numeric,YES,,,,
+public,impact_aud,lead_out_time,8,numeric,YES,,,,
+public,impact_aud,duration,9,integer,YES,,,32.0,0.0
+public,impact_aud,ext_system,10,character varying,YES,,255.0,,
+public,impact_aud,ext_object,11,character varying,YES,,255.0,,
+public,impact_aud,ext_identifier,12,character varying,YES,,255.0,,
+public,impact_aud,image_guid,13,character varying,YES,,255.0,,
+public,impact_aud,owning_facility_id,14,bigint,YES,,,64.0,0.0
+public,impact_aud,created_by_id,15,bigint,YES,,,64.0,0.0
+public,impact_aud,impact_unit_id,16,bigint,YES,,,64.0,0.0
+public,impact_aud,rev,17,bigint,NO,,,64.0,0.0
+public,impact_aud,revend,18,bigint,YES,,,64.0,0.0
+public,impact_aud,revtype,19,smallint,NO,,,16.0,0.0
+public,impact_aud,created_by_user,20,character varying,YES,,50.0,,
+public,impact_aud,created_date,21,timestamp without time zone,YES,now(),,,
+public,impact_aud,last_modified_by,22,character varying,YES,,50.0,,
+public,impact_aud,last_modified_date,23,timestamp without time zone,YES,,,,
+public,impact_aud,system_id,24,bigint,YES,,,64.0,0.0
+public,impact_aud,predefined_type,25,character varying,YES,,255.0,,
+public,impact_aud,description_txt,26,text,YES,,,,
+public,impact_documents,documents_id,1,bigint,NO,,,64.0,0.0
+public,impact_documents,impacts_id,2,bigint,NO,,,64.0,0.0
+public,impact_documents_aud,impacts_id,1,bigint,NO,,,64.0,0.0
+public,impact_documents_aud,documents_id,2,bigint,NO,,,64.0,0.0
+public,impact_documents_aud,rev,3,bigint,NO,,,64.0,0.0
+public,impact_documents_aud,revend,4,bigint,YES,,,64.0,0.0
+public,impact_documents_aud,revtype,5,smallint,YES,,,16.0,0.0
+public,information_model_progress,id,1,bigint,NO,nextval('information_model_progress_id_seq'::regclass),,64.0,0.0
+public,information_model_progress,key,2,character varying,NO,,255.0,,
+public,information_model_progress,step,3,character varying,NO,,255.0,,
+public,information_model_progress,display_type,4,character varying,NO,,255.0,,
+public,information_model_progress,current,5,integer,NO,,,32.0,0.0
+public,information_model_progress,total,6,integer,NO,,,32.0,0.0
+public,information_model_progress,owning_facility_id,7,bigint,NO,,,64.0,0.0
+public,information_model_progress,system_id,8,bigint,YES,,,64.0,0.0
+public,information_model_progress_task,tasks_id,1,bigint,NO,,,64.0,0.0
+public,information_model_progress_task,information_model_progress_id,2,bigint,NO,,,64.0,0.0
+public,instruction_information,id,1,bigint,NO,,,64.0,0.0
+public,instruction_information,title,2,character varying,NO,,255.0,,
+public,instruction_information,version,3,character varying,YES,,255.0,,
+public,instruction_information,jhi_release,4,character varying,YES,,255.0,,
+public,instruction_information,status,5,character varying,YES,,255.0,,
+public,instruction_information,region,6,character varying,YES,,255.0,,
+public,instruction_information,created_by_user,7,character varying,YES,,50.0,,
+public,instruction_information,created_date,8,timestamp without time zone,YES,now(),,,
+public,instruction_information,last_modified_by,9,character varying,YES,,50.0,,
+public,instruction_information,last_modified_date,10,timestamp without time zone,YES,,,,
+public,instruction_information,jhi_version,11,bigint,YES,,,64.0,0.0
+public,instruction_information_aud,id,1,bigint,NO,,,64.0,0.0
+public,instruction_information_aud,title,2,character varying,YES,,255.0,,
+public,instruction_information_aud,version,3,character varying,YES,,255.0,,
+public,instruction_information_aud,jhi_release,4,character varying,YES,,255.0,,
+public,instruction_information_aud,status,5,character varying,YES,,255.0,,
+public,instruction_information_aud,region,6,character varying,YES,,255.0,,
+public,instruction_information_aud,rev,7,bigint,NO,,,64.0,0.0
+public,instruction_information_aud,revend,8,bigint,YES,,,64.0,0.0
+public,instruction_information_aud,revtype,9,smallint,NO,,,16.0,0.0
+public,instruction_information_aud,created_by_user,10,character varying,YES,,50.0,,
+public,instruction_information_aud,created_date,11,timestamp without time zone,YES,now(),,,
+public,instruction_information_aud,last_modified_by,12,character varying,YES,,50.0,,
+public,instruction_information_aud,last_modified_date,13,timestamp without time zone,YES,,,,
+public,issue,id,1,bigint,NO,,,64.0,0.0
+public,issue,name,2,character varying,NO,,255.0,,
+public,issue,created_on,3,timestamp without time zone,YES,,,,
+public,issue,issue_type,4,character varying,YES,,255.0,,
+public,issue,risk,5,character varying,YES,,255.0,,
+public,issue,chance,6,character varying,YES,,255.0,,
+public,issue,impact_value,7,character varying,YES,,255.0,,
+public,issue,mitigation,8,character varying,YES,,255.0,,
+public,issue,ext_system,9,character varying,YES,,255.0,,
+public,issue,ext_object,10,character varying,YES,,255.0,,
+public,issue,ext_identifier,11,character varying,YES,,255.0,,
+public,issue,image_guid,12,character varying,YES,,255.0,,
+public,issue,relation_id,13,bigint,YES,,,64.0,0.0
+public,issue,relation_name,14,character varying,YES,,255.0,,
+public,issue,relation_type,15,character varying,YES,,255.0,,
+public,issue,relation_related_id,16,bigint,YES,,,64.0,0.0
+public,issue,relation_related_name,17,character varying,YES,,255.0,,
+public,issue,relation_related_type,18,character varying,YES,,255.0,,
+public,issue,owning_facility_id,19,bigint,NO,,,64.0,0.0
+public,issue,created_by_id,20,bigint,YES,,,64.0,0.0
+public,issue,owner_id,21,bigint,YES,,,64.0,0.0
+public,issue,created_by_user,22,character varying,YES,,50.0,,
+public,issue,created_date,23,timestamp without time zone,YES,now(),,,
+public,issue,last_modified_by,24,character varying,YES,,50.0,,
+public,issue,last_modified_date,25,timestamp without time zone,YES,,,,
+public,issue,jhi_version,26,bigint,YES,,,64.0,0.0
+public,issue,system_id,27,bigint,YES,,,64.0,0.0
+public,issue,is_warranty,28,boolean,NO,false,,,
+public,issue,recorded_on,29,timestamp without time zone,YES,,,,
+public,issue,closed_on,30,timestamp without time zone,YES,,,,
+public,issue,predefined_type,31,character varying,YES,,255.0,,
+public,issue,fixed_on,32,timestamp without time zone,YES,,,,
+public,issue,times_rejected,33,integer,YES,,,32.0,0.0
+public,issue,model_id,34,bigint,YES,,,64.0,0.0
+public,issue,description_txt,35,text,YES,,,,
+public,issue_attributes,attributes_id,1,bigint,NO,,,64.0,0.0
+public,issue_attributes,issues_id,2,bigint,NO,,,64.0,0.0
+public,issue_attributes_aud,issues_id,1,bigint,NO,,,64.0,0.0
+public,issue_attributes_aud,attributes_id,2,bigint,NO,,,64.0,0.0
+public,issue_attributes_aud,rev,3,bigint,NO,,,64.0,0.0
+public,issue_attributes_aud,revend,4,bigint,YES,,,64.0,0.0
+public,issue_attributes_aud,revtype,5,smallint,YES,,,16.0,0.0
+public,issue_aud,id,1,bigint,NO,,,64.0,0.0
+public,issue_aud,name,2,character varying,YES,,255.0,,
+public,issue_aud,created_on,3,timestamp without time zone,YES,,,,
+public,issue_aud,issue_type,4,character varying,YES,,255.0,,
+public,issue_aud,risk,5,character varying,YES,,255.0,,
+public,issue_aud,chance,6,character varying,YES,,255.0,,
+public,issue_aud,impact_value,7,character varying,YES,,255.0,,
+public,issue_aud,mitigation,8,character varying,YES,,255.0,,
+public,issue_aud,ext_system,9,character varying,YES,,255.0,,
+public,issue_aud,ext_object,10,character varying,YES,,255.0,,
+public,issue_aud,ext_identifier,11,character varying,YES,,255.0,,
+public,issue_aud,image_guid,12,character varying,YES,,255.0,,
+public,issue_aud,relation_id,13,bigint,YES,,,64.0,0.0
+public,issue_aud,relation_name,14,character varying,YES,,255.0,,
+public,issue_aud,relation_type,15,character varying,YES,,255.0,,
+public,issue_aud,relation_related_id,16,bigint,YES,,,64.0,0.0
+public,issue_aud,relation_related_name,17,character varying,YES,,255.0,,
+public,issue_aud,relation_related_type,18,character varying,YES,,255.0,,
+public,issue_aud,owning_facility_id,19,bigint,YES,,,64.0,0.0
+public,issue_aud,created_by_id,20,bigint,YES,,,64.0,0.0
+public,issue_aud,owner_id,21,bigint,YES,,,64.0,0.0
+public,issue_aud,rev,22,bigint,NO,,,64.0,0.0
+public,issue_aud,revend,23,bigint,YES,,,64.0,0.0
+public,issue_aud,revtype,24,smallint,NO,,,16.0,0.0
+public,issue_aud,created_by_user,25,character varying,YES,,50.0,,
+public,issue_aud,created_date,26,timestamp without time zone,YES,now(),,,
+public,issue_aud,last_modified_by,27,character varying,YES,,50.0,,
+public,issue_aud,last_modified_date,28,timestamp without time zone,YES,,,,
+public,issue_aud,system_id,29,bigint,YES,,,64.0,0.0
+public,issue_aud,is_warranty,30,boolean,YES,,,,
+public,issue_aud,recorded_on,31,timestamp without time zone,YES,,,,
+public,issue_aud,closed_on,32,timestamp without time zone,YES,,,,
+public,issue_aud,predefined_type,33,character varying,YES,,255.0,,
+public,issue_aud,fixed_on,34,timestamp without time zone,YES,,,,
+public,issue_aud,times_rejected,35,integer,YES,,,32.0,0.0
+public,issue_aud,description_txt,36,text,YES,,,,
+public,issue_documents,documents_id,1,bigint,NO,,,64.0,0.0
+public,issue_documents,issues_id,2,bigint,NO,,,64.0,0.0
+public,issue_documents_aud,issues_id,1,bigint,NO,,,64.0,0.0
+public,issue_documents_aud,documents_id,2,bigint,NO,,,64.0,0.0
+public,issue_documents_aud,rev,3,bigint,NO,,,64.0,0.0
+public,issue_documents_aud,revend,4,bigint,YES,,,64.0,0.0
+public,issue_documents_aud,revtype,5,smallint,YES,,,16.0,0.0
+public,jhi_authority,name,1,character varying,NO,,50.0,,
+public,jhi_persistent_audit_event,event_id,1,bigint,NO,,,64.0,0.0
+public,jhi_persistent_audit_event,principal,2,character varying,NO,,255.0,,
+public,jhi_persistent_audit_event,event_date,3,timestamp without time zone,YES,,,,
+public,jhi_persistent_audit_event,event_type,4,character varying,YES,,255.0,,
+public,jhi_persistent_audit_evt_data,event_id,1,bigint,NO,,,64.0,0.0
+public,jhi_persistent_audit_evt_data,name,2,character varying,NO,,150.0,,
+public,jhi_persistent_audit_evt_data,value,3,character varying,YES,,255.0,,
+public,jhi_user,id,1,bigint,NO,,,64.0,0.0
+public,jhi_user,login,2,character varying,NO,,50.0,,
+public,jhi_user,password_hash,3,character varying,NO,,60.0,,
+public,jhi_user,first_name,4,character varying,YES,,50.0,,
+public,jhi_user,last_name,5,character varying,YES,,50.0,,
+public,jhi_user,email,6,character varying,YES,,254.0,,
+public,jhi_user,image_url,7,character varying,YES,,256.0,,
+public,jhi_user,activated,8,boolean,NO,,,,
+public,jhi_user,lang_key,9,character varying,YES,,6.0,,
+public,jhi_user,activation_key,10,character varying,YES,,20.0,,
+public,jhi_user,reset_key,11,character varying,YES,,20.0,,
+public,jhi_user,created_by_user,12,character varying,NO,,50.0,,
+public,jhi_user,created_date,13,timestamp without time zone,NO,,,,
+public,jhi_user,reset_date,14,timestamp without time zone,YES,,,,
+public,jhi_user,last_modified_by,15,character varying,YES,,50.0,,
+public,jhi_user,last_modified_date,16,timestamp without time zone,YES,,,,
+public,jhi_user_authority,user_id,1,bigint,NO,,,64.0,0.0
+public,jhi_user_authority,authority_name,2,character varying,NO,,50.0,,
+public,job,id,1,bigint,NO,,,64.0,0.0
+public,job,name,2,character varying,NO,,255.0,,
+public,job,created_on,3,timestamp without time zone,YES,,,,
+public,job,category,4,character varying,YES,,255.0,,
+public,job,status,5,character varying,YES,,255.0,,
+public,job,duration,6,numeric,YES,,,,
+public,job,jhi_start,7,timestamp without time zone,YES,,,,
+public,job,frequency,8,numeric,YES,,,,
+public,job,ext_system,9,character varying,YES,,255.0,,
+public,job,ext_object,10,character varying,YES,,255.0,,
+public,job,ext_identifier,11,character varying,YES,,255.0,,
+public,job,task_number,12,numeric,YES,,,,
+public,job,image_guid,13,character varying,YES,,255.0,,
+public,job,owning_facility_id,14,bigint,NO,,,64.0,0.0
+public,job,created_by_id,15,bigint,YES,,,64.0,0.0
+public,job,duration_unit_id,16,bigint,YES,,,64.0,0.0
+public,job,task_start_unit_id,17,bigint,YES,,,64.0,0.0
+public,job,frequency_unit_id,18,bigint,YES,,,64.0,0.0
+public,job,type_id,19,bigint,YES,,,64.0,0.0
+public,job,parent_id,20,bigint,YES,,,64.0,0.0
+public,job,created_by_user,21,character varying,YES,,50.0,,
+public,job,created_date,22,timestamp without time zone,YES,now(),,,
+public,job,last_modified_by,23,character varying,YES,,50.0,,
+public,job,last_modified_date,24,timestamp without time zone,YES,,,,
+public,job,jhi_version,25,bigint,YES,,,64.0,0.0
+public,job,system_id,26,bigint,YES,,,64.0,0.0
+public,job,predefined_type,27,character varying,YES,,255.0,,
+public,job,technical_system_id,28,bigint,YES,,,64.0,0.0
+public,job,model_id,29,bigint,YES,,,64.0,0.0
+public,job,description_txt,30,text,YES,,,,
+public,job_attributes,attributes_id,1,bigint,NO,,,64.0,0.0
+public,job_attributes,jobs_id,2,bigint,NO,,,64.0,0.0
+public,job_attributes_aud,jobs_id,1,bigint,NO,,,64.0,0.0
+public,job_attributes_aud,attributes_id,2,bigint,NO,,,64.0,0.0
+public,job_attributes_aud,rev,3,bigint,NO,,,64.0,0.0
+public,job_attributes_aud,revend,4,bigint,YES,,,64.0,0.0
+public,job_attributes_aud,revtype,5,smallint,YES,,,16.0,0.0
+public,job_aud,id,1,bigint,NO,,,64.0,0.0
+public,job_aud,name,2,character varying,YES,,255.0,,
+public,job_aud,created_on,3,timestamp without time zone,YES,,,,
+public,job_aud,category,4,character varying,YES,,255.0,,
+public,job_aud,status,5,character varying,YES,,255.0,,
+public,job_aud,duration,6,numeric,YES,,,,
+public,job_aud,jhi_start,7,timestamp without time zone,YES,,,,
+public,job_aud,frequency,8,numeric,YES,,,,
+public,job_aud,ext_system,9,character varying,YES,,255.0,,
+public,job_aud,ext_object,10,character varying,YES,,255.0,,
+public,job_aud,ext_identifier,11,character varying,YES,,255.0,,
+public,job_aud,task_number,12,numeric,YES,,,,
+public,job_aud,image_guid,13,character varying,YES,,255.0,,
+public,job_aud,owning_facility_id,14,bigint,YES,,,64.0,0.0
+public,job_aud,created_by_id,15,bigint,YES,,,64.0,0.0
+public,job_aud,duration_unit_id,16,bigint,YES,,,64.0,0.0
+public,job_aud,task_start_unit_id,17,bigint,YES,,,64.0,0.0
+public,job_aud,frequency_unit_id,18,bigint,YES,,,64.0,0.0
+public,job_aud,type_id,19,bigint,YES,,,64.0,0.0
+public,job_aud,parent_id,20,bigint,YES,,,64.0,0.0
+public,job_aud,rev,21,bigint,NO,,,64.0,0.0
+public,job_aud,revend,22,bigint,YES,,,64.0,0.0
+public,job_aud,revtype,23,smallint,NO,,,16.0,0.0
+public,job_aud,created_by_user,24,character varying,YES,,50.0,,
+public,job_aud,created_date,25,timestamp without time zone,YES,now(),,,
+public,job_aud,last_modified_by,26,character varying,YES,,50.0,,
+public,job_aud,last_modified_date,27,timestamp without time zone,YES,,,,
+public,job_aud,system_id,28,bigint,YES,,,64.0,0.0
+public,job_aud,predefined_type,29,character varying,YES,,255.0,,
+public,job_aud,technical_system_id,30,bigint,YES,,,64.0,0.0
+public,job_aud,description_txt,31,text,YES,,,,
+public,job_documents,documents_id,1,bigint,NO,,,64.0,0.0
+public,job_documents,jobs_id,2,bigint,NO,,,64.0,0.0
+public,job_documents_aud,jobs_id,1,bigint,NO,,,64.0,0.0
+public,job_documents_aud,documents_id,2,bigint,NO,,,64.0,0.0
+public,job_documents_aud,rev,3,bigint,NO,,,64.0,0.0
+public,job_documents_aud,revend,4,bigint,YES,,,64.0,0.0
+public,job_documents_aud,revtype,5,smallint,YES,,,16.0,0.0
+public,job_impacts,impacts_id,1,bigint,NO,,,64.0,0.0
+public,job_impacts,jobs_id,2,bigint,NO,,,64.0,0.0
+public,job_impacts_aud,jobs_id,1,bigint,NO,,,64.0,0.0
+public,job_impacts_aud,impacts_id,2,bigint,NO,,,64.0,0.0
+public,job_impacts_aud,rev,3,bigint,NO,,,64.0,0.0
+public,job_impacts_aud,revend,4,bigint,YES,,,64.0,0.0
+public,job_impacts_aud,revtype,5,smallint,YES,,,16.0,0.0
+public,job_resources,resources_id,1,bigint,NO,,,64.0,0.0
+public,job_resources,jobs_id,2,bigint,NO,,,64.0,0.0
+public,job_resources_aud,jobs_id,1,bigint,NO,,,64.0,0.0
+public,job_resources_aud,resources_id,2,bigint,NO,,,64.0,0.0
+public,job_resources_aud,rev,3,bigint,NO,,,64.0,0.0
+public,job_resources_aud,revend,4,bigint,YES,,,64.0,0.0
+public,job_resources_aud,revtype,5,smallint,YES,,,16.0,0.0
+public,last_selected_viewer_object,id,1,bigint,NO,,,64.0,0.0
+public,last_selected_viewer_object,entity_id,2,bigint,NO,,,64.0,0.0
+public,last_selected_viewer_object,entity_type,3,character varying,NO,,255.0,,
+public,last_selected_viewer_object,selected_date,4,timestamp without time zone,NO,,,,
+public,last_selected_viewer_object,email,5,character varying,NO,,255.0,,
+public,last_selected_viewer_object,facility_id,6,bigint,NO,,,64.0,0.0
+public,last_selected_viewer_object,project_id,7,bigint,NO,,,64.0,0.0
+public,localization,id,1,bigint,NO,,,64.0,0.0
+public,localization,language,2,character varying,NO,,255.0,,
+public,localization,name,3,character varying,YES,,255.0,,
+public,localization,definition,4,text,YES,,,,
+public,localization,description,5,text,YES,,,,
+public,localization,example,6,character varying,YES,,255.0,,
+public,localization,pick_list_value_id,7,bigint,YES,,,64.0,0.0
+public,localization,property_set_id,8,bigint,YES,,,64.0,0.0
+public,localization,property_id,9,bigint,YES,,,64.0,0.0
+public,localization,unit_id,10,bigint,YES,,,64.0,0.0
+public,localization,created_by_user,11,character varying,YES,'system@libal-tech.de'::character varying,50.0,,
+public,localization,created_date,12,timestamp without time zone,YES,now(),,,
+public,localization,last_modified_by,13,character varying,YES,'system@libal-tech.de'::character varying,50.0,,
+public,localization,last_modified_date,14,timestamp without time zone,YES,now(),,,
+public,log_event,id,1,bigint,NO,,,64.0,0.0
+public,log_event,created_by_user,4,character varying,YES,,50.0,,
+public,log_event,created_date,5,timestamp without time zone,YES,now(),,,
+public,log_event,last_modified_by,6,character varying,YES,,50.0,,
+public,log_event,last_modified_date,7,timestamp without time zone,YES,,,,
+public,log_event,project_id,8,bigint,NO,,,64.0,0.0
+public,log_event,request,9,text,YES,,,,
+public,log_event,response,10,bytea,YES,,,,
+public,mapping_rule,id,1,bigint,NO,,,64.0,0.0
+public,mapping_rule,name,2,character varying,NO,,255.0,,
+public,mapping_rule,entity,3,character varying,NO,,255.0,,
+public,mapping_rule,target_type,4,character varying,NO,,255.0,,
+public,mapping_rule,target_base_data,5,character varying,YES,,255.0,,
+public,mapping_rule,target_property_id,6,bigint,YES,,,64.0,0.0
+public,mapping_rule,owning_facility_id,7,bigint,NO,,,64.0,0.0
+public,mapping_rule,target_unit_id,8,bigint,YES,,,64.0,0.0
+public,mapping_rule_ifc_objects,mapping_rule_id,1,bigint,NO,,,64.0,0.0
+public,mapping_rule_ifc_objects,ifc_objects,2,character varying,NO,,255.0,,
+public,mapping_rule_model_categories,mapping_rule_id,1,bigint,NO,,,64.0,0.0
+public,mapping_rule_model_categories,model_categories,2,character varying,NO,,255.0,,
+public,mapping_rule_source,id,1,bigint,NO,,,64.0,0.0
+public,mapping_rule_source,order_id,2,bigint,NO,,,64.0,0.0
+public,mapping_rule_source,source_type,3,character varying,NO,,255.0,,
+public,mapping_rule_source,source_base_data,4,character varying,YES,,255.0,,
+public,mapping_rule_source,source_plain_text,5,character varying,YES,,255.0,,
+public,mapping_rule_source,source_property_id,6,bigint,YES,,,64.0,0.0
+public,mapping_rule_source,rule_id,7,bigint,NO,,,64.0,0.0
+public,material,id,1,bigint,NO,nextval('material_id_seq'::regclass),,64.0,0.0
+public,material,name,2,character varying,NO,,255.0,,
+public,material,category,3,character varying,YES,,255.0,,
+public,material,volume,4,numeric,YES,,,,
+public,material,weight,5,numeric,YES,,,,
+public,material,area,6,numeric,YES,,,,
+public,material,volume_unit_id,7,bigint,YES,,,64.0,0.0
+public,material,weight_unit_id,8,bigint,YES,,,64.0,0.0
+public,material,area_unit_id,9,bigint,YES,,,64.0,0.0
+public,material,owning_facility_id,10,bigint,NO,,,64.0,0.0
+public,material,component_id,11,bigint,NO,,,64.0,0.0
+public,material,created_by_user,12,character varying,YES,,50.0,,
+public,material,created_date,13,timestamp without time zone,YES,now(),,,
+public,material,last_modified_by,14,character varying,YES,,50.0,,
+public,material,last_modified_date,15,timestamp without time zone,YES,,,,
+public,material,model_id,16,bigint,YES,,,64.0,0.0
+public,mdt_pset_category,id,1,bigint,NO,,,64.0,0.0
+public,mdt_pset_category,category,2,character varying,NO,,255.0,,
+public,mdt_pset_category,description,3,character varying,YES,,255.0,,
+public,model,id,1,bigint,NO,nextval('model_id_seq'::regclass),,64.0,0.0
+public,model,name,2,character varying,NO,,255.0,,
+public,model,model_type,3,character varying,NO,,255.0,,
+public,model,category,4,character varying,YES,,255.0,,
+public,model,owning_facility_id,5,bigint,YES,,,64.0,0.0
+public,model,model_information_guid,6,character varying,YES,,255.0,,
+public,model,model_three_d_guid,7,character varying,YES,,255.0,,
+public,model,model_material_guid,8,character varying,YES,,255.0,,
+public,model,created_by_user,9,character varying,YES,,50.0,,
+public,model,created_date,10,timestamp without time zone,YES,now(),,,
+public,model,last_modified_by,11,character varying,YES,,50.0,,
+public,model,last_modified_date,12,timestamp without time zone,YES,,,,
+public,model,ifc_version,13,character varying,NO,'INDIVIDUAL'::character varying,255.0,,
+public,model,is_favorite,14,boolean,NO,false,,,
+public,model,position_x,15,numeric,YES,,,22.0,11.0
+public,model,position_y,16,numeric,YES,,,22.0,11.0
+public,model,position_z,17,numeric,YES,,,22.0,11.0
+public,model,rotation_x,18,numeric,YES,,,22.0,12.0
+public,model,rotation_y,19,numeric,YES,,,22.0,12.0
+public,model,rotation_z,20,numeric,YES,,,22.0,12.0
+public,model,scale,21,numeric,YES,,,22.0,12.0
+public,model,geo_reference_type,22,character varying,NO,'LOCAL'::character varying,255.0,,
+public,model,origin_x,23,numeric,YES,,,22.0,11.0
+public,model,origin_y,24,numeric,YES,,,22.0,11.0
+public,model,origin_z,25,numeric,YES,,,22.0,11.0
+public,model,export_mapping_guid,26,character varying,YES,,255.0,,
+public,model_floors,models_id,1,bigint,NO,,,64.0,0.0
+public,model_floors,floors_id,2,bigint,NO,,,64.0,0.0
+public,model_import,id,1,bigint,NO,,,64.0,0.0
+public,model_import,name,2,character varying,YES,,255.0,,
+public,model_import,model_information_guid,3,character varying,YES,,255.0,,
+public,model_import,model_3_d_guid,4,character varying,YES,,255.0,,
+public,model_import,model_material_guid,5,character varying,YES,,255.0,,
+public,model_import,model_id,6,bigint,NO,,,64.0,0.0
+public,model_import,created_by_user,7,character varying,YES,,50.0,,
+public,model_import,created_date,8,timestamp without time zone,YES,now(),,,
+public,model_import,last_modified_by,9,character varying,YES,,50.0,,
+public,model_import,last_modified_date,10,timestamp without time zone,YES,,,,
+public,notification_setting,id,1,bigint,NO,,,64.0,0.0
+public,notification_setting,email,2,character varying,NO,,255.0,,
+public,notification_setting,notification_status,3,character varying,NO,,255.0,,
+public,notification_setting,project_id,4,bigint,YES,,,64.0,0.0
+public,open_cde_document,id,1,bigint,NO,,,64.0,0.0
+public,open_cde_document,document_id,2,bigint,NO,,,64.0,0.0
+public,open_cde_document,name,3,character varying,NO,,255.0,,
+public,open_cde_document,guid,4,character varying,NO,,255.0,,
+public,open_cde_document,is_selected,5,boolean,NO,,,,
+public,open_cde_document,document_selection_id,6,bigint,NO,,,64.0,0.0
+public,open_cde_document_selection,id,1,bigint,NO,,,64.0,0.0
+public,open_cde_document_selection,selection_session,2,character varying,NO,,255.0,,
+public,open_cde_document_selection,expires_on,3,timestamp without time zone,NO,,,,
+public,open_cde_document_selection,is_closed,4,boolean,NO,,,,
+public,open_cde_document_selection,callback_url,5,character varying,NO,,255.0,,
+public,open_cde_document_selection,owning_facility_id,6,bigint,NO,,,64.0,0.0
+public,open_cde_file,id,1,bigint,NO,,,64.0,0.0
+public,open_cde_file,title,2,character varying,YES,,255.0,,
+public,open_cde_file,name,3,character varying,YES,,255.0,,
+public,open_cde_file,guid,4,character varying,NO,,255.0,,
+public,open_cde_file,document_id,5,bigint,YES,,,64.0,0.0
+public,open_cde_file,file_upload_id,6,bigint,NO,,,64.0,0.0
+public,open_cde_file_upload,id,1,bigint,NO,,,64.0,0.0
+public,open_cde_file_upload,upload_session,2,character varying,NO,,255.0,,
+public,open_cde_file_upload,expires_on,3,timestamp without time zone,NO,,,,
+public,open_cde_file_upload,callback_url,4,character varying,NO,,255.0,,
+public,open_cde_file_upload,owning_facility_id,5,bigint,NO,,,64.0,0.0
+public,open_cde_supported_file_extensions,open_cde_document_selection_id,1,bigint,NO,,,64.0,0.0
+public,open_cde_supported_file_extensions,supported_file_extension,2,character varying,NO,,255.0,,
+public,pg_stat_statements,userid,1,oid,YES,,,,
+public,pg_stat_statements,dbid,2,oid,YES,,,,
+public,pg_stat_statements,toplevel,3,boolean,YES,,,,
+public,pg_stat_statements,queryid,4,bigint,YES,,,64.0,0.0
+public,pg_stat_statements,query,5,text,YES,,,,
+public,pg_stat_statements,plans,6,bigint,YES,,,64.0,0.0
+public,pg_stat_statements,total_plan_time,7,double precision,YES,,,53.0,
+public,pg_stat_statements,min_plan_time,8,double precision,YES,,,53.0,
+public,pg_stat_statements,max_plan_time,9,double precision,YES,,,53.0,
+public,pg_stat_statements,mean_plan_time,10,double precision,YES,,,53.0,
+public,pg_stat_statements,stddev_plan_time,11,double precision,YES,,,53.0,
+public,pg_stat_statements,calls,12,bigint,YES,,,64.0,0.0
+public,pg_stat_statements,total_exec_time,13,double precision,YES,,,53.0,
+public,pg_stat_statements,min_exec_time,14,double precision,YES,,,53.0,
+public,pg_stat_statements,max_exec_time,15,double precision,YES,,,53.0,
+public,pg_stat_statements,mean_exec_time,16,double precision,YES,,,53.0,
+public,pg_stat_statements,stddev_exec_time,17,double precision,YES,,,53.0,
+public,pg_stat_statements,rows,18,bigint,YES,,,64.0,0.0
+public,pg_stat_statements,shared_blks_hit,19,bigint,YES,,,64.0,0.0
+public,pg_stat_statements,shared_blks_read,20,bigint,YES,,,64.0,0.0
+public,pg_stat_statements,shared_blks_dirtied,21,bigint,YES,,,64.0,0.0
+public,pg_stat_statements,shared_blks_written,22,bigint,YES,,,64.0,0.0
+public,pg_stat_statements,local_blks_hit,23,bigint,YES,,,64.0,0.0
+public,pg_stat_statements,local_blks_read,24,bigint,YES,,,64.0,0.0
+public,pg_stat_statements,local_blks_dirtied,25,bigint,YES,,,64.0,0.0
+public,pg_stat_statements,local_blks_written,26,bigint,YES,,,64.0,0.0
+public,pg_stat_statements,temp_blks_read,27,bigint,YES,,,64.0,0.0
+public,pg_stat_statements,temp_blks_written,28,bigint,YES,,,64.0,0.0
+public,pg_stat_statements,blk_read_time,29,double precision,YES,,,53.0,
+public,pg_stat_statements,blk_write_time,30,double precision,YES,,,53.0,
+public,pg_stat_statements,temp_blk_read_time,31,double precision,YES,,,53.0,
+public,pg_stat_statements,temp_blk_write_time,32,double precision,YES,,,53.0,
+public,pg_stat_statements,wal_records,33,bigint,YES,,,64.0,0.0
+public,pg_stat_statements,wal_fpi,34,bigint,YES,,,64.0,0.0
+public,pg_stat_statements,wal_bytes,35,numeric,YES,,,,
+public,pg_stat_statements,jit_functions,36,bigint,YES,,,64.0,0.0
+public,pg_stat_statements,jit_generation_time,37,double precision,YES,,,53.0,
+public,pg_stat_statements,jit_inlining_count,38,bigint,YES,,,64.0,0.0
+public,pg_stat_statements,jit_inlining_time,39,double precision,YES,,,53.0,
+public,pg_stat_statements,jit_optimization_count,40,bigint,YES,,,64.0,0.0
+public,pg_stat_statements,jit_optimization_time,41,double precision,YES,,,53.0,
+public,pg_stat_statements,jit_emission_count,42,bigint,YES,,,64.0,0.0
+public,pg_stat_statements,jit_emission_time,43,double precision,YES,,,53.0,
+public,pg_stat_statements_info,dealloc,1,bigint,YES,,,64.0,0.0
+public,pg_stat_statements_info,stats_reset,2,timestamp with time zone,YES,,,,
+public,pick_list,id,1,bigint,NO,,,64.0,0.0
+public,pick_list,name,2,character varying,NO,,255.0,,
+public,pick_list,pick_list_type,3,character varying,NO,,255.0,,
+public,pick_list,project_id,4,bigint,YES,,,64.0,0.0
+public,pick_list_value,id,1,bigint,NO,,,64.0,0.0
+public,pick_list_value,jhi_value,2,text,NO,,,,
+public,pick_list_value,definition,3,text,YES,,,,
+public,pick_list_value,ifd_guid,4,character varying,YES,,255.0,,
+public,pick_list_value,pick_list_id,5,bigint,NO,,,64.0,0.0
+public,pick_list_value_idp_ifc_object,idp_ifc_object_id,1,bigint,NO,,,64.0,0.0
+public,pick_list_value_idp_ifc_object,pick_list_value_id,2,bigint,NO,,,64.0,0.0
+public,project,id,1,bigint,NO,,,64.0,0.0
+public,project,name,2,character varying,NO,,255.0,,
+public,project,project_type,3,character varying,NO,,255.0,,
+public,project,information_id,4,bigint,YES,,,64.0,0.0
+public,project,template_id,5,bigint,YES,,,64.0,0.0
+public,project,show_info_progress,6,boolean,NO,true,,,
+public,project,embedded_url,7,character varying,YES,,255.0,,
+public,project,is_material_enabled,8,boolean,NO,false,,,
+public,project,is_quick_start_shown,9,boolean,NO,true,,,
+public,project,country,10,character varying,YES,,255.0,,
+public,project,state,11,character varying,YES,,255.0,,
+public,project,bim_collab_url,12,character varying,YES,,255.0,,
+public,project,city,13,character varying,YES,,255.0,,
+public,project,zip_code,14,character varying,YES,,255.0,,
+public,project,street,15,character varying,YES,,255.0,,
+public,project,address_supplement_1,16,character varying,YES,,255.0,,
+public,project,address_supplement_2,17,character varying,YES,,255.0,,
+public,project,longitude,18,double precision,YES,,,53.0,
+public,project,latitude,19,double precision,YES,,,53.0,
+public,project,image_guid,20,character varying,YES,,255.0,,
+public,project,viewpoint_guid,21,character varying,YES,NULL::character varying,255.0,,
+public,project,identifier,22,character varying,YES,,255.0,,
+public,project_acl,id,1,bigint,NO,,,64.0,0.0
+public,project_acl,jhi_role,2,character varying,NO,,255.0,,
+public,project_acl,project_id,3,bigint,YES,,,64.0,0.0
+public,project_acl,user_id,4,bigint,YES,,,64.0,0.0
+public,project_config_entity,id,1,bigint,NO,nextval('project_config_entity_id_seq'::regclass),,64.0,0.0
+public,project_config_entity,jhi_type,2,character varying,YES,,255.0,,
+public,project_config_entity,is_active,3,boolean,NO,,,,
+public,project_config_entity,project_id,4,bigint,NO,,,64.0,0.0
+public,project_config_entity_element,id,1,bigint,NO,nextval('project_config_entity_element_id_seq'::regclass),,64.0,0.0
+public,project_config_entity_element,jhi_type,2,character varying,YES,,255.0,,
+public,project_config_entity_element,is_active,3,boolean,NO,,,,
+public,project_config_entity_element,root_id,4,bigint,NO,,,64.0,0.0
+public,project_config_entity_t_column,id,1,bigint,NO,nextval('project_config_entity_t_column_id_seq'::regclass),,64.0,0.0
+public,project_config_entity_t_column,jhi_column,2,character varying,YES,,255.0,,
+public,project_config_entity_t_column,is_active,3,boolean,YES,,,,
+public,project_config_entity_t_column,root_id,4,bigint,NO,,,64.0,0.0
+public,project_config_entity_t_column,order_id,5,bigint,YES,,,64.0,0.0
+public,project_user_group,id,1,bigint,NO,,,64.0,0.0
+public,project_user_group,project_id,2,bigint,NO,,,64.0,0.0
+public,project_user_group,user_group_id,3,bigint,NO,,,64.0,0.0
+public,project_user_group_project_roles,project_user_group_id,1,bigint,NO,,,64.0,0.0
+public,project_user_group_project_roles,project_role,2,character varying,NO,,255.0,,
+public,property,id,1,bigint,NO,,,64.0,0.0
+public,property,name,2,character varying,NO,,255.0,,
+public,property,data_type,3,character varying,NO,,255.0,,
+public,property,ifc_data_type,4,character varying,YES,,255.0,,
+public,property,type_property,5,character varying,YES,,255.0,,
+public,property,measure_type,6,character varying,YES,,255.0,,
+public,property,created_on,7,timestamp without time zone,YES,,,,
+public,property,property_group_identifier,8,character varying,YES,,255.0,,
+public,property,lower_bound_value,9,character varying,YES,,255.0,,
+public,property,upper_bound_value,10,character varying,YES,,255.0,,
+public,property,guid,11,character varying,YES,,255.0,,
+public,property,library_name,12,character varying,YES,,255.0,,
+public,property,ref_type,13,character varying,YES,,255.0,,
+public,property,sectionref,14,character varying,YES,,255.0,,
+public,property,url,15,character varying,YES,,255.0,,
+public,property,date_of_activation,16,timestamp without time zone,YES,,,,
+public,property,date_of_creation,17,timestamp without time zone,YES,,,,
+public,property,date_of_deactivation,18,timestamp without time zone,YES,,,,
+public,property,date_of_last_change,19,timestamp without time zone,YES,,,,
+public,property,date_of_revision,20,timestamp without time zone,YES,,,,
+public,property,date_of_version,21,timestamp without time zone,YES,,,,
+public,property,language_of_creator,22,character varying,YES,,255.0,,
+public,property,revision_number,23,integer,YES,,,32.0,0.0
+public,property,status,24,character varying,YES,,255.0,,
+public,property,version_number,25,integer,YES,,,32.0,0.0
+public,property,expression,26,character varying,YES,,255.0,,
+public,property,defining_values_id,27,bigint,YES,,,64.0,0.0
+public,property,defined_values_id,28,bigint,YES,,,64.0,0.0
+public,property,pick_list_id,29,bigint,YES,,,64.0,0.0
+public,property,unit_type_id,30,bigint,YES,,,64.0,0.0
+public,property,dictionary_reference_id,31,bigint,YES,,,64.0,0.0
+public,property,property_set_id,32,bigint,NO,,,64.0,0.0
+public,property,description_txt,33,text,YES,,,,
+public,property_set,id,1,bigint,NO,,,64.0,0.0
+public,property_set,name,2,character varying,NO,,255.0,,
+public,property_set,legacy_guid,3,character varying,YES,,255.0,,
+public,property_set,created_on,4,timestamp without time zone,YES,,,,
+public,property_set,is_default,5,boolean,NO,,,,
+public,property_set,ifc_version,6,character varying,YES,,255.0,,
+public,property_set,ifc_version_schema,7,character varying,YES,,255.0,,
+public,property_set,project_id,8,bigint,YES,,,64.0,0.0
+public,property_set,dictionary_reference_id,9,bigint,YES,,,64.0,0.0
+public,property_set,definition_txt,10,text,YES,,,,
+public,property_set,is_favorite,11,boolean,NO,false,,,
+public,property_set_ifc_objects,ifc_objects_id,1,bigint,NO,,,64.0,0.0
+public,property_set_ifc_objects,property_sets_id,2,bigint,NO,,,64.0,0.0
+public,qr_code,id,1,bigint,NO,nextval('qr_code_id_seq'::regclass),,64.0,0.0
+public,qr_code,name,2,character varying,YES,,255.0,,
+public,qr_code,authentication,3,character varying,YES,,255.0,,
+public,qr_code,jhi_type,4,character varying,YES,,255.0,,
+public,qr_code,is_installed,5,boolean,YES,,,,
+public,qr_code,physical_object_id,6,bigint,YES,,,64.0,0.0
+public,qr_code,physical_object_type,7,character varying,YES,,255.0,,
+public,qr_code,virtual_object_id,8,bigint,YES,,,64.0,0.0
+public,qr_code,virtual_object_type,9,character varying,YES,,255.0,,
+public,qr_code,project_id,10,bigint,YES,,,64.0,0.0
+public,qr_code,qr_code_url_txt,11,text,YES,,,,
+public,resource,id,1,bigint,NO,,,64.0,0.0
+public,resource,name,2,character varying,NO,,255.0,,
+public,resource,created_on,3,timestamp without time zone,YES,,,,
+public,resource,category,4,character varying,YES,,255.0,,
+public,resource,ext_system,5,character varying,YES,,255.0,,
+public,resource,ext_object,6,character varying,YES,,255.0,,
+public,resource,ext_identifier,7,character varying,YES,,255.0,,
+public,resource,image_guid,8,character varying,YES,,255.0,,
+public,resource,owning_facility_id,9,bigint,NO,,,64.0,0.0
+public,resource,created_by_id,10,bigint,YES,,,64.0,0.0
+public,resource,created_by_user,11,character varying,YES,,50.0,,
+public,resource,created_date,12,timestamp without time zone,YES,now(),,,
+public,resource,last_modified_by,13,character varying,YES,,50.0,,
+public,resource,last_modified_date,14,timestamp without time zone,YES,,,,
+public,resource,jhi_version,15,bigint,YES,,,64.0,0.0
+public,resource,system_id,16,bigint,YES,,,64.0,0.0
+public,resource,predefined_type,17,character varying,YES,,255.0,,
+public,resource,model_id,18,bigint,YES,,,64.0,0.0
+public,resource,description_txt,19,text,YES,,,,
+public,resource_attributes,attributes_id,1,bigint,NO,,,64.0,0.0
+public,resource_attributes,resources_id,2,bigint,NO,,,64.0,0.0
+public,resource_attributes_aud,resources_id,1,bigint,NO,,,64.0,0.0
+public,resource_attributes_aud,attributes_id,2,bigint,NO,,,64.0,0.0
+public,resource_attributes_aud,rev,3,bigint,NO,,,64.0,0.0
+public,resource_attributes_aud,revend,4,bigint,YES,,,64.0,0.0
+public,resource_attributes_aud,revtype,5,smallint,YES,,,16.0,0.0
+public,resource_aud,id,1,bigint,NO,,,64.0,0.0
+public,resource_aud,name,2,character varying,YES,,255.0,,
+public,resource_aud,created_on,3,timestamp without time zone,YES,,,,
+public,resource_aud,category,4,character varying,YES,,255.0,,
+public,resource_aud,ext_system,5,character varying,YES,,255.0,,
+public,resource_aud,ext_object,6,character varying,YES,,255.0,,
+public,resource_aud,ext_identifier,7,character varying,YES,,255.0,,
+public,resource_aud,image_guid,8,character varying,YES,,255.0,,
+public,resource_aud,owning_facility_id,9,bigint,YES,,,64.0,0.0
+public,resource_aud,created_by_id,10,bigint,YES,,,64.0,0.0
+public,resource_aud,rev,11,bigint,NO,,,64.0,0.0
+public,resource_aud,revend,12,bigint,YES,,,64.0,0.0
+public,resource_aud,revtype,13,smallint,NO,,,16.0,0.0
+public,resource_aud,created_by_user,14,character varying,YES,,50.0,,
+public,resource_aud,created_date,15,timestamp without time zone,YES,now(),,,
+public,resource_aud,last_modified_by,16,character varying,YES,,50.0,,
+public,resource_aud,last_modified_date,17,timestamp without time zone,YES,,,,
+public,resource_aud,system_id,18,bigint,YES,,,64.0,0.0
+public,resource_aud,predefined_type,19,character varying,YES,,255.0,,
+public,resource_aud,description_txt,20,text,YES,,,,
+public,resource_documents,documents_id,1,bigint,NO,,,64.0,0.0
+public,resource_documents,resources_id,2,bigint,NO,,,64.0,0.0
+public,resource_documents_aud,resources_id,1,bigint,NO,,,64.0,0.0
+public,resource_documents_aud,documents_id,2,bigint,NO,,,64.0,0.0
+public,resource_documents_aud,rev,3,bigint,NO,,,64.0,0.0
+public,resource_documents_aud,revend,4,bigint,YES,,,64.0,0.0
+public,resource_documents_aud,revtype,5,smallint,YES,,,16.0,0.0
+public,resource_impacts,impacts_id,1,bigint,NO,,,64.0,0.0
+public,resource_impacts,resources_id,2,bigint,NO,,,64.0,0.0
+public,resource_impacts_aud,resources_id,1,bigint,NO,,,64.0,0.0
+public,resource_impacts_aud,impacts_id,2,bigint,NO,,,64.0,0.0
+public,resource_impacts_aud,rev,3,bigint,NO,,,64.0,0.0
+public,resource_impacts_aud,revend,4,bigint,YES,,,64.0,0.0
+public,resource_impacts_aud,revtype,5,smallint,YES,,,16.0,0.0
+public,revinfo,rev,1,bigint,NO,nextval('revinfo_rev_seq'::regclass),,64.0,0.0
+public,revinfo,revtstmp,2,bigint,YES,,,64.0,0.0
+public,revision_lookup,id,1,bigint,NO,nextval('revision_lookup_id_seq'::regclass),,64.0,0.0
+public,revision_lookup,tag,2,character varying,NO,,255.0,,
+public,revision_lookup,entity_type,3,character varying,NO,,255.0,,
+public,revision_lookup,object_id,4,bigint,NO,,,64.0,0.0
+public,revision_lookup,revision_id,5,bigint,NO,,,64.0,0.0
+public,revision_lookup,facility_id,6,bigint,NO,,,64.0,0.0
+public,search_entity,id,1,bigint,NO,,,64.0,0.0
+public,search_entity,entity_name,2,character varying,YES,,255.0,,
+public,search_entity,entity_id,3,bigint,YES,,,64.0,0.0
+public,search_entity,entity_type,4,character varying,YES,,255.0,,
+public,search_entity,attributes,5,jsonb,YES,,,,
+public,search_entity,vector,6,text,YES,,,,
+public,search_entity,system_id,7,bigint,YES,,,64.0,0.0
+public,search_entity,owning_facility_id,8,bigint,YES,,,64.0,0.0
+public,search_entity,model_id,9,bigint,YES,,,64.0,0.0
+public,search_entity,project_id,10,bigint,YES,,,64.0,0.0
+public,sla_time_config,id,1,bigint,NO,nextval('sla_time_config_id_seq'::regclass),,64.0,0.0
+public,sla_time_config,monday_from,2,bigint,YES,,,64.0,0.0
+public,sla_time_config,monday_to,3,bigint,YES,,,64.0,0.0
+public,sla_time_config,tuesday_from,4,bigint,YES,,,64.0,0.0
+public,sla_time_config,tuesday_to,5,bigint,YES,,,64.0,0.0
+public,sla_time_config,wednesday_from,6,bigint,YES,,,64.0,0.0
+public,sla_time_config,wednesday_to,7,bigint,YES,,,64.0,0.0
+public,sla_time_config,thursday_from,8,bigint,YES,,,64.0,0.0
+public,sla_time_config,thursday_to,9,bigint,YES,,,64.0,0.0
+public,sla_time_config,friday_from,10,bigint,YES,,,64.0,0.0
+public,sla_time_config,friday_to,11,bigint,YES,,,64.0,0.0
+public,sla_time_config,saturday_from,12,bigint,YES,,,64.0,0.0
+public,sla_time_config,saturday_to,13,bigint,YES,,,64.0,0.0
+public,sla_time_config,sunday_from,14,bigint,YES,,,64.0,0.0
+public,sla_time_config,sunday_to,15,bigint,YES,,,64.0,0.0
+public,sla_time_config,default_holiday_from,16,bigint,YES,,,64.0,0.0
+public,sla_time_config,default_holiday_to,17,bigint,YES,,,64.0,0.0
+public,sla_time_config,valid_from,18,timestamp without time zone,YES,now(),,,
+public,sla_time_config,valid_to,19,timestamp without time zone,YES,,,,
+public,sla_time_config,project_id,20,bigint,NO,,,64.0,0.0
+public,sla_time_config,created_by_user,21,character varying,YES,,50.0,,
+public,sla_time_config,created_date,22,timestamp without time zone,YES,now(),,,
+public,sla_time_config,last_modified_by,23,character varying,YES,,50.0,,
+public,sla_time_config,last_modified_date,24,timestamp without time zone,YES,,,,
+public,sla_time_exception,id,1,bigint,NO,nextval('sla_time_exception_id_seq'::regclass),,64.0,0.0
+public,sla_time_exception,date,2,date,NO,,,,
+public,sla_time_exception,name,3,character varying,NO,,255.0,,
+public,sla_time_exception,exception_from,4,bigint,YES,,,64.0,0.0
+public,sla_time_exception,exception_to,5,bigint,YES,,,64.0,0.0
+public,sla_time_exception,project_id,6,bigint,NO,,,64.0,0.0
+public,sla_time_exception,created_by_user,7,character varying,YES,,50.0,,
+public,sla_time_exception,created_date,8,timestamp without time zone,YES,now(),,,
+public,sla_time_exception,last_modified_by,9,character varying,YES,,50.0,,
+public,sla_time_exception,last_modified_date,10,timestamp without time zone,YES,,,,
+public,smart_data_preference,id,1,bigint,NO,,,64.0,0.0
+public,smart_data_preference,type,2,character varying,NO,,255.0,,
+public,smart_data_preference,target_id,3,bigint,NO,,,64.0,0.0
+public,smart_data_preference,source_id,4,bigint,NO,,,64.0,0.0
+public,smart_data_preference,jhi_value,5,character varying,NO,,255.0,,
+public,smart_data_preference,owning_facility_id,6,bigint,NO,,,64.0,0.0
+public,space,id,1,bigint,NO,,,64.0,0.0
+public,space,name,2,character varying,NO,,255.0,,
+public,space,created_on,3,timestamp without time zone,YES,,,,
+public,space,ext_system,4,character varying,YES,,255.0,,
+public,space,ext_object,5,character varying,YES,,255.0,,
+public,space,ext_identifier,6,character varying,YES,,255.0,,
+public,space,category,7,character varying,YES,,255.0,,
+public,space,room_tag,8,character varying,YES,,255.0,,
+public,space,gross_area,9,numeric,YES,,,,
+public,space,net_area,10,numeric,YES,,,,
+public,space,usable_height,11,numeric,YES,,,,
+public,space,image_guid,12,character varying,YES,,255.0,,
+public,space,owning_facility_id,13,bigint,NO,,,64.0,0.0
+public,space,created_by_id,14,bigint,YES,,,64.0,0.0
+public,space,floor_id,15,bigint,NO,,,64.0,0.0
+public,space,parent_id,16,bigint,YES,,,64.0,0.0
+public,space,ifc_reference,17,character varying,YES,,255.0,,
+public,space,created_by_user,18,character varying,YES,,50.0,,
+public,space,created_date,19,timestamp without time zone,YES,now(),,,
+public,space,last_modified_by,20,character varying,YES,,50.0,,
+public,space,last_modified_date,21,timestamp without time zone,YES,,,,
+public,space,jhi_version,22,bigint,YES,,,64.0,0.0
+public,space,predefined_type,23,character varying,YES,,255.0,,
+public,space,model_id,24,bigint,YES,,,64.0,0.0
+public,space,description_txt,25,text,YES,,,,
+public,space_attributes,attributes_id,1,bigint,NO,,,64.0,0.0
+public,space_attributes,spaces_id,2,bigint,NO,,,64.0,0.0
+public,space_attributes_aud,spaces_id,1,bigint,NO,,,64.0,0.0
+public,space_attributes_aud,attributes_id,2,bigint,NO,,,64.0,0.0
+public,space_attributes_aud,rev,3,bigint,NO,,,64.0,0.0
+public,space_attributes_aud,revend,4,bigint,YES,,,64.0,0.0
+public,space_attributes_aud,revtype,5,smallint,YES,,,16.0,0.0
+public,space_aud,id,1,bigint,NO,,,64.0,0.0
+public,space_aud,name,2,character varying,YES,,255.0,,
+public,space_aud,created_on,3,timestamp without time zone,YES,,,,
+public,space_aud,ext_system,4,character varying,YES,,255.0,,
+public,space_aud,ext_object,5,character varying,YES,,255.0,,
+public,space_aud,ext_identifier,6,character varying,YES,,255.0,,
+public,space_aud,category,7,character varying,YES,,255.0,,
+public,space_aud,room_tag,8,character varying,YES,,255.0,,
+public,space_aud,gross_area,9,numeric,YES,,,,
+public,space_aud,net_area,10,numeric,YES,,,,
+public,space_aud,usable_height,11,numeric,YES,,,,
+public,space_aud,ifc_reference,12,character varying,YES,,255.0,,
+public,space_aud,image_guid,13,character varying,YES,,255.0,,
+public,space_aud,owning_facility_id,14,bigint,YES,,,64.0,0.0
+public,space_aud,created_by_id,15,bigint,YES,,,64.0,0.0
+public,space_aud,floor_id,16,bigint,YES,,,64.0,0.0
+public,space_aud,parent_id,17,bigint,YES,,,64.0,0.0
+public,space_aud,rev,18,bigint,NO,,,64.0,0.0
+public,space_aud,revend,19,bigint,YES,,,64.0,0.0
+public,space_aud,revtype,20,smallint,NO,,,16.0,0.0
+public,space_aud,created_by_user,21,character varying,YES,,50.0,,
+public,space_aud,created_date,22,timestamp without time zone,YES,now(),,,
+public,space_aud,last_modified_by,23,character varying,YES,,50.0,,
+public,space_aud,last_modified_date,24,timestamp without time zone,YES,,,,
+public,space_aud,predefined_type,25,character varying,YES,,255.0,,
+public,space_aud,description_txt,26,text,YES,,,,
+public,space_components,components_id,1,bigint,NO,,,64.0,0.0
+public,space_components,spaces_id,2,bigint,NO,,,64.0,0.0
+public,space_components_aud,spaces_id,1,bigint,NO,,,64.0,0.0
+public,space_components_aud,components_id,2,bigint,NO,,,64.0,0.0
+public,space_components_aud,rev,3,bigint,NO,,,64.0,0.0
+public,space_components_aud,revend,4,bigint,YES,,,64.0,0.0
+public,space_components_aud,revtype,5,smallint,YES,,,16.0,0.0
+public,space_documents,documents_id,1,bigint,NO,,,64.0,0.0
+public,space_documents,spaces_id,2,bigint,NO,,,64.0,0.0
+public,space_documents_aud,spaces_id,1,bigint,NO,,,64.0,0.0
+public,space_documents_aud,documents_id,2,bigint,NO,,,64.0,0.0
+public,space_documents_aud,rev,3,bigint,NO,,,64.0,0.0
+public,space_documents_aud,revend,4,bigint,YES,,,64.0,0.0
+public,space_documents_aud,revtype,5,smallint,YES,,,16.0,0.0
+public,space_impacts,impacts_id,1,bigint,NO,,,64.0,0.0
+public,space_impacts,spaces_id,2,bigint,NO,,,64.0,0.0
+public,space_impacts_aud,spaces_id,1,bigint,NO,,,64.0,0.0
+public,space_impacts_aud,impacts_id,2,bigint,NO,,,64.0,0.0
+public,space_impacts_aud,rev,3,bigint,NO,,,64.0,0.0
+public,space_impacts_aud,revend,4,bigint,YES,,,64.0,0.0
+public,space_impacts_aud,revtype,5,smallint,YES,,,16.0,0.0
+public,space_zones,zones_id,1,bigint,NO,,,64.0,0.0
+public,space_zones,spaces_id,2,bigint,NO,,,64.0,0.0
+public,space_zones_aud,spaces_id,1,bigint,NO,,,64.0,0.0
+public,space_zones_aud,zones_id,2,bigint,NO,,,64.0,0.0
+public,space_zones_aud,rev,3,bigint,NO,,,64.0,0.0
+public,space_zones_aud,revend,4,bigint,YES,,,64.0,0.0
+public,space_zones_aud,revtype,5,smallint,YES,,,16.0,0.0
+public,spare,id,1,bigint,NO,,,64.0,0.0
+public,spare,name,2,character varying,NO,,255.0,,
+public,spare,created_on,3,timestamp without time zone,YES,,,,
+public,spare,category,4,character varying,YES,,255.0,,
+public,spare,ext_system,5,character varying,YES,,255.0,,
+public,spare,ext_object,6,character varying,YES,,255.0,,
+public,spare,ext_identifier,7,character varying,YES,,255.0,,
+public,spare,set_number,8,character varying,YES,,255.0,,
+public,spare,part_number,9,character varying,YES,,255.0,,
+public,spare,image_guid,10,character varying,YES,,255.0,,
+public,spare,owning_facility_id,11,bigint,NO,,,64.0,0.0
+public,spare,created_by_id,12,bigint,YES,,,64.0,0.0
+public,spare,created_by_user,13,character varying,YES,,50.0,,
+public,spare,created_date,14,timestamp without time zone,YES,now(),,,
+public,spare,last_modified_by,15,character varying,YES,,50.0,,
+public,spare,last_modified_date,16,timestamp without time zone,YES,,,,
+public,spare,jhi_version,17,bigint,YES,,,64.0,0.0
+public,spare,system_id,18,bigint,YES,,,64.0,0.0
+public,spare,predefined_type,19,character varying,YES,,255.0,,
+public,spare,model_id,20,bigint,YES,,,64.0,0.0
+public,spare,description_txt,21,text,YES,,,,
+public,spare_attributes,attributes_id,1,bigint,NO,,,64.0,0.0
+public,spare_attributes,spares_id,2,bigint,NO,,,64.0,0.0
+public,spare_attributes_aud,spares_id,1,bigint,NO,,,64.0,0.0
+public,spare_attributes_aud,attributes_id,2,bigint,NO,,,64.0,0.0
+public,spare_attributes_aud,rev,3,bigint,NO,,,64.0,0.0
+public,spare_attributes_aud,revend,4,bigint,YES,,,64.0,0.0
+public,spare_attributes_aud,revtype,5,smallint,YES,,,16.0,0.0
+public,spare_aud,id,1,bigint,NO,,,64.0,0.0
+public,spare_aud,name,2,character varying,YES,,255.0,,
+public,spare_aud,created_on,3,timestamp without time zone,YES,,,,
+public,spare_aud,category,4,character varying,YES,,255.0,,
+public,spare_aud,ext_system,5,character varying,YES,,255.0,,
+public,spare_aud,ext_object,6,character varying,YES,,255.0,,
+public,spare_aud,ext_identifier,7,character varying,YES,,255.0,,
+public,spare_aud,set_number,8,character varying,YES,,255.0,,
+public,spare_aud,part_number,9,character varying,YES,,255.0,,
+public,spare_aud,image_guid,10,character varying,YES,,255.0,,
+public,spare_aud,owning_facility_id,11,bigint,YES,,,64.0,0.0
+public,spare_aud,created_by_id,12,bigint,YES,,,64.0,0.0
+public,spare_aud,rev,13,bigint,NO,,,64.0,0.0
+public,spare_aud,revend,14,bigint,YES,,,64.0,0.0
+public,spare_aud,revtype,15,smallint,NO,,,16.0,0.0
+public,spare_aud,created_by_user,16,character varying,YES,,50.0,,
+public,spare_aud,created_date,17,timestamp without time zone,YES,now(),,,
+public,spare_aud,last_modified_by,18,character varying,YES,,50.0,,
+public,spare_aud,last_modified_date,19,timestamp without time zone,YES,,,,
+public,spare_aud,system_id,20,bigint,YES,,,64.0,0.0
+public,spare_aud,predefined_type,21,character varying,YES,,255.0,,
+public,spare_aud,description_txt,22,text,YES,,,,
+public,spare_documents,documents_id,1,bigint,NO,,,64.0,0.0
+public,spare_documents,spares_id,2,bigint,NO,,,64.0,0.0
+public,spare_documents_aud,spares_id,1,bigint,NO,,,64.0,0.0
+public,spare_documents_aud,documents_id,2,bigint,NO,,,64.0,0.0
+public,spare_documents_aud,rev,3,bigint,NO,,,64.0,0.0
+public,spare_documents_aud,revend,4,bigint,YES,,,64.0,0.0
+public,spare_documents_aud,revtype,5,smallint,YES,,,16.0,0.0
+public,spare_impacts,impacts_id,1,bigint,NO,,,64.0,0.0
+public,spare_impacts,spares_id,2,bigint,NO,,,64.0,0.0
+public,spare_impacts_aud,spares_id,1,bigint,NO,,,64.0,0.0
+public,spare_impacts_aud,impacts_id,2,bigint,NO,,,64.0,0.0
+public,spare_impacts_aud,rev,3,bigint,NO,,,64.0,0.0
+public,spare_impacts_aud,revend,4,bigint,YES,,,64.0,0.0
+public,spare_impacts_aud,revtype,5,smallint,YES,,,16.0,0.0
+public,spare_suppliers,suppliers_id,1,bigint,NO,,,64.0,0.0
+public,spare_suppliers,spares_id,2,bigint,NO,,,64.0,0.0
+public,spare_suppliers_aud,spares_id,1,bigint,NO,,,64.0,0.0
+public,spare_suppliers_aud,suppliers_id,2,bigint,NO,,,64.0,0.0
+public,spare_suppliers_aud,rev,3,bigint,NO,,,64.0,0.0
+public,spare_suppliers_aud,revend,4,bigint,YES,,,64.0,0.0
+public,spare_suppliers_aud,revtype,5,smallint,YES,,,16.0,0.0
+public,sub_project,id,1,bigint,NO,,,64.0,0.0
+public,sub_project,name,2,character varying,NO,,255.0,,
+public,sub_project,description,3,character varying,YES,,255.0,,
+public,sub_project,status,4,bigint,NO,,,64.0,0.0
+public,sub_project,contact_id,5,bigint,YES,,,64.0,0.0
+public,sub_project,project_id,6,bigint,NO,,,64.0,0.0
+public,sub_project,created_by_user,7,character varying,YES,,50.0,,
+public,sub_project,created_date,8,timestamp without time zone,YES,now(),,,
+public,sub_project,last_modified_by,9,character varying,YES,,50.0,,
+public,sub_project,last_modified_date,10,timestamp without time zone,YES,,,,
+public,sub_project_contacts,contacts_id,1,bigint,NO,,,64.0,0.0
+public,sub_project_contacts,sub_projects_id,2,bigint,NO,,,64.0,0.0
+public,supplementary_agreement,id,1,bigint,NO,,,64.0,0.0
+public,supplementary_agreement,created_on,2,timestamp without time zone,YES,,,,
+public,supplementary_agreement,description,3,character varying,NO,,255.0,,
+public,supplementary_agreement,contract_number,4,character varying,NO,,255.0,,
+public,supplementary_agreement,contract_date,5,date,YES,,,,
+public,supplementary_agreement,offer_number,6,character varying,YES,,255.0,,
+public,supplementary_agreement,offer_date,7,date,YES,,,,
+public,supplementary_agreement,offer_sum,8,numeric,YES,,,21.0,2.0
+public,supplementary_agreement,basic_billing,9,character varying,YES,,255.0,,
+public,supplementary_agreement,created_by_id,10,bigint,YES,,,64.0,0.0
+public,supplementary_agreement,contract_id,11,bigint,NO,,,64.0,0.0
+public,supplementary_agreement,created_by_user,12,character varying,YES,,50.0,,
+public,supplementary_agreement,created_date,13,timestamp without time zone,YES,now(),,,
+public,supplementary_agreement,last_modified_by,14,character varying,YES,,50.0,,
+public,supplementary_agreement,last_modified_date,15,timestamp without time zone,YES,,,,
+public,supplementary_agreement,jhi_version,16,bigint,YES,,,64.0,0.0
+public,supplementary_agreement_aud,id,1,bigint,NO,,,64.0,0.0
+public,supplementary_agreement_aud,created_on,2,timestamp without time zone,YES,,,,
+public,supplementary_agreement_aud,description,3,character varying,YES,,255.0,,
+public,supplementary_agreement_aud,contract_number,4,character varying,YES,,255.0,,
+public,supplementary_agreement_aud,contract_date,5,date,YES,,,,
+public,supplementary_agreement_aud,offer_number,6,character varying,YES,,255.0,,
+public,supplementary_agreement_aud,offer_date,7,date,YES,,,,
+public,supplementary_agreement_aud,offer_sum,8,numeric,YES,,,21.0,2.0
+public,supplementary_agreement_aud,basic_billing,9,character varying,YES,,255.0,,
+public,supplementary_agreement_aud,created_by_id,10,bigint,YES,,,64.0,0.0
+public,supplementary_agreement_aud,contract_id,11,bigint,YES,,,64.0,0.0
+public,supplementary_agreement_aud,rev,12,bigint,NO,,,64.0,0.0
+public,supplementary_agreement_aud,revend,13,bigint,YES,,,64.0,0.0
+public,supplementary_agreement_aud,revtype,14,smallint,NO,,,16.0,0.0
+public,supplementary_agreement_aud,created_by_user,15,character varying,YES,,50.0,,
+public,supplementary_agreement_aud,created_date,16,timestamp without time zone,YES,now(),,,
+public,supplementary_agreement_aud,last_modified_by,17,character varying,YES,,50.0,,
+public,supplementary_agreement_aud,last_modified_date,18,timestamp without time zone,YES,,,,
+public,system,id,1,bigint,NO,,,64.0,0.0
+public,system,name,2,character varying,NO,,255.0,,
+public,system,created_on,3,timestamp without time zone,YES,,,,
+public,system,category,4,character varying,YES,,255.0,,
+public,system,ext_system,5,character varying,YES,,255.0,,
+public,system,ext_object,6,character varying,YES,,255.0,,
+public,system,ext_identifier,7,character varying,YES,,255.0,,
+public,system,image_guid,8,character varying,YES,,255.0,,
+public,system,owning_facility_id,9,bigint,NO,,,64.0,0.0
+public,system,created_by_id,10,bigint,YES,,,64.0,0.0
+public,system,ifc_reference,11,character varying,YES,,255.0,,
+public,system,created_by_user,12,character varying,YES,,50.0,,
+public,system,created_date,13,timestamp without time zone,YES,now(),,,
+public,system,last_modified_by,14,character varying,YES,,50.0,,
+public,system,last_modified_date,15,timestamp without time zone,YES,,,,
+public,system,jhi_version,16,bigint,YES,,,64.0,0.0
+public,system,predefined_type,17,character varying,YES,,255.0,,
+public,system,description_txt,18,text,YES,,,,
+public,system_acceptors,acceptors_id,1,bigint,NO,,,64.0,0.0
+public,system_acceptors,systems_id,2,bigint,NO,,,64.0,0.0
+public,system_acceptors_aud,systems_id,1,bigint,NO,,,64.0,0.0
+public,system_acceptors_aud,acceptors_id,2,bigint,NO,,,64.0,0.0
+public,system_acceptors_aud,rev,3,bigint,NO,,,64.0,0.0
+public,system_acceptors_aud,revend,4,bigint,YES,,,64.0,0.0
+public,system_acceptors_aud,revtype,5,smallint,YES,,,16.0,0.0
+public,system_assignees,assignees_id,1,bigint,NO,,,64.0,0.0
+public,system_assignees,systems_id,2,bigint,NO,,,64.0,0.0
+public,system_assignees_aud,systems_id,1,bigint,NO,,,64.0,0.0
+public,system_assignees_aud,assignees_id,2,bigint,NO,,,64.0,0.0
+public,system_assignees_aud,rev,3,bigint,NO,,,64.0,0.0
+public,system_assignees_aud,revend,4,bigint,YES,,,64.0,0.0
+public,system_assignees_aud,revtype,5,smallint,YES,,,16.0,0.0
+public,system_attributes,attributes_id,1,bigint,NO,,,64.0,0.0
+public,system_attributes,systems_id,2,bigint,NO,,,64.0,0.0
+public,system_attributes_aud,systems_id,1,bigint,NO,,,64.0,0.0
+public,system_attributes_aud,attributes_id,2,bigint,NO,,,64.0,0.0
+public,system_attributes_aud,rev,3,bigint,NO,,,64.0,0.0
+public,system_attributes_aud,revend,4,bigint,YES,,,64.0,0.0
+public,system_attributes_aud,revtype,5,smallint,YES,,,16.0,0.0
+public,system_aud,id,1,bigint,NO,,,64.0,0.0
+public,system_aud,name,2,character varying,YES,,255.0,,
+public,system_aud,created_on,3,timestamp without time zone,YES,,,,
+public,system_aud,category,4,character varying,YES,,255.0,,
+public,system_aud,ext_system,5,character varying,YES,,255.0,,
+public,system_aud,ext_object,6,character varying,YES,,255.0,,
+public,system_aud,ext_identifier,7,character varying,YES,,255.0,,
+public,system_aud,image_guid,8,character varying,YES,,255.0,,
+public,system_aud,ifc_reference,9,character varying,YES,,255.0,,
+public,system_aud,owning_facility_id,10,bigint,YES,,,64.0,0.0
+public,system_aud,created_by_id,11,bigint,YES,,,64.0,0.0
+public,system_aud,rev,12,bigint,NO,,,64.0,0.0
+public,system_aud,revend,13,bigint,YES,,,64.0,0.0
+public,system_aud,revtype,14,smallint,NO,,,16.0,0.0
+public,system_aud,created_by_user,15,character varying,YES,,50.0,,
+public,system_aud,created_date,16,timestamp without time zone,YES,now(),,,
+public,system_aud,last_modified_by,17,character varying,YES,,50.0,,
+public,system_aud,last_modified_date,18,timestamp without time zone,YES,,,,
+public,system_aud,predefined_type,19,character varying,YES,,255.0,,
+public,system_aud,description_txt,20,text,YES,,,,
+public,system_documents,documents_id,1,bigint,NO,,,64.0,0.0
+public,system_documents,systems_id,2,bigint,NO,,,64.0,0.0
+public,system_documents_aud,systems_id,1,bigint,NO,,,64.0,0.0
+public,system_documents_aud,documents_id,2,bigint,NO,,,64.0,0.0
+public,system_documents_aud,rev,3,bigint,NO,,,64.0,0.0
+public,system_documents_aud,revend,4,bigint,YES,,,64.0,0.0
+public,system_documents_aud,revtype,5,smallint,YES,,,16.0,0.0
+public,system_impacts,impacts_id,1,bigint,NO,,,64.0,0.0
+public,system_impacts,systems_id,2,bigint,NO,,,64.0,0.0
+public,system_impacts_aud,systems_id,1,bigint,NO,,,64.0,0.0
+public,system_impacts_aud,impacts_id,2,bigint,NO,,,64.0,0.0
+public,system_impacts_aud,rev,3,bigint,NO,,,64.0,0.0
+public,system_impacts_aud,revend,4,bigint,YES,,,64.0,0.0
+public,system_impacts_aud,revtype,5,smallint,YES,,,16.0,0.0
+public,system_reviewers,reviewers_id,1,bigint,NO,,,64.0,0.0
+public,system_reviewers,systems_id,2,bigint,NO,,,64.0,0.0
+public,system_reviewers_aud,systems_id,1,bigint,NO,,,64.0,0.0
+public,system_reviewers_aud,reviewers_id,2,bigint,NO,,,64.0,0.0
+public,system_reviewers_aud,rev,3,bigint,NO,,,64.0,0.0
+public,system_reviewers_aud,revend,4,bigint,YES,,,64.0,0.0
+public,system_reviewers_aud,revtype,5,smallint,YES,,,16.0,0.0
+public,system_watchers,watchers_id,1,bigint,NO,,,64.0,0.0
+public,system_watchers,systems_id,2,bigint,NO,,,64.0,0.0
+public,system_watchers_aud,systems_id,1,bigint,NO,,,64.0,0.0
+public,system_watchers_aud,watchers_id,2,bigint,NO,,,64.0,0.0
+public,system_watchers_aud,rev,3,bigint,NO,,,64.0,0.0
+public,system_watchers_aud,revend,4,bigint,YES,,,64.0,0.0
+public,system_watchers_aud,revtype,5,smallint,YES,,,16.0,0.0
+public,table_definition,id,1,bigint,NO,,,64.0,0.0
+public,table_definition,measure_type,2,character varying,YES,,255.0,,
+public,table_definition,data_type,3,character varying,YES,,255.0,,
+public,table_definition,ifc_data_type,4,character varying,YES,,255.0,,
+public,table_definition,unit_type_id,5,bigint,YES,,,64.0,0.0
+public,table_definition_value,id,1,bigint,NO,,,64.0,0.0
+public,table_definition_value,jhi_value,2,character varying,NO,,255.0,,
+public,table_definition_value,definition_id,3,bigint,YES,,,64.0,0.0
+public,task,id,1,bigint,NO,,,64.0,0.0
+public,task,short_id,2,character varying,YES,,255.0,,
+public,task,name,3,character varying,YES,,255.0,,
+public,task,state,4,character varying,YES,,255.0,,
+public,task,category,5,character varying,YES,,255.0,,
+public,task,due_date,6,timestamp without time zone,YES,,,,
+public,task,project_id,7,bigint,NO,,,64.0,0.0
+public,task,facility_id,8,bigint,YES,,,64.0,0.0
+public,task,created_by,9,character varying,NO,,50.0,,
+public,task,created_date,10,timestamp without time zone,NO,now(),,,
+public,task,last_modified_by,11,character varying,YES,,50.0,,
+public,task,last_modified_date,12,timestamp without time zone,YES,,,,
+public,task,enable_template_management,13,boolean,NO,false,,,
+public,task,follow_up_identifier,14,character varying,YES,,36.0,,
+public,task,follow_up_frequency,15,bigint,YES,,,64.0,0.0
+public,task,follow_up_frequency_unit,16,character varying,YES,,255.0,,
+public,task,follow_up_pre_start_duration,17,bigint,YES,,,64.0,0.0
+public,task,follow_up_pre_start_duration_unit,18,character varying,YES,,255.0,,
+public,task,notification_strategy,19,character varying,YES,,255.0,,
+public,task,notify_on_comment,20,boolean,YES,true,,,
+public,task,notify_on_finish,21,boolean,YES,true,,,
+public,task,system_phase_id,22,bigint,YES,,,64.0,0.0
+public,task,action_needed,23,boolean,YES,false,,,
+public,task,notify_on_action_needed,24,boolean,YES,false,,,
+public,task,phase_id,25,bigint,YES,,,64.0,0.0
+public,task,contract_id,26,bigint,YES,,,64.0,0.0
+public,task,description_txt,27,text,YES,,,,
+public,task,sub_project_id,28,bigint,YES,,,64.0,0.0
+public,task,days_until_review,29,bigint,YES,,,64.0,0.0
+public,task,due_date_review,30,timestamp without time zone,YES,,,,
+public,task,days_until_acceptance,31,bigint,YES,,,64.0,0.0
+public,task,due_date_acceptance,32,timestamp without time zone,YES,,,,
+public,task_acceptors,acceptors_id,1,bigint,NO,,,64.0,0.0
+public,task_acceptors,tasks_id,2,bigint,NO,,,64.0,0.0
+public,task_assignees,assignees_id,1,bigint,NO,,,64.0,0.0
+public,task_assignees,tasks_id,2,bigint,NO,,,64.0,0.0
+public,task_comment,id,1,bigint,NO,,,64.0,0.0
+public,task_comment,last_modified,2,timestamp without time zone,YES,,,,
+public,task_comment,contact_id,3,bigint,NO,,,64.0,0.0
+public,task_comment,task_id,4,bigint,NO,,,64.0,0.0
+public,task_comment,from_state,5,character varying,YES,,255.0,,
+public,task_comment,to_state,6,character varying,YES,,255.0,,
+public,task_comment,text_txt,7,text,YES,,,,
+public,task_creators,creators_id,1,bigint,NO,,,64.0,0.0
+public,task_creators,tasks_id,2,bigint,NO,,,64.0,0.0
+public,task_documents,documents_id,1,bigint,NO,,,64.0,0.0
+public,task_documents,tasks_id,2,bigint,NO,,,64.0,0.0
+public,task_listeners,listeners_id,1,bigint,NO,,,64.0,0.0
+public,task_listeners,tasks_id,2,bigint,NO,,,64.0,0.0
+public,task_relation,id,1,bigint,NO,,,64.0,0.0
+public,task_relation,relation_id,2,bigint,YES,,,64.0,0.0
+public,task_relation,relation_type,3,character varying,YES,,255.0,,
+public,task_relation,relation_name,4,character varying,YES,,255.0,,
+public,task_relation,task_id,5,bigint,NO,,,64.0,0.0
+public,task_relation,state,6,character varying,YES,,255.0,,
+public,task_relation,parent_id,7,bigint,YES,,,64.0,0.0
+public,task_relation,relation_deleted,8,boolean,NO,false,,,
+public,task_relation,description_txt,9,text,YES,,,,
+public,task_relation,category,10,character varying,YES,,255.0,,
+public,task_relation,mdt_file_name_convention,11,character varying,YES,,255.0,,
+public,task_relation,mdt_file_name_convention_description,12,character varying,YES,,255.0,,
+public,task_relation,comments_count,13,integer,YES,,,32.0,0.0
+public,task_relation_comment,id,1,bigint,NO,,,64.0,0.0
+public,task_relation_comment,comment,2,text,YES,,,,
+public,task_relation_comment,task_relation_id,3,bigint,NO,,,64.0,0.0
+public,task_relation_comment,created_by_user,4,character varying,YES,,50.0,,
+public,task_relation_comment,created_date,5,timestamp without time zone,YES,now(),,,
+public,task_relation_comment,last_modified_by,6,character varying,YES,,50.0,,
+public,task_relation_comment,last_modified_date,7,timestamp without time zone,YES,,,,
+public,task_relation_delivery_information_progress,id,1,bigint,NO,nextval('task_relation_delivery_information_progress_id_seq'::regclass),,64.0,0.0
+public,task_relation_delivery_information_progress,name,2,character varying,NO,,255.0,,
+public,task_relation_delivery_information_progress,task_relation_id,3,bigint,NO,,,64.0,0.0
+public,task_relation_template,id,1,bigint,NO,,,64.0,0.0
+public,task_relation_template,relation_id,2,bigint,YES,,,64.0,0.0
+public,task_relation_template,relation_type,3,character varying,YES,,255.0,,
+public,task_relation_template,relation_name,4,character varying,YES,,255.0,,
+public,task_relation_template,task_id,5,bigint,NO,,,64.0,0.0
+public,task_relation_template,relation_deleted,6,boolean,NO,false,,,
+public,task_reviewers,reviewers_id,1,bigint,NO,,,64.0,0.0
+public,task_reviewers,tasks_id,2,bigint,NO,,,64.0,0.0
+public,task_time_recording,id,1,bigint,NO,,,64.0,0.0
+public,task_time_recording,comment,2,character varying,YES,,255.0,,
+public,task_time_recording,time_spent,3,bigint,NO,,,64.0,0.0
+public,task_time_recording,contact_id,4,bigint,NO,,,64.0,0.0
+public,task_time_recording,task_id,5,bigint,NO,,,64.0,0.0
+public,task_time_recording,created_by_user,6,character varying,YES,,50.0,,
+public,task_time_recording,created_date,7,timestamp without time zone,YES,now(),,,
+public,task_time_recording,last_modified_by,8,character varying,YES,,50.0,,
+public,task_time_recording,last_modified_date,9,timestamp without time zone,YES,,,,
+public,technical_system,id,1,bigint,NO,nextval('technical_system_id_seq'::regclass),,64.0,0.0
+public,technical_system,name,2,character varying,NO,,255.0,,
+public,technical_system,created_on,3,timestamp without time zone,YES,,,,
+public,technical_system,category,4,character varying,YES,,255.0,,
+public,technical_system,ext_system,5,character varying,YES,,255.0,,
+public,technical_system,ext_object,6,character varying,YES,,255.0,,
+public,technical_system,ext_identifier,7,character varying,YES,,255.0,,
+public,technical_system,image_guid,8,character varying,YES,,255.0,,
+public,technical_system,owning_facility_id,9,bigint,NO,,,64.0,0.0
+public,technical_system,created_by_id,10,bigint,YES,,,64.0,0.0
+public,technical_system,predefined_type,11,character varying,YES,,255.0,,
+public,technical_system,ifc_reference,12,character varying,YES,,255.0,,
+public,technical_system,created_by_user,13,character varying,YES,,50.0,,
+public,technical_system,created_date,14,timestamp without time zone,YES,now(),,,
+public,technical_system,last_modified_by,15,character varying,YES,,50.0,,
+public,technical_system,last_modified_date,16,timestamp without time zone,YES,,,,
+public,technical_system,jhi_version,17,bigint,YES,,,64.0,0.0
+public,technical_system,system_id,18,bigint,YES,,,64.0,0.0
+public,technical_system,model_id,19,bigint,YES,,,64.0,0.0
+public,technical_system,description_txt,20,text,YES,,,,
+public,technical_system_asset_components,asset_components_id,1,bigint,NO,,,64.0,0.0
+public,technical_system_asset_components,technical_systems_id,2,bigint,NO,,,64.0,0.0
+public,technical_system_asset_components_aud,technical_systems_id,1,bigint,NO,,,64.0,0.0
+public,technical_system_asset_components_aud,asset_components_id,2,bigint,NO,,,64.0,0.0
+public,technical_system_asset_components_aud,rev,3,bigint,NO,,,64.0,0.0
+public,technical_system_asset_components_aud,revend,4,bigint,YES,,,64.0,0.0
+public,technical_system_asset_components_aud,revtype,5,smallint,YES,,,16.0,0.0
+public,technical_system_attributes,attributes_id,1,bigint,NO,,,64.0,0.0
+public,technical_system_attributes,technical_systems_id,2,bigint,NO,,,64.0,0.0
+public,technical_system_attributes_aud,technical_systems_id,1,bigint,NO,,,64.0,0.0
+public,technical_system_attributes_aud,attributes_id,2,bigint,NO,,,64.0,0.0
+public,technical_system_attributes_aud,rev,3,bigint,NO,,,64.0,0.0
+public,technical_system_attributes_aud,revend,4,bigint,YES,,,64.0,0.0
+public,technical_system_attributes_aud,revtype,5,smallint,YES,,,16.0,0.0
+public,technical_system_aud,id,1,bigint,NO,nextval('technical_system_aud_id_seq'::regclass),,64.0,0.0
+public,technical_system_aud,name,2,character varying,YES,,255.0,,
+public,technical_system_aud,created_on,3,timestamp without time zone,YES,,,,
+public,technical_system_aud,category,4,character varying,YES,,255.0,,
+public,technical_system_aud,ext_system,5,character varying,YES,,255.0,,
+public,technical_system_aud,ext_object,6,character varying,YES,,255.0,,
+public,technical_system_aud,ext_identifier,7,character varying,YES,,255.0,,
+public,technical_system_aud,image_guid,8,character varying,YES,,255.0,,
+public,technical_system_aud,owning_facility_id,9,bigint,YES,,,64.0,0.0
+public,technical_system_aud,created_by_id,10,bigint,YES,,,64.0,0.0
+public,technical_system_aud,predefined_type,11,character varying,YES,,255.0,,
+public,technical_system_aud,ifc_reference,12,character varying,YES,,255.0,,
+public,technical_system_aud,created_by_user,13,character varying,YES,,50.0,,
+public,technical_system_aud,created_date,14,timestamp without time zone,YES,now(),,,
+public,technical_system_aud,last_modified_by,15,character varying,YES,,50.0,,
+public,technical_system_aud,last_modified_date,16,timestamp without time zone,YES,,,,
+public,technical_system_aud,jhi_version,17,bigint,YES,,,64.0,0.0
+public,technical_system_aud,system_id,18,bigint,YES,,,64.0,0.0
+public,technical_system_aud,rev,19,bigint,NO,,,64.0,0.0
+public,technical_system_aud,revend,20,bigint,YES,,,64.0,0.0
+public,technical_system_aud,revtype,21,smallint,NO,,,16.0,0.0
+public,technical_system_aud,description_txt,22,text,YES,,,,
+public,technical_system_documents,documents_id,1,bigint,NO,,,64.0,0.0
+public,technical_system_documents,technical_systems_id,2,bigint,NO,,,64.0,0.0
+public,technical_system_documents_aud,technical_systems_id,1,bigint,NO,,,64.0,0.0
+public,technical_system_documents_aud,documents_id,2,bigint,NO,,,64.0,0.0
+public,technical_system_documents_aud,rev,3,bigint,NO,,,64.0,0.0
+public,technical_system_documents_aud,revend,4,bigint,YES,,,64.0,0.0
+public,technical_system_documents_aud,revtype,5,smallint,YES,,,16.0,0.0
+public,technical_system_impacts,impacts_id,1,bigint,NO,,,64.0,0.0
+public,technical_system_impacts,technical_systems_id,2,bigint,NO,,,64.0,0.0
+public,technical_system_impacts_aud,technical_systems_id,1,bigint,NO,,,64.0,0.0
+public,technical_system_impacts_aud,impacts_id,2,bigint,NO,,,64.0,0.0
+public,technical_system_impacts_aud,rev,3,bigint,NO,,,64.0,0.0
+public,technical_system_impacts_aud,revend,4,bigint,YES,,,64.0,0.0
+public,technical_system_impacts_aud,revtype,5,smallint,YES,,,16.0,0.0
+public,technical_system_systems,systems_id,1,bigint,NO,,,64.0,0.0
+public,technical_system_systems,technical_systems_id,2,bigint,NO,,,64.0,0.0
+public,technical_system_systems_aud,technical_systems_id,1,bigint,NO,,,64.0,0.0
+public,technical_system_systems_aud,systems_id,2,bigint,NO,,,64.0,0.0
+public,technical_system_systems_aud,rev,3,bigint,NO,,,64.0,0.0
+public,technical_system_systems_aud,revend,4,bigint,YES,,,64.0,0.0
+public,technical_system_systems_aud,revtype,5,smallint,YES,,,16.0,0.0
+public,theme,id,1,bigint,NO,nextval('theme_id_seq'::regclass),,64.0,0.0
+public,theme,name,2,character varying,NO,,255.0,,
+public,theme,logo,3,text,YES,,,,
+public,theme,logo_content_type,4,character varying,YES,,255.0,,
+public,theme,is_current,5,boolean,NO,,,,
+public,theme,color_grey,6,character varying,NO,,255.0,,
+public,theme,color_light,7,character varying,NO,,255.0,,
+public,theme,color_light_grey,8,character varying,NO,,255.0,,
+public,theme,color_primary,9,character varying,NO,,255.0,,
+public,theme,color_secondary,10,character varying,NO,,255.0,,
+public,theme,color_success,11,character varying,NO,,255.0,,
+public,theme,color_info,12,character varying,NO,,255.0,,
+public,theme,color_warning,13,character varying,NO,,255.0,,
+public,theme,color_danger,14,character varying,NO,,255.0,,
+public,theme,color_dark,15,character varying,NO,,255.0,,
+public,theme,color_brown,16,character varying,NO,,255.0,,
+public,theme,color_in_review,17,character varying,NO,,255.0,,
+public,theme,color_overlay,18,character varying,NO,,255.0,,
+public,theme,color_overlay_alt,19,character varying,NO,,255.0,,
+public,theme,color_primary_alt,20,character varying,NO,,255.0,,
+public,theme,color_secondary_alt,21,character varying,NO,,255.0,,
+public,theme,color_success_alt,22,character varying,NO,,255.0,,
+public,theme,color_info_alt,23,character varying,NO,,255.0,,
+public,theme,color_warning_alt,24,character varying,NO,,255.0,,
+public,theme,color_danger_alt,25,character varying,NO,,255.0,,
+public,theme,color_light_alt,26,character varying,NO,,255.0,,
+public,theme,color_dark_alt,27,character varying,NO,,255.0,,
+public,theme,color_in_review_alt,28,character varying,NO,,255.0,,
+public,theme,color_light_grey_alt,29,character varying,NO,,255.0,,
+public,theme,color_primary_shadow,30,character varying,NO,,255.0,,
+public,theme,color_success_shadow,31,character varying,NO,,255.0,,
+public,theme,color_secondary_shadow,32,character varying,NO,,255.0,,
+public,theme,color_danger_shadow,33,character varying,NO,,255.0,,
+public,theme,color_dark_shadow,34,character varying,NO,,255.0,,
+public,theme,color_info_shadow,35,character varying,NO,,255.0,,
+public,theme,color_warning_shadow,36,character varying,NO,,255.0,,
+public,theme,color_primary_hover,37,character varying,NO,,255.0,,
+public,theme,color_secondary_hover,38,character varying,NO,,255.0,,
+public,theme,color_success_hover,39,character varying,NO,,255.0,,
+public,theme,color_info_hover,40,character varying,NO,,255.0,,
+public,theme,color_warning_hover,41,character varying,NO,,255.0,,
+public,theme,color_danger_hover,42,character varying,NO,,255.0,,
+public,theme,color_dark_hover,43,character varying,NO,,255.0,,
+public,theme,color_in_review_hover,44,character varying,NO,,255.0,,
+public,theme,color_primary_disabled,45,character varying,NO,,255.0,,
+public,theme,color_secondary_disabled,46,character varying,NO,,255.0,,
+public,theme,color_success_disabled,47,character varying,NO,,255.0,,
+public,theme,color_info_disabled,48,character varying,NO,,255.0,,
+public,theme,color_warning_disabled,49,character varying,NO,,255.0,,
+public,theme,color_danger_disabled,50,character varying,NO,,255.0,,
+public,theme,color_dark_disabled,51,character varying,NO,,255.0,,
+public,theme,color_alternative_1,52,character varying,NO,'#00188f'::character varying,255.0,,
+public,theme,color_alternative_2,53,character varying,NO,'#ff8c00'::character varying,255.0,,
+public,theme,color_alternative_3,54,character varying,NO,'#e81123'::character varying,255.0,,
+public,theme,color_alternative_4,55,character varying,NO,'#009e49'::character varying,255.0,,
+public,theme,color_alternative_5,56,character varying,NO,'#ec008c'::character varying,255.0,,
+public,theme,color_alternative_6,57,character varying,NO,'#68217a'::character varying,255.0,,
+public,theme,color_alternative_7,58,character varying,NO,'#a59f36'::character varying,255.0,,
+public,theme,color_alternative_8,59,character varying,NO,'#00bcf2'::character varying,255.0,,
+public,theme,color_alternative_9,60,character varying,NO,'#00b294'::character varying,255.0,,
+public,theme,color_alternative_10,61,character varying,NO,'#bad80a'::character varying,255.0,,
+public,theme,color_alternative_11,62,character varying,NO,'#7D7B4F'::character varying,255.0,,
+public,theme,color_alternative_12,63,character varying,NO,'#4C69FD'::character varying,255.0,,
+public,theme,color_alternative_13,64,character varying,NO,'#FDAD4C'::character varying,255.0,,
+public,theme,color_alternative_14,65,character varying,NO,'#FD5E6B'::character varying,255.0,,
+public,theme,color_alternative_15,66,character varying,NO,'#4CFD9E'::character varying,255.0,,
+public,theme,color_alternative_16,67,character varying,NO,'#FD4CB6'::character varying,255.0,,
+public,theme,color_alternative_17,68,character varying,NO,'#E790FD'::character varying,255.0,,
+public,theme,color_alternative_18,69,character varying,NO,'#C9C342'::character varying,255.0,,
+public,theme,color_alternative_19,70,character varying,NO,'#4CD7FD'::character varying,255.0,,
+public,theme,color_alternative_20,71,character varying,NO,'#002AFC'::character varying,255.0,,
+public,theme,color_alternative_21,72,character varying,NO,'#FC8B00'::character varying,255.0,,
+public,theme,color_alternative_22,73,character varying,NO,'#FC1225'::character varying,255.0,,
+public,theme,color_alternative_23,74,character varying,NO,'#00FC76'::character varying,255.0,,
+public,theme,color_alternative_24,75,character varying,NO,'#FC0097'::character varying,255.0,,
+public,theme,color_alternative_25,76,character varying,NO,'#D844FC'::character varying,255.0,,
+public,theme,color_alternative_26,77,character varying,NO,'#00C6FC'::character varying,255.0,,
+public,theme,color_alternative_27,78,character varying,NO,'#25347D'::character varying,255.0,,
+public,theme,color_alternative_28,79,character varying,NO,'#7D5625'::character varying,255.0,,
+public,theme,color_alternative_29,80,character varying,NO,'#7D2E35'::character varying,255.0,,
+public,theme,color_alternative_30,81,character varying,NO,'#257D4E'::character varying,255.0,,
+public,theme,color_alternative_31,82,character varying,NO,'#7D255A'::character varying,255.0,,
+public,theme,color_alternative_32,83,character varying,NO,'#72477D'::character varying,255.0,,
+public,theme,color_alternative_33,84,character varying,NO,'#256A7D'::character varying,255.0,,
+public,theme,color_alternative_34,85,character varying,NO,'#0022C9'::character varying,255.0,,
+public,theme,color_alternative_35,86,character varying,NO,'#C96F00'::character varying,255.0,,
+public,theme,color_alternative_36,87,character varying,NO,'#C90E1E'::character varying,255.0,,
+public,theme,color_alternative_37,88,character varying,NO,'#00C95E'::character varying,255.0,,
+public,theme,color_alternative_38,89,character varying,NO,'#C90079'::character varying,255.0,,
+public,theme,color_alternative_39,90,character varying,NO,'#AC36C9'::character varying,255.0,,
+public,theme,color_alternative_40,91,character varying,NO,'#009EC9'::character varying,255.0,,
+public,theme,splashscreen,92,text,YES,,,,
+public,theme,splashscreen_content_type,93,character varying,YES,,255.0,,
+public,type,id,1,bigint,NO,,,64.0,0.0
+public,type,name,2,character varying,NO,,255.0,,
+public,type,created_on,3,timestamp without time zone,YES,,,,
+public,type,ext_system,4,character varying,YES,,255.0,,
+public,type,ext_object,5,character varying,YES,,255.0,,
+public,type,ext_identifier,6,character varying,YES,,255.0,,
+public,type,category,7,character varying,YES,,255.0,,
+public,type,nominal_length,8,numeric,YES,,,,
+public,type,nominal_width,9,numeric,YES,,,,
+public,type,nominal_height,10,numeric,YES,,,,
+public,type,expected_life,11,numeric,YES,,,,
+public,type,replacement_cost,12,numeric,YES,,,,
+public,type,warranty_duration_labor,13,numeric,YES,,,,
+public,type,warranty_duration_parts,14,numeric,YES,,,,
+public,type,model_reference,15,character varying,YES,,255.0,,
+public,type,color,16,character varying,YES,,255.0,,
+public,type,sustainability_performance,17,character varying,YES,,255.0,,
+public,type,accessibility_performance,18,character varying,YES,,255.0,,
+public,type,warranty_description,19,character varying,YES,,255.0,,
+public,type,finish,20,character varying,YES,,255.0,,
+public,type,shape,21,character varying,YES,,255.0,,
+public,type,asset_type,22,character varying,YES,,255.0,,
+public,type,zize,23,character varying,YES,,255.0,,
+public,type,material,24,character varying,YES,,255.0,,
+public,type,code_performance,25,character varying,YES,,255.0,,
+public,type,grade,26,character varying,YES,,255.0,,
+public,type,model_number,27,character varying,YES,,255.0,,
+public,type,constituents,28,character varying,YES,,255.0,,
+public,type,image_guid,29,character varying,YES,,255.0,,
+public,type,owning_facility_id,30,bigint,NO,,,64.0,0.0
+public,type,created_by_id,31,bigint,YES,,,64.0,0.0
+public,type,manufacturer_id,32,bigint,YES,,,64.0,0.0
+public,type,warranty_guarantor_labor_id,33,bigint,YES,,,64.0,0.0
+public,type,warranty_guarantor_parts_id,34,bigint,YES,,,64.0,0.0
+public,type,warranty_duration_unit_id,35,bigint,YES,,,64.0,0.0
+public,type,duration_unit_id,36,bigint,YES,,,64.0,0.0
+public,type,is_template,37,boolean,NO,false,,,
+public,type,created_by_user,38,character varying,YES,,50.0,,
+public,type,created_date,39,timestamp without time zone,YES,now(),,,
+public,type,last_modified_by,40,character varying,YES,,50.0,,
+public,type,last_modified_date,41,timestamp without time zone,YES,,,,
+public,type,jhi_version,42,bigint,YES,,,64.0,0.0
+public,type,system_id,43,bigint,YES,,,64.0,0.0
+public,type,predefined_type,44,character varying,YES,,255.0,,
+public,type,model_id,45,bigint,YES,,,64.0,0.0
+public,type,description_txt,46,text,YES,,,,
+public,type,features_txt,47,text,YES,,,,
+public,type_assembly,id,1,bigint,NO,,,64.0,0.0
+public,type_assembly,name,2,character varying,NO,,255.0,,
+public,type_assembly,created_on,3,timestamp without time zone,YES,,,,
+public,type_assembly,assembly_type,4,character varying,YES,,255.0,,
+public,type_assembly,ext_system,5,character varying,YES,,255.0,,
+public,type_assembly,ext_object,6,character varying,YES,,255.0,,
+public,type_assembly,ext_identifier,7,character varying,YES,,255.0,,
+public,type_assembly,image_guid,8,character varying,YES,,255.0,,
+public,type_assembly,owning_facility_id,9,bigint,NO,,,64.0,0.0
+public,type_assembly,created_by_id,10,bigint,YES,,,64.0,0.0
+public,type_assembly,parent_id,11,bigint,YES,,,64.0,0.0
+public,type_assembly,created_by_user,12,character varying,YES,,50.0,,
+public,type_assembly,created_date,13,timestamp without time zone,YES,now(),,,
+public,type_assembly,last_modified_by,14,character varying,YES,,50.0,,
+public,type_assembly,last_modified_date,15,timestamp without time zone,YES,,,,
+public,type_assembly,jhi_version,16,bigint,YES,,,64.0,0.0
+public,type_assembly,system_id,17,bigint,YES,,,64.0,0.0
+public,type_assembly,predefined_type,18,character varying,YES,,255.0,,
+public,type_assembly,model_id,19,bigint,YES,,,64.0,0.0
+public,type_assembly,description_txt,20,text,YES,,,,
+public,type_assembly_attributes,attributes_id,1,bigint,NO,,,64.0,0.0
+public,type_assembly_attributes,type_assemblies_id,2,bigint,NO,,,64.0,0.0
+public,type_assembly_attributes_aud,type_assemblies_id,1,bigint,NO,,,64.0,0.0
+public,type_assembly_attributes_aud,attributes_id,2,bigint,NO,,,64.0,0.0
+public,type_assembly_attributes_aud,rev,3,bigint,NO,,,64.0,0.0
+public,type_assembly_attributes_aud,revend,4,bigint,YES,,,64.0,0.0
+public,type_assembly_attributes_aud,revtype,5,smallint,YES,,,16.0,0.0
+public,type_assembly_aud,id,1,bigint,NO,,,64.0,0.0
+public,type_assembly_aud,name,2,character varying,YES,,255.0,,
+public,type_assembly_aud,created_on,3,timestamp without time zone,YES,,,,
+public,type_assembly_aud,assembly_type,4,character varying,YES,,255.0,,
+public,type_assembly_aud,ext_system,5,character varying,YES,,255.0,,
+public,type_assembly_aud,ext_object,6,character varying,YES,,255.0,,
+public,type_assembly_aud,ext_identifier,7,character varying,YES,,255.0,,
+public,type_assembly_aud,image_guid,8,character varying,YES,,255.0,,
+public,type_assembly_aud,owning_facility_id,9,bigint,YES,,,64.0,0.0
+public,type_assembly_aud,created_by_id,10,bigint,YES,,,64.0,0.0
+public,type_assembly_aud,parent_id,11,bigint,YES,,,64.0,0.0
+public,type_assembly_aud,rev,12,bigint,NO,,,64.0,0.0
+public,type_assembly_aud,revend,13,bigint,YES,,,64.0,0.0
+public,type_assembly_aud,revtype,14,smallint,NO,,,16.0,0.0
+public,type_assembly_aud,created_by_user,15,character varying,YES,,50.0,,
+public,type_assembly_aud,created_date,16,timestamp without time zone,YES,now(),,,
+public,type_assembly_aud,last_modified_by,17,character varying,YES,,50.0,,
+public,type_assembly_aud,last_modified_date,18,timestamp without time zone,YES,,,,
+public,type_assembly_aud,system_id,19,bigint,YES,,,64.0,0.0
+public,type_assembly_aud,predefined_type,20,character varying,YES,,255.0,,
+public,type_assembly_aud,description_txt,21,text,YES,,,,
+public,type_assembly_documents,documents_id,1,bigint,NO,,,64.0,0.0
+public,type_assembly_documents,type_assemblies_id,2,bigint,NO,,,64.0,0.0
+public,type_assembly_documents_aud,type_assemblies_id,1,bigint,NO,,,64.0,0.0
+public,type_assembly_documents_aud,documents_id,2,bigint,NO,,,64.0,0.0
+public,type_assembly_documents_aud,rev,3,bigint,NO,,,64.0,0.0
+public,type_assembly_documents_aud,revend,4,bigint,YES,,,64.0,0.0
+public,type_assembly_documents_aud,revtype,5,smallint,YES,,,16.0,0.0
+public,type_assembly_impacts,impacts_id,1,bigint,NO,,,64.0,0.0
+public,type_assembly_impacts,type_assemblies_id,2,bigint,NO,,,64.0,0.0
+public,type_assembly_impacts_aud,type_assemblies_id,1,bigint,NO,,,64.0,0.0
+public,type_assembly_impacts_aud,impacts_id,2,bigint,NO,,,64.0,0.0
+public,type_assembly_impacts_aud,rev,3,bigint,NO,,,64.0,0.0
+public,type_assembly_impacts_aud,revend,4,bigint,YES,,,64.0,0.0
+public,type_assembly_impacts_aud,revtype,5,smallint,YES,,,16.0,0.0
+public,type_assembly_types,types_id,1,bigint,NO,,,64.0,0.0
+public,type_assembly_types,type_assemblies_id,2,bigint,NO,,,64.0,0.0
+public,type_assembly_types_aud,type_assemblies_id,1,bigint,NO,,,64.0,0.0
+public,type_assembly_types_aud,types_id,2,bigint,NO,,,64.0,0.0
+public,type_assembly_types_aud,rev,3,bigint,NO,,,64.0,0.0
+public,type_assembly_types_aud,revend,4,bigint,YES,,,64.0,0.0
+public,type_assembly_types_aud,revtype,5,smallint,YES,,,16.0,0.0
+public,type_attributes,attributes_id,1,bigint,NO,,,64.0,0.0
+public,type_attributes,types_id,2,bigint,NO,,,64.0,0.0
+public,type_attributes_aud,types_id,1,bigint,NO,,,64.0,0.0
+public,type_attributes_aud,attributes_id,2,bigint,NO,,,64.0,0.0
+public,type_attributes_aud,rev,3,bigint,NO,,,64.0,0.0
+public,type_attributes_aud,revend,4,bigint,YES,,,64.0,0.0
+public,type_attributes_aud,revtype,5,smallint,YES,,,16.0,0.0
+public,type_aud,id,1,bigint,NO,,,64.0,0.0
+public,type_aud,name,2,character varying,YES,,255.0,,
+public,type_aud,created_on,3,timestamp without time zone,YES,,,,
+public,type_aud,ext_system,4,character varying,YES,,255.0,,
+public,type_aud,ext_object,5,character varying,YES,,255.0,,
+public,type_aud,ext_identifier,6,character varying,YES,,255.0,,
+public,type_aud,category,7,character varying,YES,,255.0,,
+public,type_aud,nominal_length,8,numeric,YES,,,,
+public,type_aud,nominal_width,9,numeric,YES,,,,
+public,type_aud,nominal_height,10,numeric,YES,,,,
+public,type_aud,expected_life,11,numeric,YES,,,,
+public,type_aud,replacement_cost,12,numeric,YES,,,,
+public,type_aud,warranty_duration_labor,13,numeric,YES,,,,
+public,type_aud,warranty_duration_parts,14,numeric,YES,,,,
+public,type_aud,model_reference,15,character varying,YES,,255.0,,
+public,type_aud,color,16,character varying,YES,,255.0,,
+public,type_aud,sustainability_performance,17,character varying,YES,,255.0,,
+public,type_aud,accessibility_performance,18,character varying,YES,,255.0,,
+public,type_aud,warranty_description,19,character varying,YES,,255.0,,
+public,type_aud,finish,20,character varying,YES,,255.0,,
+public,type_aud,shape,21,character varying,YES,,255.0,,
+public,type_aud,asset_type,22,character varying,YES,,255.0,,
+public,type_aud,zize,23,character varying,YES,,255.0,,
+public,type_aud,material,24,character varying,YES,,255.0,,
+public,type_aud,code_performance,25,character varying,YES,,255.0,,
+public,type_aud,grade,26,character varying,YES,,255.0,,
+public,type_aud,model_number,27,character varying,YES,,255.0,,
+public,type_aud,constituents,28,character varying,YES,,255.0,,
+public,type_aud,image_guid,29,character varying,YES,,255.0,,
+public,type_aud,is_template,30,boolean,YES,,,,
+public,type_aud,owning_facility_id,31,bigint,YES,,,64.0,0.0
+public,type_aud,created_by_id,32,bigint,YES,,,64.0,0.0
+public,type_aud,manufacturer_id,33,bigint,YES,,,64.0,0.0
+public,type_aud,warranty_guarantor_labor_id,34,bigint,YES,,,64.0,0.0
+public,type_aud,warranty_guarantor_parts_id,35,bigint,YES,,,64.0,0.0
+public,type_aud,warranty_duration_unit_id,36,bigint,YES,,,64.0,0.0
+public,type_aud,duration_unit_id,37,bigint,YES,,,64.0,0.0
+public,type_aud,rev,38,bigint,NO,,,64.0,0.0
+public,type_aud,revend,39,bigint,YES,,,64.0,0.0
+public,type_aud,revtype,40,smallint,NO,,,16.0,0.0
+public,type_aud,created_by_user,41,character varying,YES,,50.0,,
+public,type_aud,created_date,42,timestamp without time zone,YES,now(),,,
+public,type_aud,last_modified_by,43,character varying,YES,,50.0,,
+public,type_aud,last_modified_date,44,timestamp without time zone,YES,,,,
+public,type_aud,system_id,45,bigint,YES,,,64.0,0.0
+public,type_aud,predefined_type,46,character varying,YES,,255.0,,
+public,type_aud,description_txt,47,text,YES,,,,
+public,type_aud,features_txt,48,text,YES,,,,
+public,type_documents,documents_id,1,bigint,NO,,,64.0,0.0
+public,type_documents,types_id,2,bigint,NO,,,64.0,0.0
+public,type_documents_aud,types_id,1,bigint,NO,,,64.0,0.0
+public,type_documents_aud,documents_id,2,bigint,NO,,,64.0,0.0
+public,type_documents_aud,rev,3,bigint,NO,,,64.0,0.0
+public,type_documents_aud,revend,4,bigint,YES,,,64.0,0.0
+public,type_documents_aud,revtype,5,smallint,YES,,,16.0,0.0
+public,type_filter_definition,id,1,bigint,NO,,,64.0,0.0
+public,type_filter_definition,attribute,2,character varying,NO,,255.0,,
+public,type_filter_definition,value,3,character varying,NO,,255.0,,
+public,type_filter_definition,template_id,4,bigint,NO,,,64.0,0.0
+public,type_filter_template,id,1,bigint,NO,,,64.0,0.0
+public,type_filter_template,type_id,2,bigint,YES,,,64.0,0.0
+public,type_filter_template,owning_facility_id,3,bigint,NO,,,64.0,0.0
+public,type_filter_template,model_category,4,character varying,YES,,255.0,,
+public,type_impacts,impacts_id,1,bigint,NO,,,64.0,0.0
+public,type_impacts,types_id,2,bigint,NO,,,64.0,0.0
+public,type_impacts_aud,types_id,1,bigint,NO,,,64.0,0.0
+public,type_impacts_aud,impacts_id,2,bigint,NO,,,64.0,0.0
+public,type_impacts_aud,rev,3,bigint,NO,,,64.0,0.0
+public,type_impacts_aud,revend,4,bigint,YES,,,64.0,0.0
+public,type_impacts_aud,revtype,5,smallint,YES,,,16.0,0.0
+public,type_spares,spares_id,1,bigint,NO,,,64.0,0.0
+public,type_spares,types_id,2,bigint,NO,,,64.0,0.0
+public,type_spares_aud,types_id,1,bigint,NO,,,64.0,0.0
+public,type_spares_aud,spares_id,2,bigint,NO,,,64.0,0.0
+public,type_spares_aud,rev,3,bigint,NO,,,64.0,0.0
+public,type_spares_aud,revend,4,bigint,YES,,,64.0,0.0
+public,type_spares_aud,revtype,5,smallint,YES,,,16.0,0.0
+public,unit,id,1,bigint,NO,,,64.0,0.0
+public,unit,name,2,character varying,NO,,255.0,,
+public,unit,code,3,character varying,NO,,255.0,,
+public,unit,unit_type_id,4,bigint,NO,,,64.0,0.0
+public,unit,created_by_user,5,character varying,YES,,50.0,,
+public,unit,created_date,6,timestamp without time zone,YES,now(),,,
+public,unit,last_modified_by,7,character varying,YES,,50.0,,
+public,unit,last_modified_date,8,timestamp without time zone,YES,,,,
+public,unit,jhi_version,9,bigint,YES,,,64.0,0.0
+public,unit_aud,id,1,bigint,NO,,,64.0,0.0
+public,unit_aud,name,2,character varying,YES,,255.0,,
+public,unit_aud,code,3,character varying,YES,,255.0,,
+public,unit_aud,unit_type_id,4,bigint,YES,,,64.0,0.0
+public,unit_aud,rev,5,bigint,NO,,,64.0,0.0
+public,unit_aud,revend,6,bigint,YES,,,64.0,0.0
+public,unit_aud,revtype,7,smallint,NO,,,16.0,0.0
+public,unit_aud,created_by_user,8,character varying,YES,,50.0,,
+public,unit_aud,created_date,9,timestamp without time zone,YES,now(),,,
+public,unit_aud,last_modified_by,10,character varying,YES,,50.0,,
+public,unit_aud,last_modified_date,11,timestamp without time zone,YES,,,,
+public,unit_type,id,1,bigint,NO,,,64.0,0.0
+public,unit_type,name,2,character varying,NO,,255.0,,
+public,user_group,id,1,bigint,NO,,,64.0,0.0
+public,user_group,name,2,character varying,NO,,255.0,,
+public,user_group,description,3,character varying,YES,,255.0,,
+public,user_group_jhi_users,user_group_id,1,bigint,NO,,,64.0,0.0
+public,user_group_jhi_users,jhi_user_id,2,bigint,NO,,,64.0,0.0
+public,viewer_appearance,id,1,bigint,NO,,,64.0,0.0
+public,viewer_appearance,name,2,character varying,NO,,255.0,,
+public,viewer_appearance,is_private,3,boolean,NO,false,,,
+public,viewer_appearance,ifc_object_id,4,bigint,NO,,,64.0,0.0
+public,viewer_appearance,color,5,character varying,YES,,255.0,,
+public,viewer_appearance,type,6,character varying,NO,,255.0,,
+public,viewer_appearance,property_id,7,bigint,YES,,,64.0,0.0
+public,viewer_appearance,operator,8,character varying,YES,,255.0,,
+public,viewer_appearance,jhi_value,9,text,YES,,,,
+public,viewer_appearance,owning_facility_id,10,bigint,NO,,,64.0,0.0
+public,viewer_appearance,creator_id,11,bigint,NO,,,64.0,0.0
+public,viewer_settings,id,1,bigint,NO,,,64.0,0.0
+public,viewer_settings,is_follow_pointer,2,boolean,NO,,,,
+public,viewer_settings,is_material_filled,3,boolean,NO,,,,
+public,viewer_settings,mouse_wheel_dolly_rate,4,numeric,YES,,,,
+public,viewer_settings,keyboard_dolly_rate,5,numeric,YES,,,,
+public,viewer_settings,keyboard_pan_rate,6,numeric,YES,,,,
+public,viewer_settings,drag_rotation_rate,7,numeric,YES,,,,
+public,viewer_settings,touch_pan_rate,8,numeric,YES,,,,
+public,viewer_settings,touch_dolly_rate,9,numeric,YES,,,,
+public,viewer_settings,owning_facility_id,10,bigint,NO,,,64.0,0.0
+public,viewer_settings,is_space_pickable,11,boolean,NO,,,,
+public,viewpoint,id,1,bigint,NO,,,64.0,0.0
+public,viewpoint,name,2,character varying,NO,,255.0,,
+public,viewpoint,guid,3,character varying,NO,,255.0,,
+public,viewpoint,creator_id,4,bigint,NO,,,64.0,0.0
+public,viewpoint,owning_facility_id,5,bigint,NO,,,64.0,0.0
+public,viewpoint_models,viewpoints_id,1,bigint,NO,,,64.0,0.0
+public,viewpoint_models,models_id,2,bigint,NO,,,64.0,0.0
+public,viewpoint_user_favorite,id,1,bigint,NO,,,64.0,0.0
+public,viewpoint_user_favorite,user_id,2,bigint,NO,,,64.0,0.0
+public,viewpoint_user_favorite,viewpoint_id,3,bigint,NO,,,64.0,0.0
+public,viewpoint_user_group_favorite,id,1,bigint,NO,,,64.0,0.0
+public,viewpoint_user_group_favorite,user_group_id,2,bigint,NO,,,64.0,0.0
+public,viewpoint_user_group_favorite,viewpoint_id,3,bigint,NO,,,64.0,0.0
+public,viewpoint_user_groups,viewpoints_id,1,bigint,NO,,,64.0,0.0
+public,viewpoint_user_groups,user_groups_id,2,bigint,NO,,,64.0,0.0
+public,viewpoint_users,viewpoints_id,1,bigint,NO,,,64.0,0.0
+public,viewpoint_users,users_id,2,bigint,NO,,,64.0,0.0
+public,viewpoint_viewer_appearances,viewpoints_id,1,bigint,NO,,,64.0,0.0
+public,viewpoint_viewer_appearances,viewer_appearances_id,2,bigint,NO,,,64.0,0.0
+public,warranty_reminder,id,1,bigint,NO,,,64.0,0.0
+public,warranty_reminder,reminder_duration_before,2,bigint,NO,,,64.0,0.0
+public,warranty_reminder,system_id,3,bigint,YES,,,64.0,0.0
+public,warranty_reminder,facility_id,4,bigint,NO,,,64.0,0.0
+public,warranty_reminder_recipient,recipient_id,1,bigint,NO,,,64.0,0.0
+public,warranty_reminder_recipient,warranty_reminder_id,2,bigint,NO,,,64.0,0.0
+public,xml_import_entry,id,1,bigint,NO,nextval('xml_import_entry_id_seq'::regclass),,64.0,0.0
+public,xml_import_entry,cobie_entity,2,character varying,NO,,255.0,,
+public,xml_import_entry,is_acked,3,boolean,NO,false,,,
+public,xml_import_entry,file_operation_id,4,bigint,NO,,,64.0,0.0
+public,xml_import_entry,parent_name,5,character varying,YES,,255.0,,
+public,xml_import_entry,parent_entity,6,character varying,YES,,255.0,,
+public,xml_import_entry,content_txt,7,text,YES,,,,
+public,zone,id,1,bigint,NO,,,64.0,0.0
+public,zone,name,2,character varying,NO,,255.0,,
+public,zone,created_on,3,timestamp without time zone,YES,,,,
+public,zone,ext_system,4,character varying,YES,,255.0,,
+public,zone,ext_object,5,character varying,YES,,255.0,,
+public,zone,ext_identifier,6,character varying,YES,,255.0,,
+public,zone,category,7,character varying,YES,,255.0,,
+public,zone,image_guid,8,character varying,YES,,255.0,,
+public,zone,owning_facility_id,9,bigint,NO,,,64.0,0.0
+public,zone,created_by_id,10,bigint,YES,,,64.0,0.0
+public,zone,ifc_reference,11,character varying,YES,,255.0,,
+public,zone,created_by_user,12,character varying,YES,,50.0,,
+public,zone,created_date,13,timestamp without time zone,YES,now(),,,
+public,zone,last_modified_by,14,character varying,YES,,50.0,,
+public,zone,last_modified_date,15,timestamp without time zone,YES,,,,
+public,zone,predefined_type,16,character varying,YES,,255.0,,
+public,zone,model_id,17,bigint,YES,,,64.0,0.0
+public,zone,description_txt,18,text,YES,,,,
+public,zone_attributes,attributes_id,1,bigint,NO,,,64.0,0.0
+public,zone_attributes,zones_id,2,bigint,NO,,,64.0,0.0
+public,zone_attributes_aud,zones_id,1,bigint,NO,,,64.0,0.0
+public,zone_attributes_aud,attributes_id,2,bigint,NO,,,64.0,0.0
+public,zone_attributes_aud,rev,3,bigint,NO,,,64.0,0.0
+public,zone_attributes_aud,revend,4,bigint,YES,,,64.0,0.0
+public,zone_attributes_aud,revtype,5,smallint,YES,,,16.0,0.0
+public,zone_aud,id,1,bigint,NO,,,64.0,0.0
+public,zone_aud,name,2,character varying,YES,,255.0,,
+public,zone_aud,created_on,3,timestamp without time zone,YES,,,,
+public,zone_aud,ext_system,4,character varying,YES,,255.0,,
+public,zone_aud,ext_object,5,character varying,YES,,255.0,,
+public,zone_aud,ext_identifier,6,character varying,YES,,255.0,,
+public,zone_aud,category,7,character varying,YES,,255.0,,
+public,zone_aud,ifc_reference,8,character varying,YES,,255.0,,
+public,zone_aud,image_guid,9,character varying,YES,,255.0,,
+public,zone_aud,owning_facility_id,10,bigint,YES,,,64.0,0.0
+public,zone_aud,created_by_id,11,bigint,YES,,,64.0,0.0
+public,zone_aud,rev,12,bigint,NO,,,64.0,0.0
+public,zone_aud,revend,13,bigint,YES,,,64.0,0.0
+public,zone_aud,revtype,14,smallint,NO,,,16.0,0.0
+public,zone_aud,created_by_user,15,character varying,YES,,50.0,,
+public,zone_aud,created_date,16,timestamp without time zone,YES,now(),,,
+public,zone_aud,last_modified_by,17,character varying,YES,,50.0,,
+public,zone_aud,last_modified_date,18,timestamp without time zone,YES,,,,
+public,zone_aud,predefined_type,19,character varying,YES,,255.0,,
+public,zone_aud,description_txt,20,text,YES,,,,
+public,zone_documents,documents_id,1,bigint,NO,,,64.0,0.0
+public,zone_documents,zones_id,2,bigint,NO,,,64.0,0.0
+public,zone_documents_aud,zones_id,1,bigint,NO,,,64.0,0.0
+public,zone_documents_aud,documents_id,2,bigint,NO,,,64.0,0.0
+public,zone_documents_aud,rev,3,bigint,NO,,,64.0,0.0
+public,zone_documents_aud,revend,4,bigint,YES,,,64.0,0.0
+public,zone_documents_aud,revtype,5,smallint,YES,,,16.0,0.0
+public,zone_impacts,impacts_id,1,bigint,NO,,,64.0,0.0
+public,zone_impacts,zones_id,2,bigint,NO,,,64.0,0.0
+public,zone_impacts_aud,zones_id,1,bigint,NO,,,64.0,0.0
+public,zone_impacts_aud,impacts_id,2,bigint,NO,,,64.0,0.0
+public,zone_impacts_aud,rev,3,bigint,NO,,,64.0,0.0
+public,zone_impacts_aud,revend,4,bigint,YES,,,64.0,0.0
+public,zone_impacts_aud,revtype,5,smallint,YES,,,16.0,0.0

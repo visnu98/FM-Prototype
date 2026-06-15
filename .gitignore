@@ -1,0 +1,25 @@
+# ─────────────────────────────────────────────────────────────────────────────
+# Secrets — NEVER commit. Credentials live only in .env (use .env.example).
+# ─────────────────────────────────────────────────────────────────────────────
+.env
+.env.*
+!.env.example
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+*.egg-info/
+.mypy_cache/
+.ruff_cache/
+.pytest_cache/
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.idea/
+
+# NOTE: the generated artifacts under data/ (schema_reports/, evaluation/runs/,
+# data_dictionary.md, ground_truth.*, plots) ARE committed on purpose so the
+# examiner can see the results without re-running the live pipeline.
