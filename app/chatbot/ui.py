@@ -2,7 +2,7 @@
 
 Run with::
 
-    streamlit run app/ui/streamlit_app.py
+    streamlit run app/chatbot/ui.py
 
 Features: chat interface, model selector (MODEL_A / MODEL_B), and an optional
 function-call trace panel (selected function, raw + normalized arguments, tool

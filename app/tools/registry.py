@@ -158,7 +158,7 @@ class ToolRegistry:
                 ok=False,
                 error_category=ErrorCategory.UNKNOWN_FUNCTION,
                 error_message=(
-                    f"Unknown function '{tool_call.name}'. " f"Allowed: {', '.join(self.names())}."
+                    f"Unknown function '{tool_call.name}'. Allowed: {', '.join(self.names())}."
                 ),
             )
             self._log(result, tool_call, model_name, user_query, start)

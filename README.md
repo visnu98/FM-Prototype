@@ -70,18 +70,20 @@ prototype/
       groq_client.py     # Phase 8: Groq native tool calling (2 models)
       json_tool_parser.py# Phase 8: strict JSON fallback parser
       prompt_templates.py# Phase 8: shared system + final-answer prompts
-    chatbot/service.py   # Phase 9: question -> tool -> grounded answer pipeline
-    ui/streamlit_app.py  # Phase 9: chat UI + function-call trace panel
+    chatbot/
+      service.py         # Phase 9: question -> tool -> grounded answer pipeline
+      ui.py              # Phase 9: chat UI + function-call trace panel
     evaluation/
-      corpus.py          # Phase 10: ~70 queries, paraphrase groups, L1-L4
-      ground_truth.py    # Phase 11: deterministic expected results (SQL)
+      corpus.py          # Phase 10: 78 queries, 26 paraphrase groups (x3), L1-L4
+      ground_truth.py    # Phase 11: generate/load the committed ground truth (SQL)
       metrics.py         # Phase 12: correctness / parameters / latency
       error_taxonomy.py  # Phase 13: 9 error categories
       runner.py          # Phase 14: run both models -> raw + aggregated outputs
       statistics.py      # Phase 15: H1-H4 hypothesis tests
       report.py          # Phase 16: thesis-ready reports + plots
+      dashboard.py       # interactive results dashboard (read-only)
   data/schema_reports/   # discovery reports (git-ignored by default)
-  data/evaluation/       # corpus, ground truth, runs/<timestamp>/...
+  data/evaluation/       # ground_truth.json (committed), corpus.csv, runs/<timestamp>/...
   data/logs/             # function_calls.jsonl audit log
   tests/                 # 84 tests (read-only, registry, normalization, FM, parser, eval)
   .env.example
@@ -159,10 +161,10 @@ the FM functions in `app/tools/` were designed.
 Set `GROQ_API_KEY` in `.env` (free key from https://console.groq.com), then:
 
 ```bash
-streamlit run app/ui/streamlit_app.py
+streamlit run app/chatbot/ui.py
 ```
 
-Pick a model (MODEL_A = `llama-3.3-70b-versatile`, MODEL_B = `llama-3.1-8b-instant`)
+Pick a model (MODEL_A = `qwen/qwen3-32b`, MODEL_B = `llama-3.1-8b-instant`)
 in the sidebar and toggle **Show function-call trace** to see the selected
 function, raw + normalized arguments, tool result and per-step latency. Try:
 "What floors can I query?", "How many windows are on the second floor?",
@@ -170,14 +172,17 @@ function, raw + normalized arguments, tool result and per-step latency. Try:
 
 ## Run the evaluation (Phases 10–16)
 
-The evaluation answers the research questions and tests the hypotheses.
+The evaluation answers the research questions and tests the hypotheses. Ground
+truth is a **committed reference** (`data/evaluation/ground_truth.json`): the
+researcher generates it once from the database (deterministic SQL, never the
+LLM), reviews it, and commits it. The runner then compares model output against
+that frozen file on every run — it does not recompute ground truth.
 
 ```bash
-# 1) (optional) inspect the corpus and ground truth
-python -m app.evaluation.corpus          # ~70 queries -> data/evaluation/corpus.csv
-python -m app.evaluation.ground_truth    # deterministic expected results (SQL, not LLM)
+# 1) (re)generate the ground truth — only when the corpus or DB snapshot changes
+python -m app.evaluation.ground_truth    # 78 queries -> data/evaluation/ground_truth.json
 
-# 2) run both models over the full corpus (makes ~280 Groq calls; a few minutes)
+# 2) run both models against the frozen ground truth (~310 Groq calls; a few minutes)
 python -m app.evaluation.runner          # add --limit N for a quick subset
 
 # 3) statistics + thesis-ready reports for the latest run
@@ -200,7 +205,7 @@ call), execution success, latency (tool-call / SQL / final-answer / total), and 
 ### Visualise a run (interactive dashboard)
 
 ```bash
-streamlit run app/ui/eval_dashboard.py
+streamlit run app/evaluation/dashboard.py
 ```
 
 Pick a run in the sidebar to browse: headline metrics, the H1–H4 verdict cards,

@@ -26,7 +26,6 @@ dependencies = [
 dev = [
     "pytest>=8.2.0",
     "ruff>=0.4.0",
-    "black>=24.0.0",
     "mypy>=1.10.0",
 ]
 
@@ -37,22 +36,15 @@ build-backend = "setuptools.build_meta"
 [tool.setuptools.packages.find]
 include = ["app*"]
 
-# ── Tooling configuration ────────────────────────────────────────────────────
-
-[tool.black]
-line-length = 100
-target-version = ["py311"]
+# ── Tooling (ruff handles both linting and formatting) ───────────────────────
 
 [tool.ruff]
 line-length = 100
 target-version = "py311"
 
 [tool.ruff.lint]
-# Enable a sensible, thesis-friendly rule set.
 select = ["E", "F", "I", "UP", "B", "SIM"]
-ignore = [
-    "E501",  # line length handled by black
-]
+ignore = ["E501"]  # line length is enforced by the formatter
 
 [tool.mypy]
 python_version = "3.11"

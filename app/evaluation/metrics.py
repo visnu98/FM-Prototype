@@ -16,7 +16,9 @@ import re
 from dataclasses import dataclass, field
 from typing import Any
 
-from app.evaluation.error_taxonomy import EvalErrorCategory, classify_error
+import pandas as pd
+
+from app.evaluation.error_taxonomy import ALL_CATEGORIES, EvalErrorCategory, classify_error
 from app.tools.models import ErrorCategory
 
 # Aliases accepted when matching a canonical floor name in a free-text answer.
@@ -259,3 +261,30 @@ def evaluate_query(
         final_answer=final_answer,
         expected_answer_values=gt.expected_answer_values,
     )
+
+
+# ── Aggregation helpers (shared by the runner and the report) ─────────────────
+
+
+def aggregate_by_model(df: pd.DataFrame) -> pd.DataFrame:
+    """Per-model query count, mean metrics and latency (model as the index)."""
+    return df.groupby("model").agg(
+        n=("query_id", "count"),
+        fully_correct_call=("fully_correct_call", "mean"),
+        function_accuracy=("function_correct", "mean"),
+        parameter_accuracy=("parameters_correct", "mean"),
+        answer_accuracy=("answer_correct", "mean"),
+        execution_success=("execution_success", "mean"),
+        mean_latency_ms=("latency_total", "mean"),
+        median_latency_ms=("latency_total", "median"),
+    )
+
+
+def error_pivot(df: pd.DataFrame) -> pd.DataFrame:
+    """Counts of each error category (rows) per model (cols); all categories present."""
+    counts = df.groupby(["model", "error_category"]).size().reset_index(name="count")
+    wide = counts.pivot(index="error_category", columns="model", values="count").fillna(0)
+    for cat in ALL_CATEGORIES:
+        if cat.value not in wide.index:
+            wide.loc[cat.value] = 0
+    return wide.astype(int)

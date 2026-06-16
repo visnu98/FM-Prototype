@@ -17,7 +17,7 @@ from pathlib import Path
 import pandas as pd
 
 from app.core.config import get_settings
-from app.evaluation.error_taxonomy import ALL_CATEGORIES
+from app.evaluation.metrics import aggregate_by_model, error_pivot
 from app.evaluation.runner import latest_run
 from app.evaluation.statistics import HypothesisResult, run_all, save_results
 
@@ -27,16 +27,8 @@ def generate_summary_md(df: pd.DataFrame) -> str:
     lines.append(f"- Total query runs: **{len(df)}**")
     lines.append(f"- Models: **{', '.join(sorted(df['model'].unique()))}**")
     lines.append(f"- Unique queries: **{df['query_id'].nunique()}**\n")
-    agg = df.groupby("model").agg(
-        fully_correct_call=("fully_correct_call", "mean"),
-        function_accuracy=("function_correct", "mean"),
-        parameter_accuracy=("parameters_correct", "mean"),
-        answer_accuracy=("answer_correct", "mean"),
-        execution_success=("execution_success", "mean"),
-        mean_latency_ms=("latency_total", "mean"),
-    )
     lines.append("## Metrics by model\n")
-    lines.append(agg.to_markdown(floatfmt=".3f"))
+    lines.append(aggregate_by_model(df).to_markdown(floatfmt=".3f"))
     lines.append("\n## Metrics by complexity level (answer accuracy)\n")
     lines.append(
         df.groupby(["complexity_level", "model"])["answer_correct"]
@@ -79,17 +71,7 @@ def generate_hypothesis_md(results: list[HypothesisResult]) -> str:
 
 def generate_model_comparison_md(df: pd.DataFrame) -> str:
     lines = ["# Model Comparison\n"]
-    agg = df.groupby("model").agg(
-        n=("query_id", "count"),
-        fully_correct_call=("fully_correct_call", "mean"),
-        function_accuracy=("function_correct", "mean"),
-        parameter_accuracy=("parameters_correct", "mean"),
-        answer_accuracy=("answer_correct", "mean"),
-        execution_success=("execution_success", "mean"),
-        mean_latency_ms=("latency_total", "mean"),
-        median_latency_ms=("latency_total", "median"),
-    )
-    lines.append(agg.to_markdown(floatfmt=".3f"))
+    lines.append(aggregate_by_model(df).to_markdown(floatfmt=".3f"))
     lines.append("\n## Per-model latency breakdown (mean ms)\n")
     lat = df.groupby("model")[["latency_planning", "latency_tools", "latency_total"]].mean()
     lines.append(lat.to_markdown(floatfmt=".1f"))
@@ -98,13 +80,7 @@ def generate_model_comparison_md(df: pd.DataFrame) -> str:
 
 def generate_error_analysis_md(df: pd.DataFrame) -> str:
     lines = ["# Error Analysis\n"]
-    counts = df.groupby(["model", "error_category"]).size().reset_index(name="count")
-    wide = counts.pivot(index="error_category", columns="model", values="count").fillna(0)
-    for cat in ALL_CATEGORIES:
-        if cat.value not in wide.index:
-            wide.loc[cat.value] = 0
-    wide = wide.astype(int)
-    lines.append(wide.to_markdown())
+    lines.append(error_pivot(df).to_markdown())
     lines.append("\n## Most common failure cases\n")
     failures = df[df["error_category"] != "none"]
     if failures.empty:

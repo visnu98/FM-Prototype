@@ -1,7 +1,14 @@
 """Evaluation corpus (multi-step aware).
 
-~60 natural-language queries across the five question categories and four
-complexity levels, with paraphrase groups for H2.
+78 natural-language queries across the five question categories and four
+complexity levels. Organised into 26 paraphrase groups of exactly three
+wordings each (one ``is_standard_wording`` plus two rewordings) so the
+paraphrase-robustness hypothesis (H2) is tested on balanced groups.
+
+This module is the *authoring* source for the questions and their
+ground-truth specs. It is consumed only when (re)generating the committed
+committed ground truth (``app.evaluation.ground_truth``); the evaluation runner
+reads the frozen ``data/evaluation/ground_truth.json`` and never recomputes.
 
 Because the assistant answers by *composing* atomic tools (there is no bespoke
 function per question), each query records:
@@ -21,11 +28,8 @@ against the database (parameterised SQL, never the LLM).
 
 from __future__ import annotations
 
-from dataclasses import asdict, dataclass, field
-from pathlib import Path
+from dataclasses import dataclass, field
 from typing import Any
-
-import pandas as pd
 
 from app.core.config import PROJECT_ROOT
 
@@ -36,10 +40,8 @@ W = "IfcWindow"
 D = "IfcDoor"
 H = "IfcSpaceHeater"
 EG = "Erdgeschoss"
-UG = "Untergeschoss"
 OG1 = "1. Obergeschoss"
 OG2 = "2. Obergeschoss"
-DG = "Dachgeschoss"
 
 
 @dataclass(frozen=True)
@@ -56,9 +58,6 @@ class EvalQuery:
     gt_calls: list[dict[str, Any]]
     answer_spec: dict[str, Any]
     expected_arguments: dict[str, Any] = field(default_factory=dict)
-
-    def to_row(self) -> dict[str, Any]:
-        return asdict(self)
 
 
 def _call(function: str, **arguments: Any) -> dict[str, Any]:
@@ -577,6 +576,137 @@ CORPUS: list[EvalQuery] = [
         [_call("calculate_floor_area", floor=OG1), _call("calculate_floor_area", floor=OG2)],
         {"kind": "values", "field": "gross_area", "tol": 1.0},
     ),
+    # ── Third paraphrase per group (H2: every group has exactly 3 wordings) ───
+    _q(
+        "q60",
+        "What are you able to do?",
+        "metadata",
+        "L1",
+        "g03",
+        False,
+        ["get_database_capabilities"],
+        [_call("get_database_capabilities")],
+        {"kind": "any"},
+    ),
+    _count("q61", "What's the window count on the ground floor?", "g06", False, ctype=W, floor=EG),
+    _count(
+        "q62", "How many radiators are on the first upper floor?", "g07", False, ctype=H, floor=OG1
+    ),
+    _count("q63", "Across the whole building, how many windows are there?", "g08", False, ctype=W),
+    _count(
+        "q64",
+        "What's the total number of columns in the building?",
+        "g09",
+        False,
+        ctype="IfcColumn",
+    ),
+    _count(
+        "q65", "What's the door count on the second upper floor?", "g10", False, ctype=D, floor=OG2
+    ),
+    _count("q66", "What's the window count on the first floor?", "g11", False, ctype=W, floor=OG1),
+    _count("q67", "What's the total number of sensors installed?", "g12", False, ctype="IfcSensor"),
+    _q(
+        "q68",
+        "List the height and width of each window on the second floor.",
+        "attribute",
+        "L2",
+        "g13",
+        False,
+        ["get_component_attributes"],
+        [
+            _call(
+                "get_component_attributes",
+                component_type=W,
+                floor=OG2,
+                attributes=["height", "width"],
+            )
+        ],
+        {"kind": "result_count"},
+        expected_arguments={"component_type": W, "floor": OG2},
+    ),
+    _q(
+        "q69",
+        "List the height and width of the ground-floor doors.",
+        "attribute",
+        "L2",
+        "g14",
+        False,
+        ["get_component_attributes"],
+        [
+            _call(
+                "get_component_attributes",
+                component_type=D,
+                floor=EG,
+                attributes=["height", "width"],
+            )
+        ],
+        {"kind": "result_count"},
+        expected_arguments={"component_type": D, "floor": EG},
+    ),
+    _area("q70", "Sum up the area of all windows in the building.", "g15", False, ctype=W),
+    _area("q71", "Sum the window area on the second floor.", "g16", False, ctype=W, floor=OG2),
+    _area("q72", "What is the combined door area across the building?", "g17", False, ctype=D),
+    _area("q73", "Sum the window area on the first floor.", "g18", False, ctype=W, floor=OG1),
+    _q(
+        "q74",
+        "How many square metres does the ground floor cover?",
+        "aggregation",
+        "L3",
+        "g19",
+        False,
+        ["calculate_floor_area"],
+        [_call("calculate_floor_area", floor=EG)],
+        {"kind": "number", "field": "gross_area", "tol": 1.0},
+        expected_arguments={"floor": EG},
+    ),
+    _q(
+        "q75",
+        "What is the size of the first upper floor in square metres?",
+        "aggregation",
+        "L3",
+        "g20",
+        False,
+        ["calculate_floor_area"],
+        [_call("calculate_floor_area", floor=OG1)],
+        {"kind": "number", "field": "gross_area", "tol": 1.0},
+        expected_arguments={"floor": OG1},
+    ),
+    _q(
+        "q76",
+        "Which has more doors, the ground floor or the second floor?",
+        "multistep",
+        "L4",
+        "g22",
+        False,
+        ["count_components"],
+        [
+            _call("count_components", component_type=D, floor=EG),
+            _call("count_components", component_type=D, floor=OG2),
+        ],
+        {"kind": "compare_winner", "field": "count", "floor_key": "floor"},
+    ),
+    _q(
+        "q77",
+        "Which floor has the most door area?",
+        "multistep",
+        "L4",
+        "g25",
+        False,
+        ["calculate_area_by_floor"],
+        [_call("calculate_area_by_floor", component_type=D)],
+        {"kind": "max_floor", "by": "by_floor", "value": "total_area", "label": "floor"},
+    ),
+    _q(
+        "q78",
+        "What are the floor areas of the first and second upper floors?",
+        "multistep",
+        "L4",
+        "g26",
+        False,
+        ["calculate_floor_area"],
+        [_call("calculate_floor_area", floor=OG1), _call("calculate_floor_area", floor=OG2)],
+        {"kind": "values", "field": "gross_area", "tol": 1.0},
+    ),
 ]
 
 
@@ -585,23 +715,13 @@ def get_corpus() -> list[EvalQuery]:
     return list(CORPUS)
 
 
-def corpus_dataframe() -> pd.DataFrame:
-    """Corpus as a DataFrame (lists/dicts kept as objects)."""
-    return pd.DataFrame([q.to_row() for q in CORPUS])
-
-
-def export_corpus(out_dir: Path = EVAL_DIR) -> Path:
-    """Write the corpus to CSV for inspection; return the path."""
-    out_dir.mkdir(parents=True, exist_ok=True)
-    path = out_dir / "corpus.csv"
-    corpus_dataframe().to_csv(path, index=False, encoding="utf-8")
-    return path
-
-
 if __name__ == "__main__":
-    p = export_corpus()
-    df = corpus_dataframe()
-    print(f"Corpus: {len(df)} queries across {df['paraphrase_group_id'].nunique()} groups")
-    print(df.groupby("complexity_level").size().to_string())
-    print(df.groupby("category").size().to_string())
-    print("Written to", p)
+    from collections import Counter
+
+    corpus = get_corpus()
+    groups = {q.paraphrase_group_id for q in corpus}
+    print(f"Corpus: {len(corpus)} queries across {len(groups)} paraphrase groups")
+    for level, n in sorted(Counter(q.complexity_level for q in corpus).items()):
+        print(f"  {level}: {n}")
+    for cat, n in sorted(Counter(q.category for q in corpus).items()):
+        print(f"  {cat}: {n}")

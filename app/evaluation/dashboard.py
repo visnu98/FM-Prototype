@@ -6,7 +6,7 @@ error taxonomy.
 
 Run with::
 
-    streamlit run app/ui/eval_dashboard.py
+    streamlit run app/evaluation/dashboard.py
 
 It is read-only: it loads ``data/evaluation/runs/<timestamp>/raw_results.jsonl``
 written by the evaluation runner.

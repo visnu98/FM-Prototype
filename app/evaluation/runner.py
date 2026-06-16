@@ -25,10 +25,9 @@ from typing import Any
 import pandas as pd
 
 from app.core.config import get_settings
-from app.evaluation.corpus import EVAL_DIR, get_corpus
-from app.evaluation.error_taxonomy import ALL_CATEGORIES
-from app.evaluation.ground_truth import GroundTruth, build_ground_truth, save_ground_truth
-from app.evaluation.metrics import QueryMetrics, evaluate_query
+from app.evaluation.corpus import EVAL_DIR
+from app.evaluation.ground_truth import GroundTruth, load_ground_truth
+from app.evaluation.metrics import QueryMetrics, aggregate_by_model, error_pivot, evaluate_query
 from app.tools.fm_functions import build_registry
 
 logger = logging.getLogger(__name__)
@@ -38,11 +37,11 @@ RUNS_DIR = EVAL_DIR / "runs"
 
 def _run_one_model(
     model: str,
-    gt_by_id: dict[str, GroundTruth],
+    ground_truth: list[GroundTruth],
     delay: float,
     limit: int | None,
 ) -> tuple[list[QueryMetrics], list[dict[str, Any]]]:
-    """Run every corpus query through one model; return metrics + raw rows."""
+    """Run every ground-truth query through one model; return metrics + raw rows."""
     # Import here so the rest of the module imports without the LLM stack.
     from app.chatbot.service import ChatbotService
 
@@ -52,11 +51,10 @@ def _run_one_model(
     metrics: list[QueryMetrics] = []
     raw_rows: list[dict[str, Any]] = []
 
-    queries = get_corpus()[:limit] if limit else get_corpus()
-    for i, q in enumerate(queries, 1):
-        gt = gt_by_id[q.query_id]
-        logger.info("[%s] %d/%d %s", model, i, len(queries), q.query_id)
-        response = service.answer(q.query_text)
+    queries = ground_truth[:limit] if limit else ground_truth
+    for i, gt in enumerate(queries, 1):
+        logger.info("[%s] %d/%d %s", model, i, len(queries), gt.query_id)
+        response = service.answer(gt.query_text)
         # A question succeeds at the tool level if it made >=1 call and none errored.
         execution_success = response.made_tool_call and all(c["ok"] for c in response.calls)
 
@@ -77,13 +75,13 @@ def _run_one_model(
 
         raw_rows.append(
             {
-                "query_id": q.query_id,
-                "query_text": q.query_text,
+                "query_id": gt.query_id,
+                "query_text": gt.query_text,
                 "model": model,
-                "category": q.category,
-                "complexity_level": q.complexity_level,
-                "paraphrase_group_id": q.paraphrase_group_id,
-                "is_standard_wording": q.is_standard_wording,
+                "category": gt.category,
+                "complexity_level": gt.complexity_level,
+                "paraphrase_group_id": gt.paraphrase_group_id,
+                "is_standard_wording": gt.is_standard_wording,
                 "expected_functions": gt.expected_functions,
                 "actual_functions": response.selected_functions,
                 "num_steps": response.num_steps,
@@ -108,51 +106,6 @@ def _run_one_model(
     return metrics, raw_rows
 
 
-# ── Aggregation ──────────────────────────────────────────────────────────────
-
-
-def _aggregate(metrics_df: pd.DataFrame) -> pd.DataFrame:
-    """Per-model aggregate metrics."""
-    grouped = metrics_df.groupby("model")
-    agg = grouped.agg(
-        n=("query_id", "count"),
-        fully_correct_call_rate=("fully_correct_call", "mean"),
-        function_accuracy=("function_correct", "mean"),
-        parameter_accuracy=("parameters_correct", "mean"),
-        answer_accuracy=("answer_correct", "mean"),
-        execution_success_rate=("execution_success", "mean"),
-        mean_latency_total_ms=("latency_total", "mean"),
-        median_latency_total_ms=("latency_total", "median"),
-    ).reset_index()
-    return agg
-
-
-def _error_table(metrics_df: pd.DataFrame) -> pd.DataFrame:
-    """Counts of each error category per model (wide format)."""
-    counts = metrics_df.groupby(["model", "error_category"]).size().reset_index(name="count")
-    wide = counts.pivot(index="model", columns="error_category", values="count").fillna(0)
-    # Ensure all categories appear as columns.
-    for cat in ALL_CATEGORIES:
-        if cat.value not in wide.columns:
-            wide[cat.value] = 0
-    return wide.reset_index()
-
-
-def _summary_md(agg: pd.DataFrame, metrics_df: pd.DataFrame, timestamp: str) -> str:
-    lines = [f"# Evaluation run {timestamp}\n"]
-    lines.append(f"- Queries per model: **{metrics_df['query_id'].nunique()}**")
-    lines.append(f"- Models: **{', '.join(agg['model'])}**\n")
-    lines.append("## Aggregate metrics\n")
-    lines.append(agg.to_markdown(index=False, floatfmt=".3f"))
-    lines.append("\n## Fully-correct-call rate by complexity level\n")
-    pivot = metrics_df.groupby(["model", "complexity_level"])["fully_correct_call"].mean().unstack()
-    lines.append(pivot.to_markdown(floatfmt=".3f"))
-    lines.append("\n## Answer accuracy by complexity level\n")
-    pivot2 = metrics_df.groupby(["model", "complexity_level"])["answer_correct"].mean().unstack()
-    lines.append(pivot2.to_markdown(floatfmt=".3f"))
-    return "\n".join(lines)
-
-
 # ── Orchestration ────────────────────────────────────────────────────────────
 
 
@@ -167,10 +120,8 @@ def run_evaluation(
     settings = get_settings()
     models = models or settings.models()
 
-    # Ground truth (deterministic) — also persisted for traceability.
-    gt = build_ground_truth()
-    save_ground_truth(gt)
-    gt_by_id = {g.query_id: g for g in gt}
+    # Load the committed ground truth and compare against it (no recompute).
+    ground_truth = load_ground_truth()
 
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
     run_dir = (out_dir or RUNS_DIR) / timestamp
@@ -180,7 +131,7 @@ def run_evaluation(
     raw_path = run_dir / "raw_results.jsonl"
     with raw_path.open("w", encoding="utf-8") as fh:
         for model in models:
-            model_metrics, raw_rows = _run_one_model(model, gt_by_id, delay, limit)
+            model_metrics, raw_rows = _run_one_model(model, ground_truth, delay, limit)
             all_metrics.extend(model_metrics)
             for row in raw_rows:
                 fh.write(json.dumps(row, default=str, ensure_ascii=False) + "\n")
@@ -188,10 +139,8 @@ def run_evaluation(
     metrics_df = pd.DataFrame([dataclasses.asdict(m) for m in all_metrics])
     metrics_df.to_csv(run_dir / "metrics.csv", index=False, encoding="utf-8")
 
-    agg = _aggregate(metrics_df)
-    agg.to_csv(run_dir / "model_comparison.csv", index=False, encoding="utf-8")
-    _error_table(metrics_df).to_csv(run_dir / "error_taxonomy.csv", index=False, encoding="utf-8")
-    (run_dir / "summary.md").write_text(_summary_md(agg, metrics_df, timestamp), encoding="utf-8")
+    aggregate_by_model(metrics_df).to_csv(run_dir / "model_comparison.csv", encoding="utf-8")
+    error_pivot(metrics_df).to_csv(run_dir / "error_taxonomy.csv", encoding="utf-8")
 
     logger.info("Evaluation written to %s", run_dir)
     return run_dir

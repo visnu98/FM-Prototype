@@ -1214,5 +1214,403 @@
     "answer_tolerance": 1.0,
     "execution_ok": true,
     "note": null
+  },
+  {
+    "query_id": "q60",
+    "query_text": "What are you able to do?",
+    "category": "metadata",
+    "complexity_level": "L1",
+    "paraphrase_group_id": "g03",
+    "is_standard_wording": false,
+    "expected_functions": [
+      "get_database_capabilities"
+    ],
+    "expected_arguments": {},
+    "expected_answer_values": [],
+    "answer_kind": "any",
+    "answer_tolerance": 0.0,
+    "execution_ok": true,
+    "note": null
+  },
+  {
+    "query_id": "q61",
+    "query_text": "What's the window count on the ground floor?",
+    "category": "counting",
+    "complexity_level": "L2",
+    "paraphrase_group_id": "g06",
+    "is_standard_wording": false,
+    "expected_functions": [
+      "count_components"
+    ],
+    "expected_arguments": {
+      "component_type": "IfcWindow",
+      "floor": "Erdgeschoss"
+    },
+    "expected_answer_values": [
+      16
+    ],
+    "answer_kind": "number",
+    "answer_tolerance": 0.0,
+    "execution_ok": true,
+    "note": null
+  },
+  {
+    "query_id": "q62",
+    "query_text": "How many radiators are on the first upper floor?",
+    "category": "counting",
+    "complexity_level": "L2",
+    "paraphrase_group_id": "g07",
+    "is_standard_wording": false,
+    "expected_functions": [
+      "count_components"
+    ],
+    "expected_arguments": {
+      "component_type": "IfcSpaceHeater",
+      "floor": "1. Obergeschoss"
+    },
+    "expected_answer_values": [
+      24
+    ],
+    "answer_kind": "number",
+    "answer_tolerance": 0.0,
+    "execution_ok": true,
+    "note": null
+  },
+  {
+    "query_id": "q63",
+    "query_text": "Across the whole building, how many windows are there?",
+    "category": "counting",
+    "complexity_level": "L2",
+    "paraphrase_group_id": "g08",
+    "is_standard_wording": false,
+    "expected_functions": [
+      "count_components"
+    ],
+    "expected_arguments": {
+      "component_type": "IfcWindow"
+    },
+    "expected_answer_values": [
+      272
+    ],
+    "answer_kind": "number",
+    "answer_tolerance": 0.0,
+    "execution_ok": true,
+    "note": null
+  },
+  {
+    "query_id": "q64",
+    "query_text": "What's the total number of columns in the building?",
+    "category": "counting",
+    "complexity_level": "L2",
+    "paraphrase_group_id": "g09",
+    "is_standard_wording": false,
+    "expected_functions": [
+      "count_components"
+    ],
+    "expected_arguments": {
+      "component_type": "IfcColumn"
+    },
+    "expected_answer_values": [
+      64
+    ],
+    "answer_kind": "number",
+    "answer_tolerance": 0.0,
+    "execution_ok": true,
+    "note": null
+  },
+  {
+    "query_id": "q65",
+    "query_text": "What's the door count on the second upper floor?",
+    "category": "counting",
+    "complexity_level": "L2",
+    "paraphrase_group_id": "g10",
+    "is_standard_wording": false,
+    "expected_functions": [
+      "count_components"
+    ],
+    "expected_arguments": {
+      "component_type": "IfcDoor",
+      "floor": "2. Obergeschoss"
+    },
+    "expected_answer_values": [
+      1
+    ],
+    "answer_kind": "number",
+    "answer_tolerance": 0.0,
+    "execution_ok": true,
+    "note": null
+  },
+  {
+    "query_id": "q66",
+    "query_text": "What's the window count on the first floor?",
+    "category": "counting",
+    "complexity_level": "L2",
+    "paraphrase_group_id": "g11",
+    "is_standard_wording": false,
+    "expected_functions": [
+      "count_components"
+    ],
+    "expected_arguments": {
+      "component_type": "IfcWindow",
+      "floor": "1. Obergeschoss"
+    },
+    "expected_answer_values": [
+      79
+    ],
+    "answer_kind": "number",
+    "answer_tolerance": 0.0,
+    "execution_ok": true,
+    "note": null
+  },
+  {
+    "query_id": "q67",
+    "query_text": "What's the total number of sensors installed?",
+    "category": "counting",
+    "complexity_level": "L2",
+    "paraphrase_group_id": "g12",
+    "is_standard_wording": false,
+    "expected_functions": [
+      "count_components"
+    ],
+    "expected_arguments": {
+      "component_type": "IfcSensor"
+    },
+    "expected_answer_values": [
+      50
+    ],
+    "answer_kind": "number",
+    "answer_tolerance": 0.0,
+    "execution_ok": true,
+    "note": null
+  },
+  {
+    "query_id": "q68",
+    "query_text": "List the height and width of each window on the second floor.",
+    "category": "attribute",
+    "complexity_level": "L2",
+    "paraphrase_group_id": "g13",
+    "is_standard_wording": false,
+    "expected_functions": [
+      "get_component_attributes"
+    ],
+    "expected_arguments": {
+      "component_type": "IfcWindow",
+      "floor": "2. Obergeschoss"
+    },
+    "expected_answer_values": [
+      52
+    ],
+    "answer_kind": "number",
+    "answer_tolerance": 0.0,
+    "execution_ok": true,
+    "note": null
+  },
+  {
+    "query_id": "q69",
+    "query_text": "List the height and width of the ground-floor doors.",
+    "category": "attribute",
+    "complexity_level": "L2",
+    "paraphrase_group_id": "g14",
+    "is_standard_wording": false,
+    "expected_functions": [
+      "get_component_attributes"
+    ],
+    "expected_arguments": {
+      "component_type": "IfcDoor",
+      "floor": "Erdgeschoss"
+    },
+    "expected_answer_values": [
+      5
+    ],
+    "answer_kind": "number",
+    "answer_tolerance": 0.0,
+    "execution_ok": true,
+    "note": null
+  },
+  {
+    "query_id": "q70",
+    "query_text": "Sum up the area of all windows in the building.",
+    "category": "aggregation",
+    "complexity_level": "L3",
+    "paraphrase_group_id": "g15",
+    "is_standard_wording": false,
+    "expected_functions": [
+      "calculate_total_component_area"
+    ],
+    "expected_arguments": {
+      "component_type": "IfcWindow"
+    },
+    "expected_answer_values": [
+      1787.953
+    ],
+    "answer_kind": "number",
+    "answer_tolerance": 1.0,
+    "execution_ok": true,
+    "note": null
+  },
+  {
+    "query_id": "q71",
+    "query_text": "Sum the window area on the second floor.",
+    "category": "aggregation",
+    "complexity_level": "L3",
+    "paraphrase_group_id": "g16",
+    "is_standard_wording": false,
+    "expected_functions": [
+      "calculate_total_component_area"
+    ],
+    "expected_arguments": {
+      "component_type": "IfcWindow",
+      "floor": "2. Obergeschoss"
+    },
+    "expected_answer_values": [
+      384.078
+    ],
+    "answer_kind": "number",
+    "answer_tolerance": 1.0,
+    "execution_ok": true,
+    "note": null
+  },
+  {
+    "query_id": "q72",
+    "query_text": "What is the combined door area across the building?",
+    "category": "aggregation",
+    "complexity_level": "L3",
+    "paraphrase_group_id": "g17",
+    "is_standard_wording": false,
+    "expected_functions": [
+      "calculate_total_component_area"
+    ],
+    "expected_arguments": {
+      "component_type": "IfcDoor"
+    },
+    "expected_answer_values": [
+      419.021
+    ],
+    "answer_kind": "number",
+    "answer_tolerance": 1.0,
+    "execution_ok": true,
+    "note": null
+  },
+  {
+    "query_id": "q73",
+    "query_text": "Sum the window area on the first floor.",
+    "category": "aggregation",
+    "complexity_level": "L3",
+    "paraphrase_group_id": "g18",
+    "is_standard_wording": false,
+    "expected_functions": [
+      "calculate_total_component_area"
+    ],
+    "expected_arguments": {
+      "component_type": "IfcWindow",
+      "floor": "1. Obergeschoss"
+    },
+    "expected_answer_values": [
+      560.59
+    ],
+    "answer_kind": "number",
+    "answer_tolerance": 1.0,
+    "execution_ok": true,
+    "note": null
+  },
+  {
+    "query_id": "q74",
+    "query_text": "How many square metres does the ground floor cover?",
+    "category": "aggregation",
+    "complexity_level": "L3",
+    "paraphrase_group_id": "g19",
+    "is_standard_wording": false,
+    "expected_functions": [
+      "calculate_floor_area"
+    ],
+    "expected_arguments": {
+      "floor": "Erdgeschoss"
+    },
+    "expected_answer_values": [
+      556.74
+    ],
+    "answer_kind": "number",
+    "answer_tolerance": 1.0,
+    "execution_ok": true,
+    "note": null
+  },
+  {
+    "query_id": "q75",
+    "query_text": "What is the size of the first upper floor in square metres?",
+    "category": "aggregation",
+    "complexity_level": "L3",
+    "paraphrase_group_id": "g20",
+    "is_standard_wording": false,
+    "expected_functions": [
+      "calculate_floor_area"
+    ],
+    "expected_arguments": {
+      "floor": "1. Obergeschoss"
+    },
+    "expected_answer_values": [
+      548.41
+    ],
+    "answer_kind": "number",
+    "answer_tolerance": 1.0,
+    "execution_ok": true,
+    "note": null
+  },
+  {
+    "query_id": "q76",
+    "query_text": "Which has more doors, the ground floor or the second floor?",
+    "category": "multistep",
+    "complexity_level": "L4",
+    "paraphrase_group_id": "g22",
+    "is_standard_wording": false,
+    "expected_functions": [
+      "count_components"
+    ],
+    "expected_arguments": {},
+    "expected_answer_values": [
+      "Erdgeschoss"
+    ],
+    "answer_kind": "string",
+    "answer_tolerance": 0.0,
+    "execution_ok": true,
+    "note": null
+  },
+  {
+    "query_id": "q77",
+    "query_text": "Which floor has the most door area?",
+    "category": "multistep",
+    "complexity_level": "L4",
+    "paraphrase_group_id": "g25",
+    "is_standard_wording": false,
+    "expected_functions": [
+      "calculate_area_by_floor"
+    ],
+    "expected_arguments": {},
+    "expected_answer_values": [
+      "Erdgeschoss"
+    ],
+    "answer_kind": "string",
+    "answer_tolerance": 0.0,
+    "execution_ok": true,
+    "note": null
+  },
+  {
+    "query_id": "q78",
+    "query_text": "What are the floor areas of the first and second upper floors?",
+    "category": "multistep",
+    "complexity_level": "L4",
+    "paraphrase_group_id": "g26",
+    "is_standard_wording": false,
+    "expected_functions": [
+      "calculate_floor_area"
+    ],
+    "expected_arguments": {},
+    "expected_answer_values": [
+      548.41,
+      440.62
+    ],
+    "answer_kind": "number",
+    "answer_tolerance": 1.0,
+    "execution_ok": true,
+    "note": null
   }
 ]

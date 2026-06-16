@@ -188,7 +188,6 @@ def list_queryable_floors() -> list[dict[str, Any]]:
         {
             "floor_id": f.floor_id,
             "name": f.name,
-            "display_name": f.name,
             "order_index": f.order_index,
             "elevation": f.elevation,
             "source_table": f.source_table,
@@ -203,7 +202,6 @@ def list_queryable_component_types() -> list[dict[str, Any]]:
     return [
         {
             "component_type": t,
-            "display_name": t,
             "count": n,
             "source_table": "asset_component",
         }

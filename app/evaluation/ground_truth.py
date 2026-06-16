@@ -1,13 +1,19 @@
 """Ground-truth generation (multi-step aware).
 
-For every corpus query, ground truth is produced by executing the query's
-``gt_calls`` through the registry — deterministic, parameterised SQL, never the
-LLM — and reducing the results with the query's ``answer_spec`` to the expected
-answer value(s).
+The committed ground truth is produced ONCE from the corpus: for every query
+the ``gt_calls`` are executed through the registry — deterministic, parameterised
+SQL, never the LLM — and reduced with the query's ``answer_spec`` to the expected
+answer value(s). The result is written to ``ground_truth.json`` and committed.
 
-Outputs:
-- data/evaluation/ground_truth.json
-- data/evaluation/ground_truth.csv
+The evaluation runner then *loads* that frozen file (:func:`load_ground_truth`)
+and compares model output against it, rather than recomputing ground truth on
+every run. Regenerate (and re-validate) only when the corpus or the underlying
+database snapshot changes::
+
+    python -m app.evaluation.ground_truth
+
+Output (committed; the researcher reviews/validates it):
+- data/evaluation/ground_truth.json   ← single source the runner compares to
 """
 
 from __future__ import annotations
@@ -17,12 +23,12 @@ from dataclasses import asdict, dataclass, field
 from pathlib import Path
 from typing import Any
 
-import pandas as pd
-
 from app.evaluation.corpus import EVAL_DIR, get_corpus
 from app.tools.fm_functions import build_registry
 from app.tools.models import ToolCall, strip_internal_keys
 from app.tools.registry import ToolRegistry
+
+GROUND_TRUTH_JSON = EVAL_DIR / "ground_truth.json"
 
 
 @dataclass
@@ -130,40 +136,39 @@ def build_ground_truth(registry: ToolRegistry | None = None) -> list[GroundTruth
     return out
 
 
-def save_ground_truth(gt: list[GroundTruth], out_dir: Path = EVAL_DIR) -> tuple[Path, Path]:
-    """Write ground_truth.json and .csv; return both paths."""
+def save_ground_truth(gt: list[GroundTruth], out_dir: Path = EVAL_DIR) -> Path:
+    """Write ground_truth.json (the committed reference); return its path."""
     out_dir.mkdir(parents=True, exist_ok=True)
-    json_path = out_dir / "ground_truth.json"
-    csv_path = out_dir / "ground_truth.csv"
+    json_path = out_dir / GROUND_TRUTH_JSON.name
     rows = [asdict(g) for g in gt]
     json_path.write_text(
         json.dumps(rows, indent=2, default=str, ensure_ascii=False), encoding="utf-8"
     )
-    flat = [
-        {
-            **{
-                k: v
-                for k, v in r.items()
-                if k not in {"expected_arguments", "expected_answer_values", "expected_functions"}
-            },
-            "expected_functions": json.dumps(r["expected_functions"], ensure_ascii=False),
-            "expected_arguments": json.dumps(r["expected_arguments"], ensure_ascii=False),
-            "expected_answer_values": json.dumps(
-                r["expected_answer_values"], default=str, ensure_ascii=False
-            ),
-        }
-        for r in rows
-    ]
-    pd.DataFrame(flat).to_csv(csv_path, index=False, encoding="utf-8")
-    return json_path, csv_path
+    return json_path
+
+
+def load_ground_truth(path: Path = GROUND_TRUTH_JSON) -> list[GroundTruth]:
+    """Load the committed ground truth the evaluation compares against.
+
+    Raises a clear error if the file is missing so the runner never silently
+    falls back to recomputing ground truth. Regenerate with
+    ``python -m app.evaluation.ground_truth``.
+    """
+    if not path.exists():
+        raise FileNotFoundError(
+            f"Ground truth not found at {path}. Generate it once with "
+            "`python -m app.evaluation.ground_truth` (runs deterministic SQL, no LLM)."
+        )
+    rows = json.loads(path.read_text(encoding="utf-8"))
+    return [GroundTruth(**row) for row in rows]
 
 
 def main() -> int:
     gt = build_ground_truth()
-    json_path, csv_path = save_ground_truth(gt)
+    json_path = save_ground_truth(gt)
     ok = sum(1 for g in gt if g.execution_ok)
     print(f"Ground truth for {len(gt)} queries ({ok} executed OK).")
-    print("Written:", json_path.name, "and", csv_path.name)
+    print("Written:", json_path.name)
     return 0
 
 
