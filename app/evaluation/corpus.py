@@ -1,19 +1,22 @@
-"""Evaluation corpus (Phase 10).
+"""Evaluation corpus (multi-step aware).
 
-~70 natural-language queries covering the five question categories and four
-complexity levels, with paraphrase groups for H2. Each query records the
-*expected* function and the *canonical normalized* arguments a correct call
-should produce, plus an ``answer_spec`` describing how to extract the expected
-answer value from the tool result (used to build ground truth in Phase 11).
+~60 natural-language queries across the five question categories and four
+complexity levels, with paraphrase groups for H2.
 
-Complexity levels:
-- L1: simple metadata / no parameters
-- L2: single function with one or more normalized parameters
-- L3: aggregation / calculation
-- L4: multi-step comparison, grouping or chained logic
+Because the assistant answers by *composing* atomic tools (there is no bespoke
+function per question), each query records:
 
-The expected *values* are NOT hard-coded here; ground truth computes them by
-running the expected function deterministically against the database.
+- ``expected_functions``: the primitive function(s) a correct solution must use
+  (checked as a subset of the functions actually called — extra helper calls
+  such as ``list_queryable_floors`` are allowed),
+- ``expected_arguments``: for single-call (atomic) queries only, the normalized
+  arguments that one call should use (used for the parameter-accuracy metric),
+- ``gt_calls``: the deterministic registry calls used to compute ground truth,
+- ``answer_spec``: how to turn the ground-truth call results into the expected
+  answer value(s).
+
+The expected *values* are not hard-coded here; ground truth runs ``gt_calls``
+against the database (parameterised SQL, never the LLM).
 """
 
 from __future__ import annotations
@@ -28,29 +31,6 @@ from app.config import PROJECT_ROOT
 
 EVAL_DIR = PROJECT_ROOT / "data" / "evaluation"
 
-
-@dataclass(frozen=True)
-class EvalQuery:
-    """One evaluation query and its ground-truth specification."""
-
-    query_id: str
-    query_text: str
-    category: str  # metadata | attribute | counting | aggregation | multistep
-    complexity_level: str  # L1 | L2 | L3 | L4
-    paraphrase_group_id: str
-    is_standard_wording: bool
-    expected_function: str
-    expected_arguments: dict[str, Any] = field(default_factory=dict)
-    # How to read the expected answer value from the tool result.
-    answer_spec: dict[str, Any] = field(default_factory=dict)
-
-    def to_row(self) -> dict[str, Any]:
-        row = asdict(self)
-        row["expected_arguments"] = self.expected_arguments
-        row["answer_spec"] = self.answer_spec
-        return row
-
-
 # Canonical normalized values for facility 124851 (so expected args are stable).
 W = "IfcWindow"
 D = "IfcDoor"
@@ -62,6 +42,29 @@ OG2 = "2. Obergeschoss"
 DG = "Dachgeschoss"
 
 
+@dataclass(frozen=True)
+class EvalQuery:
+    """One evaluation query and its (multi-step aware) ground-truth spec."""
+
+    query_id: str
+    query_text: str
+    category: str  # metadata | attribute | counting | aggregation | multistep
+    complexity_level: str  # L1 | L2 | L3 | L4
+    paraphrase_group_id: str
+    is_standard_wording: bool
+    expected_functions: list[str]
+    gt_calls: list[dict[str, Any]]
+    answer_spec: dict[str, Any]
+    expected_arguments: dict[str, Any] = field(default_factory=dict)
+
+    def to_row(self) -> dict[str, Any]:
+        return asdict(self)
+
+
+def _call(function: str, **arguments: Any) -> dict[str, Any]:
+    return {"function": function, "arguments": arguments}
+
+
 def _q(
     qid: str,
     text: str,
@@ -69,9 +72,10 @@ def _q(
     level: str,
     group: str,
     standard: bool,
-    func: str,
-    args: dict[str, Any] | None = None,
-    answer_spec: dict[str, Any] | None = None,
+    expected_functions: list[str],
+    gt_calls: list[dict[str, Any]],
+    answer_spec: dict[str, Any],
+    expected_arguments: dict[str, Any] | None = None,
 ) -> EvalQuery:
     return EvalQuery(
         query_id=qid,
@@ -80,16 +84,49 @@ def _q(
         complexity_level=level,
         paraphrase_group_id=group,
         is_standard_wording=standard,
-        expected_function=func,
-        expected_arguments=args or {},
-        answer_spec=answer_spec or {},
+        expected_functions=expected_functions,
+        gt_calls=gt_calls,
+        answer_spec=answer_spec,
+        expected_arguments=expected_arguments or {},
     )
 
 
-# ── The corpus ───────────────────────────────────────────────────────────────
+def _count(qid, text, group, standard, *, ctype, floor=None):  # type: ignore[no-untyped-def]
+    """Shorthand for an atomic count query."""
+    args = {"component_type": ctype} | ({"floor": floor} if floor else {})
+    return _q(
+        qid,
+        text,
+        "counting",
+        "L2",
+        group,
+        standard,
+        ["count_components"],
+        [_call("count_components", **args)],
+        {"kind": "number", "field": "count"},
+        expected_arguments=args,
+    )
+
+
+def _area(qid, text, group, standard, *, ctype, floor=None):  # type: ignore[no-untyped-def]
+    """Shorthand for an atomic component-area query."""
+    args = {"component_type": ctype} | ({"floor": floor} if floor else {})
+    return _q(
+        qid,
+        text,
+        "aggregation",
+        "L3",
+        group,
+        standard,
+        ["calculate_total_component_area"],
+        [_call("calculate_total_component_area", **args)],
+        {"kind": "number", "field": "total_area", "tol": 1.0},
+        expected_arguments=args,
+    )
+
 
 CORPUS: list[EvalQuery] = [
-    # ─ Group 1: list floors (metadata, L1) ─
+    # ── Metadata (L1) ────────────────────────────────────────────────────────
     _q(
         "q01",
         "Which floors can I query for this building?",
@@ -97,8 +134,8 @@ CORPUS: list[EvalQuery] = [
         "L1",
         "g01",
         True,
-        "list_queryable_floors",
-        {},
+        ["list_queryable_floors"],
+        [_call("list_queryable_floors")],
         {"kind": "list", "field": "name"},
     ),
     _q(
@@ -108,8 +145,8 @@ CORPUS: list[EvalQuery] = [
         "L1",
         "g01",
         False,
-        "list_queryable_floors",
-        {},
+        ["list_queryable_floors"],
+        [_call("list_queryable_floors")],
         {"kind": "list", "field": "name"},
     ),
     _q(
@@ -119,11 +156,10 @@ CORPUS: list[EvalQuery] = [
         "L1",
         "g01",
         False,
-        "list_queryable_floors",
-        {},
+        ["list_queryable_floors"],
+        [_call("list_queryable_floors")],
         {"kind": "list", "field": "name"},
     ),
-    # ─ Group 2: list component types (metadata, L1) ─
     _q(
         "q04",
         "What component types are available?",
@@ -131,8 +167,8 @@ CORPUS: list[EvalQuery] = [
         "L1",
         "g02",
         True,
-        "list_queryable_component_types",
-        {},
+        ["list_queryable_component_types"],
+        [_call("list_queryable_component_types")],
         {"kind": "any"},
     ),
     _q(
@@ -142,8 +178,8 @@ CORPUS: list[EvalQuery] = [
         "L1",
         "g02",
         False,
-        "list_queryable_component_types",
-        {},
+        ["list_queryable_component_types"],
+        [_call("list_queryable_component_types")],
         {"kind": "any"},
     ),
     _q(
@@ -153,11 +189,10 @@ CORPUS: list[EvalQuery] = [
         "L1",
         "g02",
         False,
-        "list_queryable_component_types",
-        {},
+        ["list_queryable_component_types"],
+        [_call("list_queryable_component_types")],
         {"kind": "any"},
     ),
-    # ─ Group 3: capabilities (metadata, L1) ─
     _q(
         "q07",
         "What can this assistant help me with?",
@@ -165,8 +200,8 @@ CORPUS: list[EvalQuery] = [
         "L1",
         "g03",
         True,
-        "get_database_capabilities",
-        {},
+        ["get_database_capabilities"],
+        [_call("get_database_capabilities")],
         {"kind": "any"},
     ),
     _q(
@@ -176,718 +211,371 @@ CORPUS: list[EvalQuery] = [
         "L1",
         "g03",
         False,
-        "get_database_capabilities",
-        {},
+        ["get_database_capabilities"],
+        [_call("get_database_capabilities")],
         {"kind": "any"},
     ),
-    # ─ Group 4: count windows on 2nd floor (counting, L2) ─
-    _q(
-        "q09",
-        "How many windows are on the second floor?",
-        "counting",
-        "L2",
-        "g04",
-        True,
-        "count_components",
-        {"component_type": W, "floor": OG2},
-        {"kind": "number", "field": "count"},
-    ),
-    _q(
-        "q10",
-        "Count the windows on level two.",
-        "counting",
-        "L2",
-        "g04",
-        False,
-        "count_components",
-        {"component_type": W, "floor": OG2},
-        {"kind": "number", "field": "count"},
-    ),
-    _q(
+    # ── Counting (L2) ────────────────────────────────────────────────────────
+    _count("q09", "How many windows are on the second floor?", "g04", True, ctype=W, floor=OG2),
+    _count("q10", "Count the windows on level two.", "g04", False, ctype=W, floor=OG2),
+    _count(
         "q11",
         "What is the number of window elements on the second upper floor?",
-        "counting",
-        "L2",
         "g04",
         False,
-        "count_components",
-        {"component_type": W, "floor": OG2},
-        {"kind": "number", "field": "count"},
+        ctype=W,
+        floor=OG2,
     ),
-    # ─ Group 5: count doors total (counting, L2) ─
-    _q(
-        "q12",
-        "How many doors does the building have in total?",
-        "counting",
-        "L2",
-        "g05",
-        True,
-        "count_components",
-        {"component_type": D},
-        {"kind": "number", "field": "count"},
+    _count("q12", "How many doors does the building have in total?", "g05", True, ctype=D),
+    _count("q13", "Count all doors in the facility.", "g05", False, ctype=D),
+    _count("q14", "What is the total number of door components?", "g05", False, ctype=D),
+    _count("q15", "How many windows are on the ground floor?", "g06", True, ctype=W, floor=EG),
+    _count("q16", "Count the windows on the Erdgeschoss.", "g06", False, ctype=W, floor=EG),
+    _count(
+        "q17", "How many space heaters are on the first floor?", "g07", True, ctype=H, floor=OG1
     ),
+    _count("q18", "Count the radiators on the 1. Obergeschoss.", "g07", False, ctype=H, floor=OG1),
+    _count("q19", "How many windows are there in total?", "g08", True, ctype=W),
+    _count("q20", "What is the total window count for the building?", "g08", False, ctype=W),
+    _count("q21", "How many columns does the building have?", "g09", True, ctype="IfcColumn"),
+    _count("q22", "Count all the columns in the facility.", "g09", False, ctype="IfcColumn"),
+    _count("q23", "How many doors are on the second floor?", "g10", True, ctype=D, floor=OG2),
+    _count("q24", "Count the doors on level two.", "g10", False, ctype=D, floor=OG2),
+    _count("q25", "How many windows are on the first floor?", "g11", True, ctype=W, floor=OG1),
+    _count("q26", "Count the windows on the 1. Obergeschoss.", "g11", False, ctype=W, floor=OG1),
+    _count("q27", "How many sensors does the building have?", "g12", True, ctype="IfcSensor"),
+    _count("q28", "Count all sensors in the facility.", "g12", False, ctype="IfcSensor"),
+    # ── Attribute retrieval (L2) ─────────────────────────────────────────────
     _q(
-        "q13",
-        "Count all doors in the facility.",
-        "counting",
-        "L2",
-        "g05",
-        False,
-        "count_components",
-        {"component_type": D},
-        {"kind": "number", "field": "count"},
-    ),
-    _q(
-        "q14",
-        "What is the total number of door components?",
-        "counting",
-        "L2",
-        "g05",
-        False,
-        "count_components",
-        {"component_type": D},
-        {"kind": "number", "field": "count"},
-    ),
-    # ─ Group 6: count windows on ground floor (counting, L2) ─
-    _q(
-        "q15",
-        "How many windows are on the ground floor?",
-        "counting",
-        "L2",
-        "g06",
-        True,
-        "count_components",
-        {"component_type": W, "floor": EG},
-        {"kind": "number", "field": "count"},
-    ),
-    _q(
-        "q16",
-        "Count the windows on the Erdgeschoss.",
-        "counting",
-        "L2",
-        "g06",
-        False,
-        "count_components",
-        {"component_type": W, "floor": EG},
-        {"kind": "number", "field": "count"},
-    ),
-    # ─ Group 7: count heaters on first floor (counting, L2) ─
-    _q(
-        "q17",
-        "How many space heaters are on the first floor?",
-        "counting",
-        "L2",
-        "g07",
-        True,
-        "count_components",
-        {"component_type": H, "floor": OG1},
-        {"kind": "number", "field": "count"},
-    ),
-    _q(
-        "q18",
-        "Count the radiators on the 1. Obergeschoss.",
-        "counting",
-        "L2",
-        "g07",
-        False,
-        "count_components",
-        {"component_type": H, "floor": OG1},
-        {"kind": "number", "field": "count"},
-    ),
-    # ─ Group 8: count windows total (counting, L2) ─
-    _q(
-        "q19",
-        "How many windows are there in total?",
-        "counting",
-        "L2",
-        "g08",
-        True,
-        "count_components",
-        {"component_type": W},
-        {"kind": "number", "field": "count"},
-    ),
-    _q(
-        "q20",
-        "What is the total window count for the building?",
-        "counting",
-        "L2",
-        "g08",
-        False,
-        "count_components",
-        {"component_type": W},
-        {"kind": "number", "field": "count"},
-    ),
-    # ─ Group 9: count columns total (counting, L2) ─
-    _q(
-        "q21",
-        "How many columns does the building have?",
-        "counting",
-        "L2",
-        "g09",
-        True,
-        "count_components",
-        {"component_type": "IfcColumn"},
-        {"kind": "number", "field": "count"},
-    ),
-    _q(
-        "q22",
-        "Count all the columns in the facility.",
-        "counting",
-        "L2",
-        "g09",
-        False,
-        "count_components",
-        {"component_type": "IfcColumn"},
-        {"kind": "number", "field": "count"},
-    ),
-    # ─ Group 10: count doors on second floor (counting, L2) ─
-    _q(
-        "q23",
-        "How many doors are on the second floor?",
-        "counting",
-        "L2",
-        "g10",
-        True,
-        "count_components",
-        {"component_type": D, "floor": OG2},
-        {"kind": "number", "field": "count"},
-    ),
-    _q(
-        "q24",
-        "Count the doors on level two.",
-        "counting",
-        "L2",
-        "g10",
-        False,
-        "count_components",
-        {"component_type": D, "floor": OG2},
-        {"kind": "number", "field": "count"},
-    ),
-    # ─ Group 11: window attributes on 2nd floor (attribute, L2) ─
-    _q(
-        "q25",
+        "q29",
         "What are the heights and widths of the windows on the second floor?",
         "attribute",
         "L2",
-        "g11",
+        "g13",
         True,
-        "get_component_attributes",
-        {"component_type": W, "floor": OG2},
+        ["get_component_attributes"],
+        [
+            _call(
+                "get_component_attributes",
+                component_type=W,
+                floor=OG2,
+                attributes=["height", "width"],
+            )
+        ],
         {"kind": "result_count"},
+        expected_arguments={"component_type": W, "floor": OG2},
     ),
     _q(
-        "q26",
+        "q30",
         "Show me the dimensions of windows on level two.",
         "attribute",
         "L2",
-        "g11",
-        False,
-        "get_component_attributes",
-        {"component_type": W, "floor": OG2},
-        {"kind": "result_count"},
-    ),
-    _q(
-        "q27",
-        "List the window heights on the 2. Obergeschoss.",
-        "attribute",
-        "L2",
-        "g11",
-        False,
-        "get_component_attributes",
-        {"component_type": W, "floor": OG2},
-        {"kind": "result_count"},
-    ),
-    # ─ Group 12: door attributes (attribute, L2) ─
-    _q(
-        "q28",
-        "What are the dimensions of the doors on the ground floor?",
-        "attribute",
-        "L2",
-        "g12",
-        True,
-        "get_component_attributes",
-        {"component_type": D, "floor": EG},
-        {"kind": "result_count"},
-    ),
-    _q(
-        "q29",
-        "Show me the height and width of doors in the Erdgeschoss.",
-        "attribute",
-        "L2",
-        "g12",
-        False,
-        "get_component_attributes",
-        {"component_type": D, "floor": EG},
-        {"kind": "result_count"},
-    ),
-    # ─ Group 13: total window area (aggregation, L3) ─
-    _q(
-        "q30",
-        "What is the total window area in the building?",
-        "aggregation",
-        "L3",
         "g13",
-        True,
-        "calculate_total_component_area",
-        {"component_type": W},
-        {"kind": "number", "field": "total_area", "tol": 1.0},
+        False,
+        ["get_component_attributes"],
+        [
+            _call(
+                "get_component_attributes",
+                component_type=W,
+                floor=OG2,
+                attributes=["height", "width"],
+            )
+        ],
+        {"kind": "result_count"},
+        expected_arguments={"component_type": W, "floor": OG2},
     ),
     _q(
         "q31",
-        "Calculate the overall area of all windows.",
-        "aggregation",
-        "L3",
-        "g13",
-        False,
-        "calculate_total_component_area",
-        {"component_type": W},
-        {"kind": "number", "field": "total_area", "tol": 1.0},
+        "What are the dimensions of the doors on the ground floor?",
+        "attribute",
+        "L2",
+        "g14",
+        True,
+        ["get_component_attributes"],
+        [
+            _call(
+                "get_component_attributes",
+                component_type=D,
+                floor=EG,
+                attributes=["height", "width"],
+            )
+        ],
+        {"kind": "result_count"},
+        expected_arguments={"component_type": D, "floor": EG},
     ),
     _q(
         "q32",
-        "How many square meters of windows are there in total?",
-        "aggregation",
-        "L3",
-        "g13",
-        False,
-        "calculate_total_component_area",
-        {"component_type": W},
-        {"kind": "number", "field": "total_area", "tol": 1.0},
-    ),
-    # ─ Group 14: window area on 2nd floor (aggregation, L3) ─
-    _q(
-        "q33",
-        "What is the total window area on the second floor?",
-        "aggregation",
-        "L3",
-        "g14",
-        True,
-        "calculate_total_component_area",
-        {"component_type": W, "floor": OG2},
-        {"kind": "number", "field": "total_area", "tol": 1.0},
-    ),
-    _q(
-        "q34",
-        "Calculate the window area on level two.",
-        "aggregation",
-        "L3",
+        "Show me the height and width of doors in the Erdgeschoss.",
+        "attribute",
+        "L2",
         "g14",
         False,
-        "calculate_total_component_area",
-        {"component_type": W, "floor": OG2},
-        {"kind": "number", "field": "total_area", "tol": 1.0},
+        ["get_component_attributes"],
+        [
+            _call(
+                "get_component_attributes",
+                component_type=D,
+                floor=EG,
+                attributes=["height", "width"],
+            )
+        ],
+        {"kind": "result_count"},
+        expected_arguments={"component_type": D, "floor": EG},
     ),
-    _q(
-        "q35",
-        "How many square meters of windows are on the second upper floor?",
-        "aggregation",
-        "L3",
-        "g14",
-        False,
-        "calculate_total_component_area",
-        {"component_type": W, "floor": OG2},
-        {"kind": "number", "field": "total_area", "tol": 1.0},
+    # ── Aggregation (L3): component area ─────────────────────────────────────
+    _area("q33", "What is the total window area in the building?", "g15", True, ctype=W),
+    _area("q34", "Calculate the overall area of all windows.", "g15", False, ctype=W),
+    _area(
+        "q35", "What is the total window area on the second floor?", "g16", True, ctype=W, floor=OG2
     ),
-    # ─ Group 15: door area total (aggregation, L3) ─
-    _q(
-        "q36",
-        "What is the total door area in the building?",
-        "aggregation",
-        "L3",
-        "g15",
-        True,
-        "calculate_total_component_area",
-        {"component_type": D},
-        {"kind": "number", "field": "total_area", "tol": 1.0},
+    _area("q36", "Calculate the window area on level two.", "g16", False, ctype=W, floor=OG2),
+    _area("q37", "What is the total door area in the building?", "g17", True, ctype=D),
+    _area("q38", "Calculate the combined area of all doors.", "g17", False, ctype=D),
+    _area(
+        "q39", "What is the total window area on the first floor?", "g18", True, ctype=W, floor=OG1
     ),
-    _q(
-        "q37",
-        "Calculate the combined area of all doors.",
-        "aggregation",
-        "L3",
-        "g15",
-        False,
-        "calculate_total_component_area",
-        {"component_type": D},
-        {"kind": "number", "field": "total_area", "tol": 1.0},
-    ),
-    # ─ Group 16: window area by floor (aggregation, L3) ─
-    _q(
-        "q38",
-        "What is the window area on each floor?",
-        "aggregation",
-        "L3",
-        "g16",
-        True,
-        "calculate_area_by_floor",
-        {"component_type": W},
-        {"kind": "any"},
-    ),
-    _q(
-        "q39",
-        "Break down the window area by storey.",
-        "aggregation",
-        "L3",
-        "g16",
-        False,
-        "calculate_area_by_floor",
-        {"component_type": W},
-        {"kind": "any"},
-    ),
-    # ─ Group 17: floor with largest window area (multistep, L4) ─
-    _q(
-        "q40",
-        "Which floor has the largest total window area?",
-        "multistep",
-        "L4",
-        "g17",
-        True,
-        "find_floor_with_largest_component_area",
-        {"component_type": W},
-        {"kind": "string", "field": "largest_floor"},
-    ),
+    _area("q40", "Calculate the window area on level one.", "g18", False, ctype=W, floor=OG1),
+    # ── Aggregation (L3): floor area ─────────────────────────────────────────
     _q(
         "q41",
-        "Where is the biggest amount of window area?",
-        "multistep",
-        "L4",
-        "g17",
-        False,
-        "find_floor_with_largest_component_area",
-        {"component_type": W},
-        {"kind": "string", "field": "largest_floor"},
+        "What is the floor area of the ground floor?",
+        "aggregation",
+        "L3",
+        "g19",
+        True,
+        ["calculate_floor_area"],
+        [_call("calculate_floor_area", floor=EG)],
+        {"kind": "number", "field": "gross_area", "tol": 1.0},
+        expected_arguments={"floor": EG},
     ),
     _q(
         "q42",
-        "Which storey has the most glazing?",
-        "multistep",
-        "L4",
-        "g17",
+        "How big is the Erdgeschoss?",
+        "aggregation",
+        "L3",
+        "g19",
         False,
-        "find_floor_with_largest_component_area",
-        {"component_type": W},
-        {"kind": "string", "field": "largest_floor"},
+        ["calculate_floor_area"],
+        [_call("calculate_floor_area", floor=EG)],
+        {"kind": "number", "field": "gross_area", "tol": 1.0},
+        expected_arguments={"floor": EG},
     ),
-    # ─ Group 18: compare window counts first vs second (multistep, L4) ─
     _q(
         "q43",
-        "Are there more windows on the first or the second upper floor?",
-        "multistep",
-        "L4",
-        "g18",
+        "What is the floor area of the first floor?",
+        "aggregation",
+        "L3",
+        "g20",
         True,
-        "compare_component_count_between_floors",
-        {"component_type": W, "floor_a": OG1, "floor_b": OG2},
-        {"kind": "string", "field": "more_on"},
+        ["calculate_floor_area"],
+        [_call("calculate_floor_area", floor=OG1)],
+        {"kind": "number", "field": "gross_area", "tol": 1.0},
+        expected_arguments={"floor": OG1},
     ),
     _q(
         "q44",
+        "How many square metres is the 1. Obergeschoss?",
+        "aggregation",
+        "L3",
+        "g20",
+        False,
+        ["calculate_floor_area"],
+        [_call("calculate_floor_area", floor=OG1)],
+        {"kind": "number", "field": "gross_area", "tol": 1.0},
+        expected_arguments={"floor": OG1},
+    ),
+    # ── Multi-step (L4): compare counts between floors ───────────────────────
+    _q(
+        "q45",
+        "Are there more windows on the first or the second upper floor?",
+        "multistep",
+        "L4",
+        "g21",
+        True,
+        ["count_components"],
+        [
+            _call("count_components", component_type=W, floor=OG1),
+            _call("count_components", component_type=W, floor=OG2),
+        ],
+        {"kind": "compare_winner", "field": "count", "floor_key": "floor"},
+    ),
+    _q(
+        "q46",
         "Compare window counts between the first and second floor.",
         "multistep",
         "L4",
-        "g18",
+        "g21",
         False,
-        "compare_component_count_between_floors",
-        {"component_type": W, "floor_a": OG1, "floor_b": OG2},
-        {"kind": "string", "field": "more_on"},
-    ),
-    _q(
-        "q45",
-        "Which has more windows, level one or level two?",
-        "multistep",
-        "L4",
-        "g18",
-        False,
-        "compare_component_count_between_floors",
-        {"component_type": W, "floor_a": OG1, "floor_b": OG2},
-        {"kind": "string", "field": "more_on"},
-    ),
-    # ─ Group 19: compare window area first vs second (multistep, L4) ─
-    _q(
-        "q46",
-        "Is the window area larger on the first or the second floor?",
-        "multistep",
-        "L4",
-        "g19",
-        True,
-        "compare_component_area_between_floors",
-        {"component_type": W, "floor_a": OG1, "floor_b": OG2},
-        {"kind": "string", "field": "more_on"},
+        ["count_components"],
+        [
+            _call("count_components", component_type=W, floor=OG1),
+            _call("count_components", component_type=W, floor=OG2),
+        ],
+        {"kind": "compare_winner", "field": "count", "floor_key": "floor"},
     ),
     _q(
         "q47",
-        "Compare the window area between level one and level two.",
+        "Which has more windows, level one or level two?",
         "multistep",
         "L4",
-        "g19",
+        "g21",
         False,
-        "compare_component_area_between_floors",
-        {"component_type": W, "floor_a": OG1, "floor_b": OG2},
-        {"kind": "string", "field": "more_on"},
+        ["count_components"],
+        [
+            _call("count_components", component_type=W, floor=OG1),
+            _call("count_components", component_type=W, floor=OG2),
+        ],
+        {"kind": "compare_winner", "field": "count", "floor_key": "floor"},
     ),
     _q(
         "q48",
-        "Which floor has more window surface, the first or second upper floor?",
-        "multistep",
-        "L4",
-        "g19",
-        False,
-        "compare_component_area_between_floors",
-        {"component_type": W, "floor_a": OG1, "floor_b": OG2},
-        {"kind": "string", "field": "more_on"},
-    ),
-    # ─ Group 20: compare door counts ground vs second (multistep, L4) ─
-    _q(
-        "q49",
         "Are there more doors on the ground floor or the second floor?",
         "multistep",
         "L4",
-        "g20",
+        "g22",
         True,
-        "compare_component_count_between_floors",
-        {"component_type": D, "floor_a": EG, "floor_b": OG2},
-        {"kind": "string", "field": "more_on"},
+        ["count_components"],
+        [
+            _call("count_components", component_type=D, floor=EG),
+            _call("count_components", component_type=D, floor=OG2),
+        ],
+        {"kind": "compare_winner", "field": "count", "floor_key": "floor"},
     ),
     _q(
-        "q50",
+        "q49",
         "Compare the number of doors between the Erdgeschoss and level two.",
         "multistep",
         "L4",
-        "g20",
+        "g22",
         False,
-        "compare_component_count_between_floors",
-        {"component_type": D, "floor_a": EG, "floor_b": OG2},
-        {"kind": "string", "field": "more_on"},
+        ["count_components"],
+        [
+            _call("count_components", component_type=D, floor=EG),
+            _call("count_components", component_type=D, floor=OG2),
+        ],
+        {"kind": "compare_winner", "field": "count", "floor_key": "floor"},
     ),
-    # ─ Group 21: count windows top floor (counting, L2) ─
+    # ── Multi-step (L4): compare areas between floors ────────────────────────
+    _q(
+        "q50",
+        "Is the window area larger on the first or the second floor?",
+        "multistep",
+        "L4",
+        "g23",
+        True,
+        ["calculate_total_component_area"],
+        [
+            _call("calculate_total_component_area", component_type=W, floor=OG1),
+            _call("calculate_total_component_area", component_type=W, floor=OG2),
+        ],
+        {"kind": "compare_winner", "field": "total_area", "floor_key": "floor"},
+    ),
     _q(
         "q51",
-        "How many windows are on the top floor?",
-        "counting",
-        "L2",
-        "g21",
-        True,
-        "count_components",
-        {"component_type": W, "floor": DG},
-        {"kind": "number", "field": "count"},
+        "Compare the window area between level one and level two.",
+        "multistep",
+        "L4",
+        "g23",
+        False,
+        ["calculate_total_component_area"],
+        [
+            _call("calculate_total_component_area", component_type=W, floor=OG1),
+            _call("calculate_total_component_area", component_type=W, floor=OG2),
+        ],
+        {"kind": "compare_winner", "field": "total_area", "floor_key": "floor"},
     ),
     _q(
         "q52",
-        "Count the windows in the attic.",
-        "counting",
-        "L2",
-        "g21",
+        "Which floor has more window surface, the first or second upper floor?",
+        "multistep",
+        "L4",
+        "g23",
         False,
-        "count_components",
-        {"component_type": W, "floor": DG},
-        {"kind": "number", "field": "count"},
+        ["calculate_total_component_area"],
+        [
+            _call("calculate_total_component_area", component_type=W, floor=OG1),
+            _call("calculate_total_component_area", component_type=W, floor=OG2),
+        ],
+        {"kind": "compare_winner", "field": "total_area", "floor_key": "floor"},
     ),
-    # ─ Group 22: count windows basement (counting, L2) ─
+    # ── Multi-step (L4): which floor has the largest component area ──────────
     _q(
         "q53",
-        "How many windows are in the basement?",
-        "counting",
-        "L2",
-        "g22",
+        "Which floor has the largest total window area?",
+        "multistep",
+        "L4",
+        "g24",
         True,
-        "count_components",
-        {"component_type": W, "floor": UG},
-        {"kind": "number", "field": "count"},
+        ["calculate_area_by_floor"],
+        [_call("calculate_area_by_floor", component_type=W)],
+        {"kind": "max_floor", "by": "by_floor", "value": "total_area", "label": "floor"},
     ),
     _q(
         "q54",
-        "Count the windows on the Untergeschoss.",
-        "counting",
-        "L2",
-        "g22",
+        "Where is the biggest amount of window area?",
+        "multistep",
+        "L4",
+        "g24",
         False,
-        "count_components",
-        {"component_type": W, "floor": UG},
-        {"kind": "number", "field": "count"},
+        ["calculate_area_by_floor"],
+        [_call("calculate_area_by_floor", component_type=W)],
+        {"kind": "max_floor", "by": "by_floor", "value": "total_area", "label": "floor"},
     ),
-    # ─ Group 23: window area ground floor (aggregation, L3) ─
     _q(
         "q55",
-        "What is the total window area on the ground floor?",
-        "aggregation",
-        "L3",
-        "g23",
-        True,
-        "calculate_total_component_area",
-        {"component_type": W, "floor": EG},
-        {"kind": "number", "field": "total_area", "tol": 1.0},
+        "Which storey has the most glazing?",
+        "multistep",
+        "L4",
+        "g24",
+        False,
+        ["calculate_area_by_floor"],
+        [_call("calculate_area_by_floor", component_type=W)],
+        {"kind": "max_floor", "by": "by_floor", "value": "total_area", "label": "floor"},
     ),
     _q(
         "q56",
-        "Calculate the window area in the Erdgeschoss.",
-        "aggregation",
-        "L3",
-        "g23",
-        False,
-        "calculate_total_component_area",
-        {"component_type": W, "floor": EG},
-        {"kind": "number", "field": "total_area", "tol": 1.0},
-    ),
-    # ─ Group 24: count sanitary terminals (counting, L2) ─
-    _q(
-        "q57",
-        "How many sanitary terminals are in the building?",
-        "counting",
-        "L2",
-        "g24",
-        True,
-        "count_components",
-        {"component_type": "IfcSanitaryTerminal"},
-        {"kind": "number", "field": "count"},
-    ),
-    _q(
-        "q58",
-        "Count the sanitary fixtures in the facility.",
-        "counting",
-        "L2",
-        "g24",
-        False,
-        "count_components",
-        {"component_type": "IfcSanitaryTerminal"},
-        {"kind": "number", "field": "count"},
-    ),
-    # ─ Group 25: count sensors total (counting, L2) ─
-    _q(
-        "q59",
-        "How many sensors does the building have?",
-        "counting",
-        "L2",
-        "g25",
-        True,
-        "count_components",
-        {"component_type": "IfcSensor"},
-        {"kind": "number", "field": "count"},
-    ),
-    _q(
-        "q60",
-        "Count all sensors in the facility.",
-        "counting",
-        "L2",
-        "g25",
-        False,
-        "count_components",
-        {"component_type": "IfcSensor"},
-        {"kind": "number", "field": "count"},
-    ),
-    # ─ Group 26: floor with largest door area (multistep, L4) ─
-    _q(
-        "q61",
         "Which floor has the largest total door area?",
         "multistep",
         "L4",
-        "g26",
+        "g25",
         True,
-        "find_floor_with_largest_component_area",
-        {"component_type": D},
-        {"kind": "string", "field": "largest_floor"},
+        ["calculate_area_by_floor"],
+        [_call("calculate_area_by_floor", component_type=D)],
+        {"kind": "max_floor", "by": "by_floor", "value": "total_area", "label": "floor"},
     ),
     _q(
-        "q62",
+        "q57",
         "On which storey is the door area the biggest?",
+        "multistep",
+        "L4",
+        "g25",
+        False,
+        ["calculate_area_by_floor"],
+        [_call("calculate_area_by_floor", component_type=D)],
+        {"kind": "max_floor", "by": "by_floor", "value": "total_area", "label": "floor"},
+    ),
+    # ── Multi-step (L4): areas of two floors at once ─────────────────────────
+    _q(
+        "q58",
+        "What is the floor area of the first and the second floor?",
+        "multistep",
+        "L4",
+        "g26",
+        True,
+        ["calculate_floor_area"],
+        [_call("calculate_floor_area", floor=OG1), _call("calculate_floor_area", floor=OG2)],
+        {"kind": "values", "field": "gross_area", "tol": 1.0},
+    ),
+    _q(
+        "q59",
+        "Give me the area of both the first and second upper floor.",
         "multistep",
         "L4",
         "g26",
         False,
-        "find_floor_with_largest_component_area",
-        {"component_type": D},
-        {"kind": "string", "field": "largest_floor"},
-    ),
-    # ─ Group 27: slabs count (counting, L2) ─
-    _q(
-        "q63",
-        "How many slabs are in the building?",
-        "counting",
-        "L2",
-        "g27",
-        True,
-        "count_components",
-        {"component_type": "IfcSlab"},
-        {"kind": "number", "field": "count"},
-    ),
-    _q(
-        "q64",
-        "Count the floor slabs in the facility.",
-        "counting",
-        "L2",
-        "g27",
-        False,
-        "count_components",
-        {"component_type": "IfcSlab"},
-        {"kind": "number", "field": "count"},
-    ),
-    # ─ Group 28: door area by floor (aggregation, L3) ─
-    _q(
-        "q65",
-        "What is the door area on each floor?",
-        "aggregation",
-        "L3",
-        "g28",
-        True,
-        "calculate_area_by_floor",
-        {"component_type": D},
-        {"kind": "any"},
-    ),
-    _q(
-        "q66",
-        "Break down door area per storey.",
-        "aggregation",
-        "L3",
-        "g28",
-        False,
-        "calculate_area_by_floor",
-        {"component_type": D},
-        {"kind": "any"},
-    ),
-    # ─ Group 29: window count first floor (counting, L2) ─
-    _q(
-        "q67",
-        "How many windows are on the first floor?",
-        "counting",
-        "L2",
-        "g29",
-        True,
-        "count_components",
-        {"component_type": W, "floor": OG1},
-        {"kind": "number", "field": "count"},
-    ),
-    _q(
-        "q68",
-        "Count the windows on the 1. Obergeschoss.",
-        "counting",
-        "L2",
-        "g29",
-        False,
-        "count_components",
-        {"component_type": W, "floor": OG1},
-        {"kind": "number", "field": "count"},
-    ),
-    # ─ Group 30: window area first floor (aggregation, L3) ─
-    _q(
-        "q69",
-        "What is the total window area on the first floor?",
-        "aggregation",
-        "L3",
-        "g30",
-        True,
-        "calculate_total_component_area",
-        {"component_type": W, "floor": OG1},
-        {"kind": "number", "field": "total_area", "tol": 1.0},
-    ),
-    _q(
-        "q70",
-        "Calculate the window area on level one.",
-        "aggregation",
-        "L3",
-        "g30",
-        False,
-        "calculate_total_component_area",
-        {"component_type": W, "floor": OG1},
-        {"kind": "number", "field": "total_area", "tol": 1.0},
+        ["calculate_floor_area"],
+        [_call("calculate_floor_area", floor=OG1), _call("calculate_floor_area", floor=OG2)],
+        {"kind": "values", "field": "gross_area", "tol": 1.0},
     ),
 ]
 
@@ -898,7 +586,7 @@ def get_corpus() -> list[EvalQuery]:
 
 
 def corpus_dataframe() -> pd.DataFrame:
-    """Corpus as a DataFrame (arguments/specs kept as objects)."""
+    """Corpus as a DataFrame (lists/dicts kept as objects)."""
     return pd.DataFrame([q.to_row() for q in CORPUS])
 
 
@@ -914,6 +602,6 @@ if __name__ == "__main__":
     p = export_corpus()
     df = corpus_dataframe()
     print(f"Corpus: {len(df)} queries across {df['paraphrase_group_id'].nunique()} groups")
-    print(df.groupby(["complexity_level"]).size().to_string())
-    print(df.groupby(["category"]).size().to_string())
+    print(df.groupby("complexity_level").size().to_string())
+    print(df.groupby("category").size().to_string())
     print("Written to", p)

@@ -91,9 +91,7 @@ def generate_model_comparison_md(df: pd.DataFrame) -> str:
     )
     lines.append(agg.to_markdown(floatfmt=".3f"))
     lines.append("\n## Per-model latency breakdown (mean ms)\n")
-    lat = df.groupby("model")[
-        ["latency_tool_call", "latency_sql", "latency_final_answer", "latency_total"]
-    ].mean()
+    lat = df.groupby("model")[["latency_planning", "latency_tools", "latency_total"]].mean()
     lines.append(lat.to_markdown(floatfmt=".1f"))
     return "\n".join(lines)
 
@@ -115,7 +113,7 @@ def generate_error_analysis_md(df: pd.DataFrame) -> str:
         for _, row in failures.head(20).iterrows():
             lines.append(
                 f"- `{row['query_id']}` [{row['model']}] **{row['error_category']}** — "
-                f"expected `{row['expected_function']}`, got `{row['actual_function']}`."
+                f"expected `{row['expected_functions']}`, got `{row['actual_functions']}`."
             )
     return "\n".join(lines)
 

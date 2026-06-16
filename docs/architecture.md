@@ -12,10 +12,20 @@ executes arbitrary SQL — uncontrolled, hard to audit, and unsafe on a
 production database.
 
 This prototype takes the opposite approach: **controlled function calling**. The
-LLM never writes SQL. It may only *select* one of a fixed set of predefined
-Python functions and provide arguments. A registry validates every proposed call
-before any database access, and only approved calls run. This directly answers
+LLM never writes SQL. It may only *select* from a fixed set of predefined Python
+functions and provide arguments. A registry validates every proposed call before
+any database access, and only approved calls run. This directly answers
 **Sub-RQ 1** (architectural principles for secure, controlled retrieval).
+
+Crucially, the tools are **atomic data primitives** (count components, component
+area, floor area, list metadata) — there is *no* bespoke function per question.
+Complex questions are answered by a **multi-step loop**: the model calls several
+primitives, sees their results, and reasons over them. For example, "are there
+more windows on the first or second floor?" is answered by two
+`count_components` calls plus the model's own comparison; "which floor has the
+largest window area?" by one `calculate_area_by_floor` call plus picking the
+maximum. This keeps the tool surface small and pushes composition/reasoning to
+the LLM, matching the thesis's *multi-step* question category.
 
 ## 2. Design principles
 

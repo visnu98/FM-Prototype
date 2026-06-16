@@ -81,12 +81,7 @@ def main() -> None:
 
 
 def _call_status(response) -> str:  # type: ignore[no-untyped-def]
-    """Human-readable runtime status of the tool call (NOT an evaluation verdict).
-
-    Reflects what the registry did with the call: executed cleanly, was rejected,
-    or no tool was used. The failure reason comes from the registry's runtime
-    error classification.
-    """
+    """Overall runtime status of the question's tool calls (NOT an eval verdict)."""
     if not response.made_tool_call:
         return "no tool call (model answered directly)"
     if response.error_category.value == "none":
@@ -95,20 +90,15 @@ def _call_status(response) -> str:  # type: ignore[no-untyped-def]
 
 
 def _trace_dict(response) -> dict:  # type: ignore[no-untyped-def]
-    tr = response.tool_result
     return {
         "model": response.model_name,
-        "selected_function": response.selected_function,
-        "arguments": response.arguments,
-        "normalized_arguments": response.normalized_arguments,
         "call_status": _call_status(response),
-        "made_tool_call": response.made_tool_call,
-        "result_ok": (tr.ok if tr else None),
-        "result_data": (tr.data if tr else None),
+        "num_steps": response.num_steps,
+        "functions": response.selected_functions,
+        "calls": response.calls,  # one entry per executed tool call
         "latency_ms": {
-            "tool_call": round(response.latency_tool_call_ms),
-            "sql": round(response.latency_sql_ms),
-            "final_answer": round(response.latency_final_answer_ms),
+            "planning": round(response.latency_planning_ms),
+            "tools": round(response.latency_tools_ms),
             "total": round(response.latency_total_ms),
         },
     }
@@ -116,18 +106,24 @@ def _trace_dict(response) -> dict:  # type: ignore[no-untyped-def]
 
 def _render_trace(trace: dict) -> None:
     with st.expander("🔎 Function-call trace", expanded=False):
+        chain = " → ".join(f"`{f}`" for f in trace["functions"]) or "—"
         st.markdown(
-            f"**Function:** `{trace['selected_function']}`  \n"
-            f"**Call status:** `{trace['call_status']}`  \n"
+            f"**Steps:** {trace['num_steps']}  ·  **Call status:** "
+            f"`{trace['call_status']}`  \n"
+            f"**Tool chain:** {chain}  \n"
             f"**Latency (ms):** {trace['latency_ms']}"
         )
-        st.markdown("**Arguments (raw):**")
-        st.json(trace["arguments"])
-        if trace.get("normalized_arguments"):
-            st.markdown("**Normalized arguments:**")
-            st.json(trace["normalized_arguments"])
-        st.markdown("**Tool result:**")
-        st.json(_safe(trace.get("result_data")))
+        for i, call in enumerate(trace["calls"], 1):
+            ok = "✅" if call["ok"] else "⚠️"
+            st.markdown(f"**Step {i}: `{call['function']}`** {ok} ({call['error_category']})")
+            a, b = st.columns(2)
+            a.caption("Arguments (raw)")
+            a.json(call["arguments"])
+            if call.get("normalized_arguments"):
+                b.caption("Normalized arguments")
+                b.json(call["normalized_arguments"])
+            st.caption("Tool result")
+            st.json(_safe(call.get("result")))
 
 
 def _safe(data) -> object:  # type: ignore[no-untyped-def]

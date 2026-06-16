@@ -1,32 +1,48 @@
-"""Common LLM interface for the function-calling layer (Phase 8).
+"""Common LLM interface for multi-step tool calling.
 
-Both evaluated models implement the same interface so the chatbot and the
-evaluation runner are model-agnostic. Concrete clients live alongside this file
-(e.g. :mod:`app.llm.groq_client`).
+Both evaluated models implement the same conversational interface so the
+chatbot and the evaluation runner are model-agnostic. The chatbot drives a
+multi-step loop: it calls :meth:`LLMClient.chat`, runs any requested tools,
+appends their results to the message history, and calls ``chat`` again until the
+model returns a final answer instead of tool calls.
 """
 
 from __future__ import annotations
 
 from abc import ABC, abstractmethod
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from typing import Any
 
 from app.tools.models import ToolCall
 
 
 @dataclass
-class ToolCallDecision:
-    """The model's tool-selection step output."""
+class PlannedToolCall:
+    """A single tool call the model wants to make, with its provider-side id."""
 
-    tool_call: ToolCall | None
-    made_tool_call: bool
-    raw_content: str | None = None
+    id: str
+    call: ToolCall
+
+
+@dataclass
+class AssistantTurn:
+    """One assistant step: either tool calls to run, or a final answer."""
+
+    planned_calls: list[PlannedToolCall] = field(default_factory=list)
+    content: str | None = None
     latency_ms: float = 0.0
-    parse_error: str | None = None
+    # The raw assistant message to append to the running history (so tool
+    # results can reference the tool_call ids on the next turn).
+    assistant_message: dict[str, Any] = field(default_factory=dict)
+    request_error: str | None = None
+
+    @property
+    def wants_tools(self) -> bool:
+        return bool(self.planned_calls)
 
 
 class LLMClient(ABC):
-    """Abstract function-calling client."""
+    """Abstract multi-step function-calling client."""
 
     def __init__(self, model_name: str, temperature: float = 0.0) -> None:
         self.model_name = model_name
@@ -34,15 +50,5 @@ class LLMClient(ABC):
         self.temperature = temperature
 
     @abstractmethod
-    def generate_tool_call(self, user_query: str, tools: list[dict[str, Any]]) -> ToolCallDecision:
-        """Ask the model to pick ONE tool and its arguments for ``user_query``.
-
-        ``tools`` are OpenAI/Ollama-format tool schemas. Implementations should
-        prefer native tool calling and fall back to strict JSON parsing.
-        """
-
-    @abstractmethod
-    def generate_final_answer(
-        self, user_query: str, tool_name: str, tool_result_json: str
-    ) -> tuple[str, float]:
-        """Produce the grounded final answer. Returns (answer, latency_ms)."""
+    def chat(self, messages: list[dict[str, Any]], tools: list[dict[str, Any]]) -> AssistantTurn:
+        """One turn: given the history + tools, return tool calls or an answer."""

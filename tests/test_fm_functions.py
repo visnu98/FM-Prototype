@@ -53,21 +53,20 @@ def test_area_by_floor(registry) -> None:  # type: ignore[no-untyped-def]
     assert floors["1. Obergeschoss"] > floors["Erdgeschoss"]
 
 
-def test_largest_area_floor(registry) -> None:  # type: ignore[no-untyped-def]
-    data = _ok(registry, "find_floor_with_largest_component_area", component_type="windows")
-    assert data["largest_floor"] == "1. Obergeschoss"
+def test_largest_area_via_aggregation(registry) -> None:  # type: ignore[no-untyped-def]
+    # "Which floor has the largest window area" is composed from the aggregation
+    # primitive (no bespoke function); the caller/LLM picks the max.
+    data = _ok(registry, "calculate_area_by_floor", component_type="windows")
+    top = max(data["by_floor"], key=lambda f: f["total_area"])
+    assert top["floor"] == "1. Obergeschoss"
 
 
-def test_compare_counts(registry) -> None:  # type: ignore[no-untyped-def]
-    data = _ok(
-        registry,
-        "compare_component_count_between_floors",
-        component_type="windows",
-        floor_a="first floor",
-        floor_b="second floor",
-    )
-    assert data["count_a"] == 79 and data["count_b"] == 52
-    assert data["more_on"] == "1. Obergeschoss"
+def test_compare_counts_via_two_calls(registry) -> None:  # type: ignore[no-untyped-def]
+    # "Compare windows first vs second floor" = two atomic count calls + compare.
+    a = _ok(registry, "count_components", component_type="windows", floor="first floor")
+    b = _ok(registry, "count_components", component_type="windows", floor="second floor")
+    assert a["count"] == 79 and b["count"] == 52
+    assert a["count"] > b["count"]  # more on the first floor
 
 
 def test_invalid_component_type_is_enum_error(registry) -> None:  # type: ignore[no-untyped-def]

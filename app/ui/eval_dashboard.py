@@ -132,20 +132,23 @@ def _explorer(df: pd.DataFrame) -> None:
     if only_fail:
         view = view[~view["fully_correct_call"] | ~view["answer_correct"]]
 
+    display = view.copy()
+    display["expected_functions"] = display["expected_functions"].apply(_join)
+    display["actual_functions"] = display["actual_functions"].apply(_join)
     cols = [
         "query_id",
         "model",
         "category",
         "complexity_level",
-        "expected_function",
-        "actual_function",
+        "expected_functions",
+        "actual_functions",
+        "num_steps",
         "function_correct",
-        "parameters_correct",
         "answer_correct",
         "fully_correct_call",
         "error_category",
     ]
-    st.dataframe(view[cols], width="stretch", height=360, hide_index=True)
+    st.dataframe(display[cols], width="stretch", height=360, hide_index=True)
     st.caption(
         f"{len(view)} rows · "
         f"{int(view['fully_correct_call'].sum())} fully-correct · "
@@ -163,17 +166,22 @@ def _explorer(df: pd.DataFrame) -> None:
     for _, row in rows.iterrows():
         ok = "✅" if row["fully_correct_call"] and row["answer_correct"] else "⚠️"
         with st.expander(f"{ok} {row['model']} — {row['error_category']}", expanded=True):
-            a, b = st.columns(2)
-            a.markdown("**Expected**")
-            a.write(f"function: `{row['expected_function']}`")
-            a.json(row["expected_parameters"])
-            a.caption(f"expected answer value(s): {row.get('expected_answer_values')}")
-            b.markdown("**Actual**")
-            b.write(f"function: `{row['actual_function']}`")
-            b.json(row["actual_parameters"])
-            b.caption(f"answer_correct: {row['answer_correct']}")
+            st.write(
+                f"**Expected functions:** `{_join(row['expected_functions'])}`  ·  "
+                f"**Actual chain:** `{_join(row['actual_functions'])}`"
+            )
+            st.caption(f"expected answer value(s): {row.get('expected_answer_values')}")
+            st.markdown("**Tool calls (steps):**")
+            st.json(row.get("calls") if isinstance(row.get("calls"), list) else [])
             st.markdown("**Model's final answer:**")
             st.info(row["final_answer"])
+
+
+def _join(value) -> str:  # type: ignore[no-untyped-def]
+    """Render a list (or scalar) of function names as 'a → b'."""
+    if isinstance(value, list):
+        return " → ".join(str(v) for v in value)
+    return str(value)
 
 
 def _errors(df: pd.DataFrame) -> None:

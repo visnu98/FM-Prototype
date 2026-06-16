@@ -1,8 +1,9 @@
-"""Groq function-calling client (Phase 8).
+"""Groq multi-step function-calling client.
 
-Wraps the Groq SDK with native tool calling and a strict-JSON fallback. The same
-system prompt, tool schemas and temperature are used for every model so the H3
-comparison is fair. The API key is read from settings and never logged.
+Wraps the Groq SDK with native (parallel) tool calling and a strict-JSON
+fallback for models that emit a tool call as text. The same system prompt, tool
+schemas and temperature are used for every model so the comparison is fair. The
+API key is read from settings and never logged.
 """
 
 from __future__ import annotations
@@ -15,9 +16,8 @@ from typing import Any
 from groq import APIError, Groq, RateLimitError
 
 from app.config import get_settings
-from app.llm.base import LLMClient, ToolCallDecision
+from app.llm.base import AssistantTurn, LLMClient, PlannedToolCall
 from app.llm.json_tool_parser import ToolCallParseError, parse_tool_call
-from app.llm.prompt_templates import SYSTEM_PROMPT, final_answer_prompt
 from app.tools.models import ToolCall
 
 logger = logging.getLogger(__name__)
@@ -52,8 +52,7 @@ class GroqClient(LLMClient):
 
         Per-minute (TPM/RPM) limits clear within ~60s, so back off up to that.
         Daily token caps cannot be waited out within a run and will surface as a
-        final RateLimitError (handled by the caller). Backoff sleeps are NOT
-        counted towards :attr:`_last_api_ms`.
+        final RateLimitError. Backoff sleeps are NOT counted in ``_last_api_ms``.
         """
         max_attempts = 6
         for attempt in range(max_attempts):
@@ -67,106 +66,100 @@ class GroqClient(LLMClient):
                 logger.warning("Groq rate limit; retrying in %ss", wait)
                 time.sleep(wait)
             except APIError as exc:
-                # Transient server errors: retry a couple of times.
                 if attempt < 2 and getattr(exc, "status_code", 500) >= 500:
                     time.sleep(2**attempt)
                     continue
                 raise
-        # Final attempt without catching, to surface the error.
         return self._client.chat.completions.create(**kwargs)
 
-    # ── Tool selection ───────────────────────────────────────────────────────
-
-    def generate_tool_call(self, user_query: str, tools: list[dict[str, Any]]) -> ToolCallDecision:
-        start = time.perf_counter()
+    def chat(self, messages: list[dict[str, Any]], tools: list[dict[str, Any]]) -> AssistantTurn:
+        """One turn: return the model's tool calls, or its final answer."""
         try:
             response = self._create(
                 model=self.model_name,
                 temperature=self.temperature,
-                messages=[
-                    {"role": "system", "content": SYSTEM_PROMPT},
-                    {"role": "user", "content": user_query},
-                ],
+                messages=messages,
                 tools=tools,
                 tool_choice="auto",
                 **self._extra_params(),
             )
         except Exception as exc:  # pragma: no cover - network dependent
-            latency = (time.perf_counter() - start) * 1000
-            logger.error("Groq tool-call request failed: %s", type(exc).__name__)
-            return ToolCallDecision(
-                tool_call=None,
-                made_tool_call=False,
-                latency_ms=latency,
-                parse_error=f"request_failed: {type(exc).__name__}",
-            )
+            logger.error("Groq request failed: %s", type(exc).__name__)
+            return AssistantTurn(request_error=f"request_failed: {type(exc).__name__}")
 
         latency = self._last_api_ms  # excludes rate-limit backoff sleeps
         message = response.choices[0].message
         content = message.content
 
-        # 1) Native tool call.
+        # 1) Native (possibly parallel) tool calls.
         tool_calls = getattr(message, "tool_calls", None)
         if tool_calls:
-            first = tool_calls[0]
-            try:
-                arguments = json.loads(first.function.arguments or "{}")
-            except json.JSONDecodeError:
-                arguments = {}
-            if not isinstance(arguments, dict):
-                arguments = {}
-            return ToolCallDecision(
-                tool_call=ToolCall(name=first.function.name, arguments=arguments),
-                made_tool_call=True,
-                raw_content=content,
+            planned: list[PlannedToolCall] = []
+            raw_calls: list[dict[str, Any]] = []
+            for tc in tool_calls:
+                planned.append(PlannedToolCall(id=tc.id, call=_to_tool_call(tc.function)))
+                raw_calls.append(
+                    {
+                        "id": tc.id,
+                        "type": "function",
+                        "function": {
+                            "name": tc.function.name,
+                            "arguments": tc.function.arguments or "{}",
+                        },
+                    }
+                )
+            return AssistantTurn(
+                planned_calls=planned,
                 latency_ms=latency,
+                assistant_message={
+                    "role": "assistant",
+                    "content": content or "",
+                    "tool_calls": raw_calls,
+                },
             )
 
-        # 2) Fallback: try to parse a JSON tool call from the content.
+        # 2) Fallback: a tool call emitted as JSON text (some weaker models).
         if content:
             try:
                 parsed = parse_tool_call(content)
-                return ToolCallDecision(
-                    tool_call=parsed,
-                    made_tool_call=True,
-                    raw_content=content,
+                synthetic_id = "fallback_0"
+                return AssistantTurn(
+                    planned_calls=[PlannedToolCall(id=synthetic_id, call=parsed)],
                     latency_ms=latency,
+                    assistant_message={
+                        "role": "assistant",
+                        "content": "",
+                        "tool_calls": [
+                            {
+                                "id": synthetic_id,
+                                "type": "function",
+                                "function": {
+                                    "name": parsed.name,
+                                    "arguments": json.dumps(parsed.arguments),
+                                },
+                            }
+                        ],
+                    },
                 )
             except ToolCallParseError:
                 pass
 
-        # 3) No tool call (model answered directly or asked for clarification).
-        return ToolCallDecision(
-            tool_call=None,
-            made_tool_call=False,
-            raw_content=content,
+        # 3) Final answer (no tool calls).
+        return AssistantTurn(
+            content=content or "",
             latency_ms=latency,
+            assistant_message={"role": "assistant", "content": content or ""},
         )
 
-    # ── Final answer ─────────────────────────────────────────────────────────
 
-    def generate_final_answer(
-        self, user_query: str, tool_name: str, tool_result_json: str
-    ) -> tuple[str, float]:
-        start = time.perf_counter()
-        prompt = final_answer_prompt(user_query, tool_name, tool_result_json)
-        try:
-            response = self._create(
-                model=self.model_name,
-                temperature=self.temperature,
-                messages=[
-                    {"role": "system", "content": SYSTEM_PROMPT},
-                    {"role": "user", "content": prompt},
-                ],
-                **self._extra_params(),
-            )
-            answer = response.choices[0].message.content or ""
-            latency = self._last_api_ms  # excludes rate-limit backoff sleeps
-        except Exception as exc:  # pragma: no cover - network dependent
-            logger.error("Groq final-answer request failed: %s", type(exc).__name__)
-            answer = f"(Could not generate a final answer: {type(exc).__name__}.)"
-            latency = (time.perf_counter() - start) * 1000
-        return answer.strip(), latency
+def _to_tool_call(function: Any) -> ToolCall:
+    try:
+        args = json.loads(function.arguments or "{}")
+    except json.JSONDecodeError:
+        args = {}
+    if not isinstance(args, dict):
+        args = {}
+    return ToolCall(name=function.name, arguments=args)
 
 
 def make_client(model_name: str) -> LLMClient:

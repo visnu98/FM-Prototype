@@ -72,12 +72,6 @@ class ComponentAttributesArgs(_StrictArgs):
     )
 
 
-class CompareFloorsArgs(_StrictArgs):
-    component_type: str
-    floor_a: str
-    floor_b: str
-
-
 class FloorArgs(_StrictArgs):
     floor: str | None = Field(default=None, description="Floor label; omit for all floors.")
 
@@ -445,89 +439,6 @@ def calculate_floor_area(floor: str | None = None) -> dict[str, Any]:
     return result
 
 
-def find_floor_with_largest_component_area(component_type: str) -> dict[str, Any]:
-    """Find which floor has the largest total area for a component type."""
-    grouped = calculate_area_by_floor(component_type)
-    floors = [f for f in grouped["by_floor"] if f["components_with_area"] > 0]
-    if not floors:
-        return {
-            "component_type": grouped["component_type"],
-            "facility_id": grouped["facility_id"],
-            "largest_floor": None,
-            "note": "No floor-scoped area data available for this component type.",
-            "by_floor": grouped["by_floor"],
-        }
-    top = max(floors, key=lambda f: f["total_area"])
-    return {
-        "component_type": grouped["component_type"],
-        "facility_id": grouped["facility_id"],
-        "largest_floor": top["floor"],
-        "total_area": top["total_area"],
-        "unit": top["unit"],
-        "by_floor": grouped["by_floor"],
-        "_normalized_arguments": grouped["_normalized_arguments"],
-    }
-
-
-def compare_component_count_between_floors(
-    component_type: str, floor_a: str, floor_b: str
-) -> dict[str, Any]:
-    """Compare component counts between two floors."""
-    fid = _facility()
-    t = norm.resolve_component_type(component_type, fid)
-    fa = norm.resolve_floor(floor_a, fid)
-    fb = norm.resolve_floor(floor_b, fid)
-    na = _count_components(fid, t.normalized, fa.normalized)
-    nb = _count_components(fid, t.normalized, fb.normalized)
-    return {
-        "component_type": t.normalized,
-        "facility_id": fid,
-        "floor_a": fa.normalized,
-        "floor_b": fb.normalized,
-        "count_a": na,
-        "count_b": nb,
-        "difference": na - nb,
-        "more_on": fa.normalized if na > nb else (fb.normalized if nb > na else "equal"),
-        "_normalized_arguments": {
-            "component_type": t.as_dict(),
-            "floor_a": fa.as_dict(),
-            "floor_b": fb.as_dict(),
-        },
-    }
-
-
-def compare_component_area_between_floors(
-    component_type: str, floor_a: str, floor_b: str
-) -> dict[str, Any]:
-    """Compare total component area between two floors."""
-    fid = _facility()
-    t = norm.resolve_component_type(component_type, fid)
-    fa = norm.resolve_floor(floor_a, fid)
-    fb = norm.resolve_floor(floor_b, fid)
-    area_a = _compute_area(_area_rows(fid, t.normalized, fa.normalized))
-    area_b = _compute_area(_area_rows(fid, t.normalized, fb.normalized))
-    return {
-        "component_type": t.normalized,
-        "facility_id": fid,
-        "floor_a": fa.normalized,
-        "floor_b": fb.normalized,
-        "area_a": area_a["total_area"],
-        "area_b": area_b["total_area"],
-        "unit": "m²",
-        "difference": round(area_a["total_area"] - area_b["total_area"], 3),
-        "more_on": (
-            fa.normalized
-            if area_a["total_area"] > area_b["total_area"]
-            else (fb.normalized if area_b["total_area"] > area_a["total_area"] else "equal")
-        ),
-        "_normalized_arguments": {
-            "component_type": t.as_dict(),
-            "floor_a": fa.as_dict(),
-            "floor_b": fb.as_dict(),
-        },
-    }
-
-
 # ── Registry assembly ────────────────────────────────────────────────────────
 
 
@@ -612,38 +523,5 @@ def build_registry(registry: ToolRegistry | None = None) -> ToolRegistry:
         func=calculate_floor_area,
         args_model=FloorArgs,
         parameters=[p_floor],
-    )
-    reg.register(
-        name="find_floor_with_largest_component_area",
-        description="Find which floor has the largest total area for a component type.",
-        func=find_floor_with_largest_component_area,
-        args_model=ComponentTypeArgs,
-        parameters=[p_type],
-    )
-    reg.register(
-        name="compare_component_count_between_floors",
-        description="Compare component counts between two floors.",
-        func=compare_component_count_between_floors,
-        args_model=CompareFloorsArgs,
-        parameters=[
-            p_type,
-            ToolParameter(name="floor_a", type="string", description="First floor.", required=True),
-            ToolParameter(
-                name="floor_b", type="string", description="Second floor.", required=True
-            ),
-        ],
-    )
-    reg.register(
-        name="compare_component_area_between_floors",
-        description="Compare total component area between two floors.",
-        func=compare_component_area_between_floors,
-        args_model=CompareFloorsArgs,
-        parameters=[
-            p_type,
-            ToolParameter(name="floor_a", type="string", description="First floor.", required=True),
-            ToolParameter(
-                name="floor_b", type="string", description="Second floor.", required=True
-            ),
-        ],
     )
     return reg

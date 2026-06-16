@@ -146,10 +146,11 @@ class QueryMetrics:
     paraphrase_group_id: str
     is_standard_wording: bool
 
-    expected_function: str
-    actual_function: str | None
-    expected_parameters: dict[str, Any]
-    actual_parameters: dict[str, Any]
+    # Function selection is now a SET: did the model call the required primitive
+    # function(s)? Extra helper calls (e.g. list_queryable_floors) are allowed.
+    expected_functions: str  # joined for CSV
+    actual_functions: str  # joined for CSV
+    num_steps: int
 
     function_correct: bool
     parameters_correct: bool
@@ -160,13 +161,29 @@ class QueryMetrics:
     list_recall: float | None = None
 
     latency_total: float = 0.0
-    latency_tool_call: float = 0.0
-    latency_sql: float = 0.0
-    latency_final_answer: float = 0.0
+    latency_planning: float = 0.0
+    latency_tools: float = 0.0
 
     error_category: str = EvalErrorCategory.NONE.value
     final_answer: str = ""
     expected_answer_values: list[Any] = field(default_factory=list)
+
+
+def _best_parameter_accuracy(
+    expected_args: dict[str, Any], target_function: str, actual_calls: list[dict[str, Any]]
+) -> tuple[bool, float]:
+    """Best parameter match across the calls made to ``target_function``."""
+    if not expected_args:
+        return True, 1.0
+    best_ok, best_acc = False, 0.0
+    for call in actual_calls:
+        if call.get("function") != target_function:
+            continue
+        norm = flatten_normalized_args(call.get("normalized_arguments", {}))
+        ok, acc = parameter_accuracy(expected_args, norm)
+        best_ok = best_ok or ok
+        best_acc = max(best_acc, acc)
+    return best_ok, best_acc
 
 
 def evaluate_query(
@@ -174,22 +191,31 @@ def evaluate_query(
     gt: Any,  # GroundTruth
     model: str,
     made_tool_call: bool,
-    actual_function: str | None,
-    actual_normalized_arguments: dict[str, Any],
+    actual_functions: list[str],
+    actual_calls: list[dict[str, Any]],
     registry_error: ErrorCategory,
     execution_success: bool,
     final_answer: str,
     latency_total: float,
-    latency_tool_call: float,
-    latency_sql: float,
-    latency_final_answer: float,
+    latency_planning: float,
+    latency_tools: float,
 ) -> QueryMetrics:
-    """Compute all metrics for one (query, model) outcome."""
-    actual_params = flatten_normalized_args(actual_normalized_arguments)
-    function_correct = actual_function == gt.expected_function
-    params_ok, param_acc = parameter_accuracy(gt.expected_arguments, actual_params)
-    # Parameters only count when the right function was chosen.
-    parameters_correct = function_correct and params_ok
+    """Compute all metrics for one (query, model) outcome (multi-step aware)."""
+    expected = list(gt.expected_functions)
+    # Function-selection: the required primitives must all have been called.
+    function_correct = set(expected).issubset(set(actual_functions))
+
+    # Parameter accuracy is only checked for atomic queries (single expected
+    # function with expected arguments); multi-step correctness is captured by
+    # function_correct + answer_correct.
+    if gt.expected_arguments and len(expected) == 1:
+        params_ok, param_acc = _best_parameter_accuracy(
+            gt.expected_arguments, expected[0], actual_calls
+        )
+        parameters_correct = function_correct and params_ok
+    else:
+        parameters_correct = function_correct
+        param_acc = 1.0 if function_correct else 0.0
 
     answer_correct, list_recall = answer_correctness(
         gt.answer_kind,
@@ -216,10 +242,9 @@ def evaluate_query(
         complexity_level=gt.complexity_level,
         paraphrase_group_id=gt.paraphrase_group_id,
         is_standard_wording=gt.is_standard_wording,
-        expected_function=gt.expected_function,
-        actual_function=actual_function,
-        expected_parameters=gt.expected_arguments,
-        actual_parameters=actual_params,
+        expected_functions=", ".join(expected),
+        actual_functions=", ".join(actual_functions),
+        num_steps=len(actual_calls),
         function_correct=function_correct,
         parameters_correct=parameters_correct,
         parameter_level_accuracy=param_acc,
@@ -228,9 +253,8 @@ def evaluate_query(
         answer_correct=answer_correct,
         list_recall=list_recall,
         latency_total=latency_total,
-        latency_tool_call=latency_tool_call,
-        latency_sql=latency_sql,
-        latency_final_answer=latency_final_answer,
+        latency_planning=latency_planning,
+        latency_tools=latency_tools,
         error_category=error_category.value,
         final_answer=final_answer,
         expected_answer_values=gt.expected_answer_values,

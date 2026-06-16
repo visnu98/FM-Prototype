@@ -57,29 +57,24 @@ def _run_one_model(
         gt = gt_by_id[q.query_id]
         logger.info("[%s] %d/%d %s", model, i, len(queries), q.query_id)
         response = service.answer(q.query_text)
-        execution_success = bool(response.tool_result and response.tool_result.ok)
+        # A question succeeds at the tool level if it made >=1 call and none errored.
+        execution_success = response.made_tool_call and all(c["ok"] for c in response.calls)
 
         qm = evaluate_query(
             gt=gt,
             model=model,
             made_tool_call=response.made_tool_call,
-            actual_function=response.selected_function,
-            actual_normalized_arguments=response.normalized_arguments,
+            actual_functions=response.selected_functions,
+            actual_calls=response.calls,
             registry_error=response.error_category,
             execution_success=execution_success,
             final_answer=response.final_answer,
             latency_total=response.latency_total_ms,
-            latency_tool_call=response.latency_tool_call_ms,
-            latency_sql=response.latency_sql_ms,
-            latency_final_answer=response.latency_final_answer_ms,
+            latency_planning=response.latency_planning_ms,
+            latency_tools=response.latency_tools_ms,
         )
         metrics.append(qm)
 
-        actual_result = (
-            {k: v for k, v in response.tool_result.data.items() if k != "_normalized_arguments"}
-            if (response.tool_result and isinstance(response.tool_result.data, dict))
-            else (response.tool_result.data if response.tool_result else None)
-        )
         raw_rows.append(
             {
                 "query_id": q.query_id,
@@ -89,12 +84,11 @@ def _run_one_model(
                 "complexity_level": q.complexity_level,
                 "paraphrase_group_id": q.paraphrase_group_id,
                 "is_standard_wording": q.is_standard_wording,
-                "expected_function": gt.expected_function,
-                "actual_function": qm.actual_function,
-                "expected_parameters": gt.expected_arguments,
-                "actual_parameters": qm.actual_parameters,
-                "expected_result": gt.expected_result,
-                "actual_result": actual_result,
+                "expected_functions": gt.expected_functions,
+                "actual_functions": response.selected_functions,
+                "num_steps": response.num_steps,
+                "calls": response.calls,  # full per-step trace (function, args, result)
+                "expected_arguments": gt.expected_arguments,
                 "expected_answer_values": gt.expected_answer_values,
                 "final_answer": response.final_answer,
                 "answer_correct": qm.answer_correct,
@@ -103,9 +97,8 @@ def _run_one_model(
                 "fully_correct_call": qm.fully_correct_call,
                 "execution_success": qm.execution_success,
                 "latency_total": qm.latency_total,
-                "latency_tool_call": qm.latency_tool_call,
-                "latency_sql": qm.latency_sql,
-                "latency_final_answer": qm.latency_final_answer,
+                "latency_planning": qm.latency_planning,
+                "latency_tools": qm.latency_tools,
                 "error_category": qm.error_category,
             }
         )

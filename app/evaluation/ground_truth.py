@@ -1,9 +1,9 @@
-"""Ground-truth generation (Phase 11).
+"""Ground-truth generation (multi-step aware).
 
-For every corpus query, ground truth is produced by executing the *expected*
-function with the *canonical* arguments through the registry — i.e. by
-deterministic, parameterised SQL, never by the LLM. The salient expected answer
-value(s) are extracted via the query's ``answer_spec``.
+For every corpus query, ground truth is produced by executing the query's
+``gt_calls`` through the registry — deterministic, parameterised SQL, never the
+LLM — and reducing the results with the query's ``answer_spec`` to the expected
+answer value(s).
 
 Outputs:
 - data/evaluation/ground_truth.json
@@ -35,35 +35,67 @@ class GroundTruth:
     complexity_level: str
     paraphrase_group_id: str
     is_standard_wording: bool
-    expected_function: str
+    expected_functions: list[str]
     expected_arguments: dict[str, Any]
-    expected_result: Any
     expected_answer_values: list[Any] = field(default_factory=list)
-    answer_kind: str = "any"
+    answer_kind: str = "any"  # number | string | list | any
     answer_tolerance: float = 0.0
     execution_ok: bool = True
     note: str | None = None
 
 
-def _extract_expected_values(spec: dict[str, Any], data: Any) -> tuple[list[Any], str, float]:
-    """Apply an answer_spec to a tool result to get expected value(s)."""
+def _strip_internal(data: Any) -> Any:
+    if isinstance(data, dict):
+        return {k: v for k, v in data.items() if k != "_normalized_arguments"}
+    return data
+
+
+def _reduce(
+    spec: dict[str, Any], gt_calls: list[dict[str, Any]], results: list[Any]
+) -> tuple[list[Any], str, float]:
+    """Apply an answer_spec to ground-truth call results -> (values, kind, tol)."""
     kind = spec.get("kind", "any")
     tol = float(spec.get("tol", 0.0))
-    if not isinstance(data, dict) and kind not in {"list", "any"}:
-        return [], kind, tol
 
-    if kind == "number":
-        return [data.get(spec["field"])], "number", tol
-    if kind == "string":
-        return [data.get(spec["field"])], "string", tol
-    if kind == "result_count":
-        return [data.get("result_count")], "number", tol
+    if kind == "any":
+        return [], "any", tol
     if kind == "list":
-        items = data if isinstance(data, list) else data.get("items", [])
-        field_name = spec.get("field")
-        values = [it.get(field_name) if isinstance(it, dict) else it for it in items]
-        return values, "list", tol
-    # "any": no specific scalar to check.
+        data = results[0]
+        items = data if isinstance(data, list) else []
+        f = spec.get("field")
+        return [it.get(f) if isinstance(it, dict) else it for it in items], "list", tol
+    if kind == "result_count":
+        data = results[0]
+        return [data.get("result_count") if isinstance(data, dict) else None], "number", tol
+    if kind == "number":
+        data = results[0]
+        return [data.get(spec["field"]) if isinstance(data, dict) else None], "number", tol
+    if kind == "string":
+        data = results[0]
+        return [data.get(spec["field"]) if isinstance(data, dict) else None], "string", tol
+    if kind == "values":
+        f = spec["field"]
+        return [d.get(f) if isinstance(d, dict) else None for d in results], "number", tol
+    if kind == "compare_winner":
+        f = spec["field"]
+        floor_key = spec.get("floor_key", "floor")
+        a, b = results[0], results[1]
+        va = a.get(f) if isinstance(a, dict) else None
+        vb = b.get(f) if isinstance(b, dict) else None
+        fa = gt_calls[0]["arguments"].get(floor_key)
+        fb = gt_calls[1]["arguments"].get(floor_key)
+        if va is None or vb is None:
+            return [], "any", tol
+        winner = fa if va > vb else (fb if vb > va else "equal")
+        return [winner], "string", tol
+    if kind == "max_floor":
+        data = results[0]
+        items = data.get(spec["by"], []) if isinstance(data, dict) else []
+        valued = [it for it in items if it.get(spec["value"]) is not None]
+        if not valued:
+            return [], "any", tol
+        top = max(valued, key=lambda it: it[spec["value"]])
+        return [top.get(spec["label"])], "string", tol
     return [], "any", tol
 
 
@@ -72,10 +104,18 @@ def build_ground_truth(registry: ToolRegistry | None = None) -> list[GroundTruth
     reg = registry if registry is not None else build_registry()
     out: list[GroundTruth] = []
     for q in get_corpus():
-        result = reg.execute(ToolCall(name=q.expected_function, arguments=q.expected_arguments))
-        values, kind, tol = (
-            _extract_expected_values(q.answer_spec, result.data) if result.ok else ([], "any", 0.0)
-        )
+        results: list[Any] = []
+        ok = True
+        note: str | None = None
+        for gc in q.gt_calls:
+            res = reg.execute(ToolCall(name=gc["function"], arguments=gc["arguments"]))
+            if not res.ok:
+                ok = False
+                note = res.error_message
+                results.append(None)
+            else:
+                results.append(_strip_internal(res.data))
+        values, kind, tol = _reduce(q.answer_spec, q.gt_calls, results) if ok else ([], "any", 0.0)
         out.append(
             GroundTruth(
                 query_id=q.query_id,
@@ -84,24 +124,16 @@ def build_ground_truth(registry: ToolRegistry | None = None) -> list[GroundTruth
                 complexity_level=q.complexity_level,
                 paraphrase_group_id=q.paraphrase_group_id,
                 is_standard_wording=q.is_standard_wording,
-                expected_function=q.expected_function,
+                expected_functions=q.expected_functions,
                 expected_arguments=q.expected_arguments,
-                expected_result=_strip_internal(result.data) if result.ok else None,
                 expected_answer_values=values,
                 answer_kind=kind,
                 answer_tolerance=tol,
-                execution_ok=result.ok,
-                note=None if result.ok else result.error_message,
+                execution_ok=ok,
+                note=note,
             )
         )
     return out
-
-
-def _strip_internal(data: Any) -> Any:
-    """Drop the `_normalized_arguments` bookkeeping key from stored results."""
-    if isinstance(data, dict):
-        return {k: v for k, v in data.items() if k != "_normalized_arguments"}
-    return data
 
 
 def save_ground_truth(gt: list[GroundTruth], out_dir: Path = EVAL_DIR) -> tuple[Path, Path]:
@@ -113,22 +145,21 @@ def save_ground_truth(gt: list[GroundTruth], out_dir: Path = EVAL_DIR) -> tuple[
     json_path.write_text(
         json.dumps(rows, indent=2, default=str, ensure_ascii=False), encoding="utf-8"
     )
-    # Flatten complex fields for the CSV view.
-    flat = []
-    for r in rows:
-        flat.append(
-            {
-                **{
-                    k: v
-                    for k, v in r.items()
-                    if k not in {"expected_result", "expected_arguments", "expected_answer_values"}
-                },
-                "expected_arguments": json.dumps(r["expected_arguments"], ensure_ascii=False),
-                "expected_answer_values": json.dumps(
-                    r["expected_answer_values"], default=str, ensure_ascii=False
-                ),
-            }
-        )
+    flat = [
+        {
+            **{
+                k: v
+                for k, v in r.items()
+                if k not in {"expected_arguments", "expected_answer_values", "expected_functions"}
+            },
+            "expected_functions": json.dumps(r["expected_functions"], ensure_ascii=False),
+            "expected_arguments": json.dumps(r["expected_arguments"], ensure_ascii=False),
+            "expected_answer_values": json.dumps(
+                r["expected_answer_values"], default=str, ensure_ascii=False
+            ),
+        }
+        for r in rows
+    ]
     pd.DataFrame(flat).to_csv(csv_path, index=False, encoding="utf-8")
     return json_path, csv_path
 

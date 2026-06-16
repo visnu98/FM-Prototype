@@ -199,3 +199,72 @@ def test_h4_detects_decrease() -> None:
     res = evaluate_h4(df[df["model"] == "B"])
     rates = res.result_value["rate_by_level"]
     assert rates["L1"] >= rates["L4"]
+
+
+def test_evaluate_query_multistep_subset() -> None:
+    """A multi-step query is correct if the required primitive(s) were called
+    (subset match) and the answer is right — extra helper calls are allowed."""
+    from types import SimpleNamespace
+
+    gt = SimpleNamespace(
+        query_id="x",
+        category="multistep",
+        complexity_level="L4",
+        paraphrase_group_id="g",
+        is_standard_wording=True,
+        expected_functions=["count_components"],
+        expected_arguments={},
+        answer_kind="string",
+        answer_tolerance=0.0,
+        expected_answer_values=["1. Obergeschoss"],
+    )
+    qm = M.evaluate_query(
+        gt=gt,
+        model="m",
+        made_tool_call=True,
+        actual_functions=["list_queryable_floors", "count_components", "count_components"],
+        actual_calls=[
+            {"function": "list_queryable_floors", "normalized_arguments": {}, "ok": True},
+            {"function": "count_components", "normalized_arguments": {}, "ok": True},
+            {"function": "count_components", "normalized_arguments": {}, "ok": True},
+        ],
+        registry_error=ErrorCategory.NONE,
+        execution_success=True,
+        final_answer="There are more windows on the first floor (1. Obergeschoss).",
+        latency_total=1.0,
+        latency_planning=1.0,
+        latency_tools=0.0,
+    )
+    assert qm.function_correct and qm.answer_correct and qm.fully_correct_call
+    assert qm.num_steps == 3
+
+
+def test_evaluate_query_wrong_function() -> None:
+    from types import SimpleNamespace
+
+    gt = SimpleNamespace(
+        query_id="x",
+        category="counting",
+        complexity_level="L2",
+        paraphrase_group_id="g",
+        is_standard_wording=True,
+        expected_functions=["count_components"],
+        expected_arguments={},
+        answer_kind="number",
+        answer_tolerance=0.0,
+        expected_answer_values=[52],
+    )
+    qm = M.evaluate_query(
+        gt=gt,
+        model="m",
+        made_tool_call=True,
+        actual_functions=["calculate_floor_area"],
+        actual_calls=[{"function": "calculate_floor_area", "normalized_arguments": {}, "ok": True}],
+        registry_error=ErrorCategory.NONE,
+        execution_success=True,
+        final_answer="556 m2",
+        latency_total=1.0,
+        latency_planning=1.0,
+        latency_tools=0.0,
+    )
+    assert not qm.function_correct and not qm.fully_correct_call
