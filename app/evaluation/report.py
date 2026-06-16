@@ -16,7 +16,7 @@ from pathlib import Path
 
 import pandas as pd
 
-from app.config import get_settings
+from app.core.config import get_settings
 from app.evaluation.error_taxonomy import ALL_CATEGORIES
 from app.evaluation.runner import latest_run
 from app.evaluation.statistics import HypothesisResult, run_all, save_results

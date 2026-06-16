@@ -24,7 +24,7 @@ from typing import Any
 
 from pydantic import BaseModel, ConfigDict, Field
 
-from app.db import execute_read_query
+from app.core.db import execute_read_query
 from app.tools import normalization as norm
 from app.tools.models import ToolParameter
 from app.tools.registry import ToolRegistry

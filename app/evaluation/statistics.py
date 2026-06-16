@@ -320,7 +320,7 @@ def save_results(results: list[HypothesisResult], out_path: Path) -> None:
 def main(argv: list[str] | None = None) -> int:
     import argparse
 
-    from app.config import get_settings
+    from app.core.config import get_settings
     from app.evaluation.runner import latest_run
 
     parser = argparse.ArgumentParser(description="Run H1-H4 statistical tests on a run.")

@@ -9,7 +9,7 @@ import pytest
 def db_available() -> bool:
     """True if the live database is reachable; used to skip DB-backed tests."""
     try:
-        from app.db import test_connection
+        from app.core.db import test_connection
 
         return test_connection()
     except Exception:

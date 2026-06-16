@@ -16,7 +16,7 @@ import json
 import streamlit as st
 
 from app.chatbot.service import ChatbotService
-from app.config import get_settings
+from app.core.config import get_settings
 
 
 @st.cache_resource(show_spinner=False)

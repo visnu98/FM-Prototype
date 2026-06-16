@@ -20,7 +20,7 @@ from pathlib import Path
 import pandas as pd
 import streamlit as st
 
-from app.config import PROJECT_ROOT
+from app.core.config import PROJECT_ROOT
 
 RUNS_DIR = PROJECT_ROOT / "data" / "evaluation" / "runs"
 

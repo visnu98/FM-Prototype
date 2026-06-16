@@ -27,7 +27,7 @@ from typing import Any
 
 from pydantic import BaseModel, ValidationError
 
-from app.config import PROJECT_ROOT
+from app.core.config import PROJECT_ROOT
 from app.tools.models import (
     ErrorCategory,
     FunctionCallLog,

@@ -24,7 +24,7 @@ from typing import Any
 
 import pandas as pd
 
-from app.config import get_settings
+from app.core.config import get_settings
 from app.evaluation.corpus import EVAL_DIR, get_corpus
 from app.evaluation.error_taxonomy import ALL_CATEGORIES
 from app.evaluation.ground_truth import GroundTruth, build_ground_truth, save_ground_truth

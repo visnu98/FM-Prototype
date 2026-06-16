@@ -4,7 +4,7 @@ from __future__ import annotations
 
 import pandas as pd
 
-from app.schema_discovery import detect_candidates
+from app.discovery.schema_discovery import detect_candidates
 
 
 def test_detect_candidates_flags_bim_terms() -> None:

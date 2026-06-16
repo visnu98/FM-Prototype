@@ -4,7 +4,7 @@ from __future__ import annotations
 
 import pytest
 
-from app.db import NonReadOnlyQueryError, assert_read_only
+from app.core.db import NonReadOnlyQueryError, assert_read_only
 
 
 @pytest.mark.parametrize(

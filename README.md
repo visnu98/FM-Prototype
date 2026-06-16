@@ -143,8 +143,8 @@ environment only; nothing is hard-coded and the password is never logged.
 ## Run database discovery (Phase 3)
 
 ```bash
-python -m app.db                 # quick connectivity check (prints OK/FAILED)
-python -m app.schema_discovery   # generates all CSV reports + schema_summary.md
+python -m app.core.db                    # quick connectivity check (prints OK/FAILED)
+python -m app.discovery.schema_discovery # generates all CSV reports + schema_summary.md
 ```
 
 Outputs in `data/schema_reports/`:
@@ -155,7 +155,7 @@ Outputs in `data/schema_reports/`:
 ## Inspect the schema report (Phase 4)
 
 ```bash
-python -m app.data_dictionary    # reads Phase 3 CSVs -> data_dictionary.md
+python -m app.discovery.data_dictionary  # reads Phase 3 CSVs -> data_dictionary.md
 ```
 
 Open `data/schema_reports/schema_summary.md` and `data_dictionary.md`. The data

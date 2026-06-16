@@ -23,7 +23,7 @@ from typing import Any
 from sqlalchemy import Engine, create_engine, event, text
 from sqlalchemy.engine import Connection
 
-from app.config import Settings, get_settings
+from app.core.config import Settings, get_settings
 
 logger = logging.getLogger(__name__)
 

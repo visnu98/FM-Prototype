@@ -4,7 +4,7 @@ All settings are loaded from environment variables (via a `.env` file) using
 Pydantic Settings. Credentials are NEVER hard-coded and NEVER printed.
 
 Usage:
-    from app.config import get_settings
+    from app.core.config import get_settings
     settings = get_settings()
     engine_url = settings.sqlalchemy_url()
 """
@@ -17,8 +17,9 @@ from pathlib import Path
 from pydantic import Field, SecretStr
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
-# Project root = the `prototype/` directory (parent of `app/`).
-PROJECT_ROOT = Path(__file__).resolve().parent.parent
+# Project root = the `prototype/` directory.
+# This file is at app/core/config.py, so go up three levels: core -> app -> prototype.
+PROJECT_ROOT = Path(__file__).resolve().parents[2]
 ENV_FILE = PROJECT_ROOT / ".env"
 
 

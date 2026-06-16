@@ -27,7 +27,7 @@ from typing import Any
 
 import pandas as pd
 
-from app.config import PROJECT_ROOT
+from app.core.config import PROJECT_ROOT
 
 EVAL_DIR = PROJECT_ROOT / "data" / "evaluation"
 

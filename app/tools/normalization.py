@@ -28,8 +28,8 @@ import re
 from dataclasses import dataclass
 from functools import lru_cache
 
-from app.config import get_settings
-from app.db import execute_read_query
+from app.core.config import get_settings
+from app.core.db import execute_read_query
 from app.tools.registry import ValueNotAllowedError
 
 # ── Result type ──────────────────────────────────────────────────────────────

@@ -15,7 +15,7 @@ from typing import Any
 
 from groq import APIError, Groq, RateLimitError
 
-from app.config import get_settings
+from app.core.config import get_settings
 from app.llm.base import AssistantTurn, LLMClient, PlannedToolCall
 from app.llm.json_tool_parser import ToolCallParseError, parse_tool_call
 from app.tools.models import ToolCall
