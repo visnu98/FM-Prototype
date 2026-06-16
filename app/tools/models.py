@@ -19,6 +19,17 @@ def _utcnow() -> datetime:
     return datetime.now(UTC)
 
 
+def strip_internal_keys(data: Any) -> Any:
+    """Drop the internal ``_normalized_arguments`` key from tool-result data.
+
+    Tools embed normalization bookkeeping under ``_normalized_arguments``; it is
+    useful for traces but should not appear in answers or ground-truth values.
+    """
+    if isinstance(data, dict):
+        return {k: v for k, v in data.items() if k != "_normalized_arguments"}
+    return data
+
+
 class ErrorCategory(StrEnum):
     """Error taxonomy shared by the registry and the evaluation (Phase 13).
 

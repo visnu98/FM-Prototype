@@ -23,7 +23,7 @@ from app.llm.base import LLMClient
 from app.llm.groq_client import make_client
 from app.llm.prompt_templates import SYSTEM_PROMPT
 from app.tools.fm_functions import build_registry
-from app.tools.models import ErrorCategory, ToolCall, ToolResult
+from app.tools.models import ErrorCategory, ToolCall, ToolResult, strip_internal_keys
 from app.tools.registry import ToolRegistry
 
 # Max model<->tools round trips before forcing an answer (guards against loops).
@@ -82,16 +82,10 @@ class ChatResponse:
                     "normalized_arguments": s.result.normalized_arguments,
                     "ok": s.result.ok,
                     "error_category": s.result.error_category.value,
-                    "result": _strip_internal(s.result.data) if s.result.ok else None,
+                    "result": strip_internal_keys(s.result.data) if s.result.ok else None,
                 }
             )
         return out
-
-
-def _strip_internal(data: Any) -> Any:
-    if isinstance(data, dict):
-        return {k: v for k, v in data.items() if k != "_normalized_arguments"}
-    return data
 
 
 def _trim_for_prompt(data: Any) -> Any:

@@ -182,8 +182,8 @@ class ToolRegistry:
             data = tool.func(**kwargs)
             latency_ms = (time.perf_counter() - start) * 1000
             row_count = len(data) if isinstance(data, list) else None
-            # Functions may return a (data, normalized_args) tuple to surface the
-            # arguments actually used after synonym resolution.
+            # FM functions embed the arguments actually used (after synonym
+            # resolution) under "_normalized_arguments" in their returned dict.
             normalized = {}
             if isinstance(data, dict) and "_normalized_arguments" in data:
                 normalized = data.get("_normalized_arguments", {})

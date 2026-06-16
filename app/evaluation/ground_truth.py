@@ -21,7 +21,7 @@ import pandas as pd
 
 from app.evaluation.corpus import EVAL_DIR, get_corpus
 from app.tools.fm_functions import build_registry
-from app.tools.models import ToolCall
+from app.tools.models import ToolCall, strip_internal_keys
 from app.tools.registry import ToolRegistry
 
 
@@ -42,12 +42,6 @@ class GroundTruth:
     answer_tolerance: float = 0.0
     execution_ok: bool = True
     note: str | None = None
-
-
-def _strip_internal(data: Any) -> Any:
-    if isinstance(data, dict):
-        return {k: v for k, v in data.items() if k != "_normalized_arguments"}
-    return data
 
 
 def _reduce(
@@ -114,7 +108,7 @@ def build_ground_truth(registry: ToolRegistry | None = None) -> list[GroundTruth
                 note = res.error_message
                 results.append(None)
             else:
-                results.append(_strip_internal(res.data))
+                results.append(strip_internal_keys(res.data))
         values, kind, tol = _reduce(q.answer_spec, q.gt_calls, results) if ok else ([], "any", 0.0)
         out.append(
             GroundTruth(
