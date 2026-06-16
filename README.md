@@ -32,8 +32,9 @@ pre-generated and committed.
   then use the chatbot / discovery / runner commands below.
 
 Two models were compared: **qwen/qwen3-32b** and **llama-3.1-8b-instant** (Groq).
-Headline result: qwen3-32b reaches a 91.4% fully-correct-call rate vs 77.1% for
-the 8B; the difference is statistically significant (H3, McNemar p = 0.006).
+The assistant answers via a **multi-step tool-calling loop** over atomic data
+functions (no bespoke function per question). See the latest run under
+`data/evaluation/runs/` for the current H1–H4 results and model comparison.
 
 ## Why function calling instead of text-to-SQL
 

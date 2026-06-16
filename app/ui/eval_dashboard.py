@@ -1,22 +1,21 @@
 """Streamlit evaluation dashboard.
 
-Browse an evaluation run interactively: headline metrics, the H1-H4 verdicts,
-charts, and a per-query explorer that shows the ground truth next to each
-model's actual function call, arguments and final answer.
+Browse an evaluation run interactively: headline metrics, charts, a per-query
+explorer (with the tool chain each model used and its final answer), and the
+error taxonomy.
 
 Run with::
 
     streamlit run app/ui/eval_dashboard.py
 
-It is read-only: it loads the artifacts already written under
-``data/evaluation/runs/<timestamp>/`` (run the evaluation + report first).
+It is read-only: it loads ``data/evaluation/runs/<timestamp>/raw_results.jsonl``
+written by the evaluation runner.
 """
 
 from __future__ import annotations
 
 import json
 from pathlib import Path
-from typing import Any
 
 import pandas as pd
 import streamlit as st
@@ -24,8 +23,6 @@ import streamlit as st
 from app.config import PROJECT_ROOT
 
 RUNS_DIR = PROJECT_ROOT / "data" / "evaluation" / "runs"
-
-_VERDICT = {True: "✅ supported", False: "❌ not supported", None: "❔ inconclusive"}
 
 
 # ── Loading ──────────────────────────────────────────────────────────────────
@@ -46,14 +43,6 @@ def _load_raw(run: str) -> pd.DataFrame:
         json.loads(line) for line in path.read_text(encoding="utf-8").splitlines() if line.strip()
     ]
     return pd.DataFrame(rows)
-
-
-@st.cache_data(show_spinner=False)
-def _load_json(run: str, name: str) -> Any:
-    path = Path(run) / name
-    if not path.exists():
-        return None
-    return json.loads(path.read_text(encoding="utf-8"))
 
 
 # ── Sections ─────────────────────────────────────────────────────────────────
@@ -88,28 +77,6 @@ def _overview(df: pd.DataFrame) -> None:
 
     st.caption("Fully-correct-call rate by category")
     st.bar_chart(df.groupby(["category", "model"])["fully_correct_call"].mean().unstack())
-
-
-def _hypotheses(results: list[dict[str, Any]] | None) -> None:
-    st.subheader("Hypothesis results (H1–H4)")
-    if not results:
-        st.info("No `hypothesis_results.json` found. Run `python -m app.evaluation.report` first.")
-        return
-    for r in results:
-        supported = r.get("supported")
-        with st.container(border=True):
-            st.markdown(f"### {r['hypothesis']} — {_VERDICT.get(supported, '❔')}")
-            cols = st.columns(3)
-            cols[0].metric("Test", r.get("test", "—").split("(")[0].strip()[:24])
-            pv = r.get("p_value")
-            cols[1].metric("p-value", "—" if pv is None else f"{pv:.4f}")
-            stat = r.get("statistic")
-            cols[2].metric("statistic", "—" if stat is None else f"{stat:.3f}")
-            st.write(r.get("interpretation", ""))
-            with st.expander("Details"):
-                st.json(r.get("result_value", {}))
-                if r.get("limitations"):
-                    st.caption("Limitations: " + r["limitations"])
 
 
 def _explorer(df: pd.DataFrame) -> None:
@@ -223,14 +190,12 @@ def main() -> None:
     st.sidebar.metric("Models", df["model"].nunique())
     st.sidebar.metric("Total runs", len(df))
 
-    tabs = st.tabs(["Overview", "Hypotheses", "Per-query explorer", "Errors"])
+    tabs = st.tabs(["Overview", "Per-query explorer", "Errors"])
     with tabs[0]:
         _overview(df)
     with tabs[1]:
-        _hypotheses(_load_json(run, "hypothesis_results.json"))
-    with tabs[2]:
         _explorer(df)
-    with tabs[3]:
+    with tabs[2]:
         _errors(df)
 
 
