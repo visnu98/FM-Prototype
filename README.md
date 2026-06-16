@@ -140,28 +140,19 @@ environment only; nothing is hard-coded and the password is never logged.
 | `LLM_PROVIDER`, `GROQ_API_KEY` | LLM provider + key (Groq) |
 | `MODEL_A`, `MODEL_B` | the two compared models (temperature is hard-coded to 0.0) |
 
-## Run database discovery (Phase 3)
+## Database connectivity & schema findings
 
 ```bash
-python -m app.core.db                    # quick connectivity check (prints OK/FAILED)
-python -m app.discovery.schema_discovery # generates all CSV reports + schema_summary.md
+python -m app.core.db   # quick connectivity check (prints OK/FAILED)
 ```
 
-Outputs in `data/schema_reports/`:
-`schemas.csv`, `tables.csv`, `columns.csv`, `primary_keys.csv`,
-`foreign_keys.csv`, `indexes.csv`, `row_counts.csv`, `sample_values.csv`,
-`relevant_candidates.csv`, `schema_summary.md`.
-
-## Inspect the schema report (Phase 4)
-
-```bash
-python -m app.discovery.data_dictionary  # reads Phase 3 CSVs -> data_dictionary.md
-```
-
-Open `data/schema_reports/schema_summary.md` and `data_dictionary.md`. The data
-dictionary lists candidate tables/columns per FM concept (facilities, floors,
-components, attributes, geometry, …) with a confidence level and a "manual
-confirmation needed" flag. **Confirm the uncertain items before Phase 7.**
+Schema discovery and documentation were carried out as a preparatory step
+(outside this prototype): the live database was inspected so that no table,
+column, floor label or component type is ever assumed. The resulting findings
+are committed under `data/schema_reports/` — `schema_summary.md`,
+`data_dictionary.md`, and the supporting CSVs (`columns.csv`, `tables.csv`,
+`foreign_keys.csv`, `row_counts.csv`, …). They are the evidence base on which
+the FM functions in `app/tools/` were designed.
 
 ## Run the chatbot (Phases 8–9)
 

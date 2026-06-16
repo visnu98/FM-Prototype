@@ -29,11 +29,11 @@ the LLM, matching the thesis's *multi-step* question category.
 
 ## 2. Design principles
 
-1. **Schema first.** The database is discovered and documented before any
-   retrieval function is designed. No table, column, floor label or component
-   type is assumed; all are derived from the live schema and data
-   (`schema_discovery`, `data_dictionary`). This is **Sub-RQ 2** — the concrete
-   steps to build the prototype.
+1. **Schema first.** The database was discovered and documented as a preparatory
+   step before any retrieval function was designed. No table, column, floor label
+   or component type is assumed; all are derived from the live schema and data.
+   The discovery findings are documented under `data/schema_reports/`. This is
+   **Sub-RQ 2** — the concrete steps to build the prototype.
 2. **Least privilege.** A read-only access layer enforces read-only transactions,
    rejects any non-SELECT statement, applies connection and statement timeouts,
    and uses only parameterised SQL. User input is never concatenated into SQL.
