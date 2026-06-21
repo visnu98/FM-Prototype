@@ -196,36 +196,6 @@ This is read-only — it loads the artifacts already generated in Step 7.
 
 ---
 
-## Step 9 — Check results without running anything
-
-All results from the latest run are already committed. You can inspect them directly:
-
-```
-data/evaluation/runs/20260617_001810/
-  summary.md              ← overall metrics
-  model_comparison.md     ← model side-by-side
-  error_analysis.md       ← error breakdown
-  plots/                  ← PNG charts
-data/schema_reports/
-  schema_summary.md       ← discovered DB schema overview
-  data_dictionary.md      ← column-level documentation
-```
-
----
-
-## Step 10 — Run the test suite and code-quality checks
-
-```bash
-pytest                  # 84 tests; DB/LLM-backed ones auto-skip if offline
-ruff check .            # linting
-black --check .         # formatting
-mypy app                # type checking
-```
-
-All 84 tests pass offline. DB-backed tests skip automatically when the database is unreachable (controlled by `tests/conftest.py`).
-
----
-
 ## Project layout
 
 ```
@@ -269,38 +239,4 @@ prototype/
 
 ---
 
-## How function calling works (quick overview)
 
-```
-User question
-   │
-   ▼
-LLM (Groq)  ──selects──►  function name + arguments
-                                  │
-                                  ▼
-                        ToolRegistry.execute()
-                    validate: name / required params /
-                    extra params / types / enum values
-                                  │  (only approved calls run)
-                                  ▼
-                    fm_functions  ──parameterised SQL──►  PostgreSQL
-                    (normalization maps NL terms to DB values first)
-                                  │
-                                  ▼
-LLM phrases a grounded final answer  ◄──  structured ToolResult
-   │
-   ▼  every step written to data/logs/function_calls.jsonl
-Final answer shown to user
-```
-
-The LLM never sees SQL or the database. It can only request a named, validated function. The registry is the single execution gate.
-
----
-
-## Security notes
-
-- No credentials or secrets in source code — everything via `.env`.
-- Read-only DB role recommended; every session runs `SET TRANSACTION READ ONLY`.
-- `execute_read_query` rejects INSERT / UPDATE / DELETE / DROP / ALTER / CREATE / TRUNCATE and stacked statements.
-- Parameterised SQL only; user input is never string-concatenated into SQL.
-- Connection and statement timeouts on every connection.
