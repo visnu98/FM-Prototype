@@ -1,259 +1,306 @@
 # Function Calling for Supporting LLMs in Question Answering — FM/BIM Prototype
 
-Master-thesis prototype: **"Function Calling for Supporting Large Language
-Models in Question Answering."** It enables facility managers to retrieve
-structured Facility Management / BIM information from a LIBAL PostgreSQL ETL
-database using natural language — **safely**, via function calling rather than
-free-form text-to-SQL.
+Master-thesis prototype: **"Function Calling for Supporting Large Language Models in Question Answering."**
+Facility managers can query structured FM/BIM data from a LIBAL PostgreSQL database using plain natural language — safely, via controlled function calling instead of text-to-SQL.
 
-> **Status:** complete — database discovery, data dictionary, controlled
-> function-calling core, two-model LLM layer, chatbot + evaluation-dashboard UIs,
-> and the full evaluation pipeline (corpus, ground truth, metrics, H1–H4
-> statistics, reports). 84 tests; ruff/black/mypy clean.
+Two models are compared: **qwen/qwen3-32b** and **llama-3.1-8b-instant** (both via Groq).
+Both were evaluated against 78 queries across four complexity levels (L1–L4).
 
-## For the examiner (start here)
+---
 
-You can evaluate this project **without any credentials**: all results are
-pre-generated and committed.
+## What you need before starting
 
-- **See the results now** (no setup): open
-  `data/evaluation/runs/<timestamp>/` — `summary.md`, `hypothesis_results.md`
-  (H1–H4 verdicts), `model_comparison.md`, `error_analysis.md`, and `plots/*.png`.
-  The discovered schema is in `data/schema_reports/` (`schema_summary.md`,
-  `data_dictionary.md`, `confirmed_findings.md`).
-- **Read the architecture**: `docs/architecture.md` (reusable thesis text).
-- **Run the offline parts** (no DB/LLM needed): `pip install -r requirements.txt`
-  then `pytest` (84 tests; DB/LLM-backed tests skip automatically), and
-  `python -m app.evaluation.report` to regenerate the reports from the committed
-  run data.
-- **Run the live demo** (DB + LLM): requires a `.env` with PostgreSQL
-  credentials and a Groq API key. These are **not** in this repository; they are
-  shared separately by the author. Copy `.env.example` to `.env`, fill them in,
-  then use the chatbot / discovery / runner commands below.
+| Requirement | Where to get it |
+|---|---|
+| Python 3.11 or 3.12 | https://www.python.org |
+| PostgreSQL credentials (read-only) | Shared separately |
+| Groq API key (free) | https://console.groq.com |
 
-Two models were compared: **qwen/qwen3-32b** and **llama-3.1-8b-instant** (Groq).
-The assistant answers via a **multi-step tool-calling loop** over atomic data
-functions (no bespoke function per question). See the latest run under
-`data/evaluation/runs/` for the current H1–H4 results and model comparison.
+---
 
-## Why function calling instead of text-to-SQL
-
-The LLM never generates or executes arbitrary SQL. Instead it may only *select*
-from a fixed set of predefined Python functions, each containing safe,
-parameterised SQL. A registry validates the function name, parameters, types and
-allowed values before anything runs, and every call is logged. This gives the
-controlled, auditable retrieval the thesis argues for (Sub-RQ 1).
-
-## Why direct PostgreSQL access instead of the LIBAL API
-
-Direct read-only SQL access lets the prototype (a) discover the true schema,
-(b) compute deterministic ground truth for evaluation, and (c) implement
-aggregations (areas per floor, comparisons) that the API does not expose
-reliably. Access is read-only and parameterised throughout.
-
-## Project layout (current)
-
-```
-prototype/
-  app/
-    config.py            # env-based settings (Pydantic), secrets kept secret
-    db.py                # read-only engine + execute_read_query guard
-    schema_discovery.py  # Phase 3: inspect DB -> CSV + schema_summary.md
-    data_dictionary.py   # Phase 4: map discovered schema -> data_dictionary.md
-    tools/
-      models.py          # Phase 5: Pydantic tool/call/log models
-      registry.py        # Phase 5: validate + execute + log + classify errors
-      normalization.py   # Phase 6: floors/types/attributes from live DB
-      fm_functions.py    # Phase 7: 10 SQL-backed FM functions (the only callables)
-    llm/
-      base.py            # Phase 8: common LLM interface
-      groq_client.py     # Phase 8: Groq native tool calling (2 models)
-      json_tool_parser.py# Phase 8: strict JSON fallback parser
-      prompt_templates.py# Phase 8: shared system + final-answer prompts
-    chatbot/
-      service.py         # Phase 9: question -> tool -> grounded answer pipeline
-      ui.py              # Phase 9: chat UI + function-call trace panel
-    evaluation/
-      corpus.py          # Phase 10: 78 queries, 26 paraphrase groups (x3), L1-L4
-      ground_truth.py    # Phase 11: generate/load the committed ground truth (SQL)
-      metrics.py         # Phase 12: correctness / parameters / latency
-      error_taxonomy.py  # Phase 13: 9 error categories
-      runner.py          # Phase 14: run both models -> raw + aggregated outputs
-      statistics.py      # Phase 15: H1-H4 hypothesis tests
-      report.py          # Phase 16: thesis-ready reports + plots
-      dashboard.py       # interactive results dashboard (read-only)
-  data/schema_reports/   # discovery reports (git-ignored by default)
-  data/evaluation/       # ground_truth.json (committed), corpus.csv, runs/<timestamp>/...
-  data/logs/             # function_calls.jsonl audit log
-  tests/                 # 84 tests (read-only, registry, normalization, FM, parser, eval)
-  .env.example
-  pyproject.toml
-```
-
-## Controlled function-calling architecture
-
-```
-user question
-   │
-   ▼
-LLM (Groq, MODEL_A / MODEL_B)  ──selects──▶  ONE tool + arguments  (native tool calling)
-   │                                              │
-   │                                              ▼
-   │                                   ToolRegistry.execute()
-   │                          validate name / required / extra / type / enum
-   │                                              │  (only approved calls run)
-   │                                              ▼
-   │                          fm_functions  ──parameterised read-only SQL──▶  PostgreSQL
-   │                              (normalization resolves floors/types/attrs)
-   │                                              │
-   ▼                                              ▼
-LLM phrases a grounded final answer  ◀──  structured ToolResult (+ source IDs)
-   │
-   ▼  every step logged to data/logs/function_calls.jsonl
-final answer
-```
-
-The LLM never sees SQL or the database. It can only request a named, validated
-function; the registry is the single execution gate.
-
-## Setup
+## Step 1 — Check out and enter the project folder
 
 ```bash
 cd prototype
-python -m venv .venv
-.venv\Scripts\activate           # Windows
-# source .venv/bin/activate      # Linux/macOS
-pip install -e ".[dev]"
-cp .env.example .env             # then edit .env with real credentials
 ```
 
-### `.env` configuration
+All commands below must be run from inside the `prototype/` folder.
 
-Fill in the database block in `.env` (see `.env.example`). A **read-only**
-database role is strongly recommended. Credentials are loaded from the
-environment only; nothing is hard-coded and the password is never logged.
+---
 
-| Variable | Meaning |
-| --- | --- |
-| `DB_HOST`, `DB_PORT`, `DB_NAME`, `DB_USER`, `DB_PASSWORD` | PostgreSQL connection |
-| `DB_SSL_MODE` | libpq sslmode (`prefer`, `require`, …) |
-| `DB_CONNECT_TIMEOUT`, `DB_STATEMENT_TIMEOUT` | timeouts in seconds |
-| `DEFAULT_FACILITY_ID`, `DEFAULT_PROJECT_ID` | facility/project scoping |
-| `LLM_PROVIDER`, `GROQ_API_KEY` | LLM provider + key (Groq) |
-| `MODEL_A`, `MODEL_B` | the two compared models (temperature is hard-coded to 0.0) |
+## Step 2 — Create and activate a virtual environment
 
-## Database connectivity & schema findings
+**Windows (PowerShell)**
+```powershell
+python -m venv .venv
+.venv\Scripts\activate
+```
+
+**Linux / macOS**
+```bash
+python -m venv .venv
+source .venv/bin/activate
+```
+
+You should see `(.venv)` at the start of your prompt.
+
+---
+
+## Step 3 — Install dependencies
 
 ```bash
-python -m app.core.db   # quick connectivity check (prints OK/FAILED)
+pip install -e ".[dev]"
 ```
 
-Schema discovery and documentation were carried out as a preparatory step
-(outside this prototype): the live database was inspected so that no table,
-column, floor label or component type is ever assumed. The resulting findings
-are committed under `data/schema_reports/` — `schema_summary.md`,
-`data_dictionary.md`, and the supporting CSVs (`columns.csv`, `tables.csv`,
-`foreign_keys.csv`, `row_counts.csv`, …). They are the evidence base on which
-the FM functions in `app/tools/` were designed.
+This installs the project in editable mode along with all dev tools (pytest, ruff, black, mypy).
 
-## Run the chatbot (Phases 8–9)
+---
 
-Set `GROQ_API_KEY` in `.env` (free key from https://console.groq.com), then:
+## Step 4 — Configure your `.env` file
+
+```bash
+cp .env.example .env
+```
+
+Open `.env` in any text editor and fill in your values:
+
+```dotenv
+# --- Database ---
+DB_HOST=<host>
+DB_PORT=5432
+DB_NAME=libalv2
+DB_USER=<user>
+DB_PASSWORD=<password>
+DB_SSL_MODE=disable
+DB_CONNECT_TIMEOUT=10
+DB_STATEMENT_TIMEOUT=30
+
+# --- Facility / project scoping ---
+DEFAULT_FACILITY_ID=124851
+DEFAULT_PROJECT_ID=114051
+
+# --- LLM ---
+GROQ_API_KEY=<your-groq-key>
+MODEL_A=qwen/qwen3-32b
+MODEL_B=llama-3.1-8b-instant
+```
+
+The password is read only from the environment — it is never logged or hard-coded anywhere.
+
+---
+
+## Step 5 — Verify the database connection
+
+```bash
+python -m app.core.db
+```
+
+Expected output: `DB connection OK` followed by a row count. If it prints `FAILED`, check your `.env` host/port/credentials and whether VPN access is required.
+
+---
+
+## Step 6 — Start the chatbot
 
 ```bash
 streamlit run app/chatbot/ui.py
 ```
 
-Pick a model (MODEL_A = `qwen/qwen3-32b`, MODEL_B = `llama-3.1-8b-instant`)
-in the sidebar and toggle **Show function-call trace** to see the selected
-function, raw + normalized arguments, tool result and per-step latency. Try:
-"What floors can I query?", "How many windows are on the second floor?",
-"Total window area on the first floor?", "Which floor has the largest window area?".
+Streamlit will print a local URL (usually `http://localhost:8501`). Open it in your browser.
 
-## Run the evaluation (Phases 10–16)
+**What you can do in the UI:**
 
-The evaluation answers the research questions and tests the hypotheses. Ground
-truth is a **committed reference** (`data/evaluation/ground_truth.json`): the
-researcher generates it once from the database (deterministic SQL, never the
-LLM), reviews it, and commits it. The runner then compares model output against
-that frozen file on every run — it does not recompute ground truth.
+- Use the **sidebar** to pick a model (`MODEL_A` = qwen/qwen3-32b, `MODEL_B` = llama-3.1-8b-instant).
+- Toggle **"Show function-call trace"** to see which FM function was selected, what arguments were passed, how they were normalized, and per-step latency.
+- Type a question in the chat box and press Enter.
 
-```bash
-# 1) (re)generate the ground truth — only when the corpus or DB snapshot changes
-python -m app.evaluation.ground_truth    # 78 queries -> data/evaluation/ground_truth.json
+**The 8 callable FM functions:**
 
-# 2) run both models against the frozen ground truth (~310 Groq calls; a few minutes)
-python -m app.evaluation.runner          # add --limit N for a quick subset
+| Function | What it does |
+|---|---|
+| `get_database_capabilities` | Lists queryable floors, component types, and supported question kinds |
+| `list_queryable_floors` | Returns all floors/storeys for the facility |
+| `list_queryable_component_types` | Returns all component/IFC types with counts |
+| `count_components` | Counts components of a type, optionally scoped to one floor |
+| `get_component_attributes` | Returns height, width, area etc. per component |
+| `calculate_total_component_area` | Total area for a component type (optionally per floor) |
+| `calculate_area_by_floor` | Component area grouped by every floor |
+| `calculate_floor_area` | Sum of room/space areas per floor (the floor's own area) |
 
-# 3) statistics + thesis-ready reports for the latest run
-python -m app.evaluation.statistics      # H1–H4 -> hypothesis_results.json
-python -m app.evaluation.report          # summary/hypothesis/model_comparison/error + plots
+**Example questions to try:**
+
+```
+What floors can I query?
+How many windows are on the second floor?
+What is the total window area on the first floor?
+Which floor has the largest window area?
+Are there more doors on floor 1 or floor 2?
 ```
 
-Outputs land in `data/evaluation/runs/<timestamp>/`:
-`raw_results.jsonl`, `metrics.csv`, `model_comparison.csv`, `error_taxonomy.csv`,
-`summary.md`, `hypothesis_results.md`, `model_comparison.md`, `error_analysis.md`,
-`plots/*.png`.
+Press `Ctrl+C` in the terminal to stop the server when done.
 
-### Metrics measured
+---
 
-answer correctness (exact for counts, ±tolerance for areas, set recall for lists),
-function-selection correctness, parameter accuracy (per-parameter + fully-correct
-call), execution success, latency (tool-call / SQL / final-answer / total), and a
-9-category error taxonomy.
+## Step 7 — Run the evaluation pipeline
 
-### Visualise a run (interactive dashboard)
+The evaluation measures how accurately each model selects functions, provides parameters, and produces correct answers — across 78 queries at four complexity levels (L1–L4).
+
+The ground truth is a committed reference file (`data/evaluation/ground_truth.json`) — no regeneration needed.
+
+### 7a — Run both models against the ground truth
+
+```bash
+python -m app.evaluation.runner
+```
+
+This makes ~310 Groq API calls (78 queries × 2 models × up to ~2 tool-call steps per query). Expect a few minutes. Add `--limit N` to test on a smaller subset first:
+
+```bash
+python -m app.evaluation.runner --limit 10
+```
+
+Output lands in `data/evaluation/runs/<timestamp>/`: `raw_results.jsonl`, `metrics.csv`, `model_comparison.csv`, `error_taxonomy.csv`.
+
+### 7b — Generate reports and plots
+
+```bash
+python -m app.evaluation.report
+```
+
+Writes into `data/evaluation/runs/<timestamp>/`:
+
+| File | Contents |
+|---|---|
+| `summary.md` | Headline metrics table by model and complexity |
+| `model_comparison.md` | Side-by-side model breakdown |
+| `error_analysis.md` | 9-category error taxonomy |
+| `plots/*.png` | Bar charts and comparison figures |
+
+---
+
+## Step 8 — Browse results in the interactive dashboard
 
 ```bash
 streamlit run app/evaluation/dashboard.py
 ```
 
-Pick a run in the sidebar to browse: headline metrics, the H1–H4 verdict cards,
-charts (correct-call rate, accuracy by complexity, error categories), and a
-**per-query explorer** that shows the ground truth next to each model's actual
-function call, arguments and final answer — filterable by model / category /
-complexity / failures, with a side-by-side drill-down per query. Read-only;
-loads the artifacts under `data/evaluation/runs/<timestamp>/`.
+Open the printed URL (`http://localhost:8501`) in your browser.
 
-### Interpreting the results
+**What the dashboard shows:**
 
-- **H1** — fully-correct-call rate ≥ 90% (binomial test + Wilson CI).
-- **H2** — paraphrases do not lower the correct-call rate (McNemar, paired in groups).
-- **H3** — the two models differ in reliability (McNemar) and latency (Wilcoxon).
-- **H4** — answer correctness decreases L1→L4 (logistic trend / Spearman).
+- **Sidebar** — pick any saved run by timestamp.
+- **Headline cards** — fully-correct-call rate, answer accuracy, execution success, mean latency.
+- **Charts** — correct-call rate by model, accuracy by complexity level, error category breakdown.
+- **Per-query explorer** — filter by model / category / complexity / failures; click any row for a side-by-side drill-down showing ground truth vs. each model's actual function call, arguments and final answer.
 
-Each hypothesis is reported as **supported / not supported** with the test, p-value,
-plain-language interpretation and limitations in `hypothesis_results.md`.
+This is read-only — it loads the artifacts already generated in Step 7.
 
-### Reproducing the experiment
+---
 
-Deterministic decoding (`LLM_TEMPERATURE=0.0`), identical prompt/tools for both
-models, ground truth computed from SQL (independent of the LLM), and a fixed,
-versioned corpus make runs reproducible up to provider-side model changes.
+## Step 9 — Check results without running anything
 
-## Tests & code quality
+All results from the latest run are already committed. You can inspect them directly:
 
-```bash
-pytest            # 84 tests; DB/LLM-backed ones skip automatically if offline
-ruff check .
-black --check .
-mypy app
+```
+data/evaluation/runs/20260617_001810/
+  summary.md              ← overall metrics
+  model_comparison.md     ← model side-by-side
+  error_analysis.md       ← error breakdown
+  plots/                  ← PNG charts
+data/schema_reports/
+  schema_summary.md       ← discovered DB schema overview
+  data_dictionary.md      ← column-level documentation
 ```
 
-DB-backed tests skip when the database is unreachable (see `tests/conftest.py`).
+---
 
-## Security model
+## Step 10 — Run the test suite and code-quality checks
 
-- No hard-coded credentials, IDs or secrets — everything via `.env`.
-- Read-only DB role preferred; sessions set `TRANSACTION READ ONLY`.
-- `execute_read_query` rejects INSERT/UPDATE/DELETE/DROP/ALTER/CREATE/TRUNCATE
-  and stacked statements.
-- Parameterised SQL only; user input is never concatenated into SQL.
-- Connect + statement timeouts on every connection.
-- Row sampling is limited; sensitive-looking columns are redacted in reports.
+```bash
+pytest                  # 84 tests; DB/LLM-backed ones auto-skip if offline
+ruff check .            # linting
+black --check .         # formatting
+mypy app                # type checking
+```
 
-## Limitations (current phase)
+All 84 tests pass offline. DB-backed tests skip automatically when the database is unreachable (controlled by `tests/conftest.py`).
 
-The prototype currently only **discovers and documents** the database. It does
-not yet answer questions. The FM functions, LLM integration, chatbot and
-evaluation are intentionally deferred until the schema is confirmed.
+---
+
+## Project layout
+
+```
+prototype/
+  app/
+    core/
+      config.py             env-based settings (Pydantic); no secrets in code
+      db.py                 read-only engine; rejects non-SELECT statements
+    tools/
+      models.py             Pydantic models for tool calls, results, logs
+      registry.py           validates + executes + logs + error-classifies every call
+      normalization.py      maps NL floor/type/attribute terms to real DB values
+      fm_functions.py       8 SQL-backed FM functions — the only callable actions
+    llm/
+      base.py               common LLM interface
+      groq_client.py        Groq native tool calling (MODEL_A / MODEL_B)
+      json_tool_parser.py   strict JSON fallback parser
+      prompt_templates.py   system + final-answer prompts
+    chatbot/
+      service.py            question → tool loop → grounded answer pipeline
+      ui.py                 Streamlit chat UI + function-call trace panel
+    evaluation/
+      ground_truth.py       load the committed ground truth
+      metrics.py            correctness / parameter / latency scoring
+      error_taxonomy.py     9 error categories
+      runner.py             runs both models → raw + aggregated outputs
+      report.py             reports + plots
+      dashboard.py          interactive results browser (read-only)
+  data/
+    schema_reports/         discovered schema + data dictionary
+    evaluation/
+      ground_truth.json     committed reference answers (78 queries, SQL-computed)
+      runs/<timestamp>/     per-run artifacts (metrics, reports, plots)
+    logs/
+      function_calls.jsonl  per-call audit log
+  tests/                    84 tests
+  .env.example
+  requirements.txt
+  pyproject.toml
+```
+
+---
+
+## How function calling works (quick overview)
+
+```
+User question
+   │
+   ▼
+LLM (Groq)  ──selects──►  function name + arguments
+                                  │
+                                  ▼
+                        ToolRegistry.execute()
+                    validate: name / required params /
+                    extra params / types / enum values
+                                  │  (only approved calls run)
+                                  ▼
+                    fm_functions  ──parameterised SQL──►  PostgreSQL
+                    (normalization maps NL terms to DB values first)
+                                  │
+                                  ▼
+LLM phrases a grounded final answer  ◄──  structured ToolResult
+   │
+   ▼  every step written to data/logs/function_calls.jsonl
+Final answer shown to user
+```
+
+The LLM never sees SQL or the database. It can only request a named, validated function. The registry is the single execution gate.
+
+---
+
+## Security notes
+
+- No credentials or secrets in source code — everything via `.env`.
+- Read-only DB role recommended; every session runs `SET TRANSACTION READ ONLY`.
+- `execute_read_query` rejects INSERT / UPDATE / DELETE / DROP / ALTER / CREATE / TRUNCATE and stacked statements.
+- Parameterised SQL only; user input is never string-concatenated into SQL.
+- Connection and statement timeouts on every connection.

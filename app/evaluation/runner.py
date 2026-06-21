@@ -25,8 +25,7 @@ from typing import Any
 import pandas as pd
 
 from app.core.config import get_settings
-from app.evaluation.corpus import EVAL_DIR
-from app.evaluation.ground_truth import GroundTruth, load_ground_truth
+from app.evaluation.ground_truth import EVAL_DIR, GroundTruth, load_ground_truth
 from app.evaluation.metrics import QueryMetrics, aggregate_by_model, error_pivot, evaluate_query
 from app.tools.fm_functions import build_registry
 
